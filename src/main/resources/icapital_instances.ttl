@@ -1,0 +1,188 @@
+@prefix ic: <https://ontology.icapital.com/trig/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.icapital.com/instance/auditlog/log-2024-001> a ic:AuditLog ;
+    ic:action "STATUS_CHANGE" ;
+    ic:auditOf <https://data.icapital.com/instance/transaction/txn-2024-00183741> ;
+    ic:entityId "txn-2024-00183741" ;
+    ic:entityType "Transaction" ;
+    ic:ipAddress "10.0.1.42" ;
+    ic:newValue "{\"status\":\"FUNDED\"}" ;
+    ic:oldValue "{\"status\":\"APPROVED\"}" ;
+    ic:performedBy "system:funding-engine" ;
+    ic:timestamp "2024-04-01T09:00:00"^^xsd:dateTime .
+
+<https://data.icapital.com/instance/custodian/schwab> a ic:Custodian ;
+    ic:country "US" ;
+    ic:custodianName "Charles Schwab & Co." ;
+    ic:dtccId "0164" ;
+    ic:isActive true .
+
+<https://data.icapital.com/instance/fund/kkr-north-america-xiii> a ic:Fund ;
+    ic:assetClass "PRIVATE_EQUITY" ;
+    ic:carryPct 0.2 ;
+    ic:fundName "KKR North America Fund XIII" ;
+    ic:fundStatus "INVESTING" ;
+    ic:fundType "BUYOUT" ;
+    ic:sponsoredBy <https://data.icapital.com/instance/manager/kkr> ;
+    ic:targetSize 18500000000.0 ;
+    ic:vintageYear 2022 .
+
+<https://data.icapital.com/instance/investor/inv-78844> a ic:Investor ;
+    ic:accreditationStatus "QUALIFIED_PURCHASER" ;
+    ic:country "US" ;
+    ic:investorName "Greenfield Endowment LLC" ;
+    ic:investorType "FOUNDATION" ;
+    ic:qualifiedPurchaser true .
+
+<https://data.icapital.com/instance/position/pos-2024-001> a ic:Position ;
+    ic:asOfDate "2024-06-30"^^xsd:date ;
+    ic:calledPct 0.25 ;
+    ic:currentNav 1025000.0 ;
+    ic:distributionsRcvd 0.0 ;
+    ic:heldByAccount <https://data.icapital.com/instance/account/acc-fido-882341> ;
+    ic:holdsFund <https://data.icapital.com/instance/fund/apollo-investment-fund-ix> ;
+    ic:moic 1.025 ;
+    ic:totalCommitment 1000000.0 ;
+    ic:unrealizedGain 25000.0 .
+
+<https://data.icapital.com/instance/capitalcall/call-apl-ix-001> a ic:CapitalCall ;
+    ic:callAmount 250000.0 ;
+    ic:callDate "2024-03-10"^^xsd:date ;
+    ic:callNumber 1 ;
+    ic:callPercentage 0.25 ;
+    ic:dueDate "2024-03-25"^^xsd:date ;
+    ic:isRecallable false ;
+    ic:issuedByFund <https://data.icapital.com/instance/fund/apollo-investment-fund-ix> .
+
+<https://data.icapital.com/instance/custodian/fidelity> a ic:Custodian ;
+    ic:clearingCode "021000089" ;
+    ic:country "US" ;
+    ic:custodianName "Fidelity Investments" ;
+    ic:dtccId "0226" ;
+    ic:isActive true .
+
+<https://data.icapital.com/instance/document/doc-sub-183741> a ic:Document ;
+    ic:docType "SUBSCRIPTION_AGREEMENT" ;
+    ic:fileName "Smith_Family_Trust_SubAgreement_ApolixIX_2024.pdf" ;
+    ic:isExecuted true ;
+    ic:signedDate "2024-03-15"^^xsd:date ;
+    ic:storageUri "s3://icapital-docs/sub-agreements/doc-sub-183741.pdf"^^xsd:anyURI ;
+    ic:uploadDate "2024-03-14"^^xsd:date .
+
+<https://data.icapital.com/instance/financial/fin-183741> a ic:Financial ;
+    ic:calledAmount 250000.0 ;
+    ic:carriedInterestPct 0.2 ;
+    ic:commitmentAmount 1000000.0 ;
+    ic:managementFeePct 0.015 ;
+    ic:nav 1025000.0 ;
+    ic:navPerUnit 1025.0 ;
+    ic:subscriptionAmount 250000.0 ;
+    ic:uncalledAmount 750000.0 ;
+    ic:unitsPurchased 243.9024 .
+
+<https://data.icapital.com/instance/kyc/kyc-001122> a ic:KYC ;
+    ic:checkDate "2024-03-10"^^xsd:date ;
+    ic:kycCheckStatus "APPROVED" ;
+    ic:pepFlag false ;
+    ic:provider "LexisNexis" ;
+    ic:reviewDate "2025-03-10"^^xsd:date ;
+    ic:riskRating "LOW" ;
+    ic:sanctionsFlag false .
+
+<https://data.icapital.com/instance/manager/apollo-global-management> a ic:FundManager ;
+    ic:aumUsd 651000000000.0 ;
+    ic:foundedYear 1990 ;
+    ic:hqLocation "New York, NY" ;
+    ic:managerName "Apollo Global Management" ;
+    ic:secRegistered true ;
+    ic:strategyFocus "Credit, Private Equity, Real Assets" .
+
+<https://data.icapital.com/instance/manager/kkr> a ic:FundManager ;
+    ic:aumUsd 553000000000.0 ;
+    ic:foundedYear 1976 ;
+    ic:hqLocation "New York, NY" ;
+    ic:managerName "KKR & Co." ;
+    ic:secRegistered true ;
+    ic:strategyFocus "Buyout, Growth Equity, Infrastructure" .
+
+<https://data.icapital.com/instance/order/ord-apl-8821> a ic:Order ;
+    ic:createdAt "2024-03-14T14:30:00"^^xsd:dateTime ;
+    ic:currency "USD" ;
+    ic:managedBy <https://data.icapital.com/instance/advisor/adv-00112> ;
+    ic:placedBy <https://data.icapital.com/instance/investor/inv-45231> ;
+    ic:settledThrough <https://data.icapital.com/instance/account/acc-fido-882341> ;
+    ic:targetsFund <https://data.icapital.com/instance/fund/apollo-investment-fund-ix> .
+
+<https://data.icapital.com/instance/shareclass/apollo-ix-class-a> a ic:ShareClass ;
+    ic:className "CLASS_A" ;
+    ic:currency "USD" ;
+    ic:liquidityWindow "Closed-end" ;
+    ic:lockUpPeriod "10 years" ;
+    ic:minInvestment 250000.0 ;
+    ic:shareClassOf <https://data.icapital.com/instance/fund/apollo-investment-fund-ix> .
+
+<https://data.icapital.com/instance/shareclass/apollo-ix-class-i> a ic:ShareClass ;
+    ic:className "CLASS_I" ;
+    ic:currency "USD" ;
+    ic:liquidityWindow "Closed-end" ;
+    ic:minInvestment 1000000.0 ;
+    ic:shareClassOf <https://data.icapital.com/instance/fund/apollo-investment-fund-ix> .
+
+<https://data.icapital.com/instance/transaction/txn-2024-00183741> a ic:Transaction ;
+    ic:createdAt "2024-03-15T10:00:00"^^xsd:dateTime ;
+    ic:effectiveDate "2024-04-01"^^xsd:date ;
+    ic:hasCapitalCall <https://data.icapital.com/instance/capitalcall/call-apl-ix-001> ;
+    ic:hasDocument <https://data.icapital.com/instance/document/doc-sub-183741> ;
+    ic:hasFinancial <https://data.icapital.com/instance/financial/fin-183741> ;
+    ic:hasOrder <https://data.icapital.com/instance/order/ord-apl-8821> ;
+    ic:sourceSystem "iCapital" ;
+    ic:transactionDate "2024-03-15"^^xsd:date ;
+    ic:transactionId "txn-2024-00183741" ;
+    ic:transactionStatus "FUNDED" ;
+    ic:transactionType "SUBSCRIPTION" ;
+    ic:updatedAt "2024-04-01T09:00:00"^^xsd:dateTime .
+
+<https://data.icapital.com/instance/advisor/adv-00112> a ic:Advisor ;
+    ic:advisorName "Rachel Monroe" ;
+    ic:email "r.monroe@meridianwp.com" ;
+    ic:firmName "Meridian Wealth Partners" ;
+    ic:isActive true ;
+    ic:jurisdiction "US" ;
+    ic:riaCrdNumber "112334" .
+
+<https://data.icapital.com/instance/investor/inv-45231> a ic:Investor ;
+    ic:accreditationStatus "QUALIFIED_PURCHASER" ;
+    ic:advisedBy <https://data.icapital.com/instance/advisor/adv-00112> ;
+    ic:country "US" ;
+    ic:createdAt "2022-06-15T09:00:00"^^xsd:dateTime ;
+    ic:hasKYC <https://data.icapital.com/instance/kyc/kyc-001122> ;
+    ic:investorName "Smith Family Trust" ;
+    ic:investorType "TRUST" ;
+    ic:ownsAccount <https://data.icapital.com/instance/account/acc-fido-882341> ;
+    ic:qualifiedPurchaser true .
+
+<https://data.icapital.com/instance/account/acc-fido-882341> a ic:Account ;
+    ic:accountNumber "****882341" ;
+    ic:accountOwnedBy <https://data.icapital.com/instance/investor/inv-45231> ;
+    ic:accountType "TRUST" ;
+    ic:heldAt <https://data.icapital.com/instance/custodian/fidelity> ;
+    ic:kycStatus "APPROVED" ;
+    ic:openedDate "2022-07-01"^^xsd:date .
+
+<https://data.icapital.com/instance/fund/apollo-investment-fund-ix> a ic:Fund ;
+    ic:assetClass "PRIVATE_EQUITY" ;
+    ic:carryPct 0.2 ;
+    ic:fundName "Apollo Investment Fund IX, L.P." ;
+    ic:fundStatus "FUNDRAISING" ;
+    ic:fundTermYears 10 ;
+    ic:fundType "BUYOUT" ;
+    ic:hardCap 30000000000.0 ;
+    ic:hasShareClass <https://data.icapital.com/instance/shareclass/apollo-ix-class-a>,
+        <https://data.icapital.com/instance/shareclass/apollo-ix-class-i> ;
+    ic:managementFeePct 0.015 ;
+    ic:preferredReturn 0.08 ;
+    ic:sponsoredBy <https://data.icapital.com/instance/manager/apollo-global-management> ;
+    ic:targetSize 25000000000.0 ;
+    ic:vintageYear 2024 .
+

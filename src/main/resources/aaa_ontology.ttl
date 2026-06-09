@@ -1,0 +1,1346 @@
+@prefix aaa: <https://ontology.apollo.com/aaa/> .
+@prefix ape: <https://ontology.apollo.com/aaa/pe/> .
+@prefix asc: <https://ontology.apollo.com/aaa/sc/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+aaa:accreditationStatus a owl:DatatypeProperty ;
+    rdfs:label "accreditation status"@en ;
+    rdfs:comment "ACCREDITED|QUALIFIED_PURCHASER|INSTITUTIONAL"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:string .
+
+aaa:auditAction a owl:DatatypeProperty ;
+    rdfs:label "action"@en ;
+    rdfs:comment "CREATE|UPDATE|DELETE|STATUS_CHANGE|APPROVE"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:auditEntityId a owl:DatatypeProperty ;
+    rdfs:label "audited entity ID"@en ;
+    rdfs:comment "ID of the mutated entity"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:auditEntityType a owl:DatatypeProperty ;
+    rdfs:label "entity type"@en ;
+    rdfs:comment "Class of mutated entity"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:auditOf a owl:ObjectProperty ;
+    rdfs:label "audit of"@en ;
+    rdfs:comment "Audit log entry for entity"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range aaa:AAAEntity .
+
+aaa:auditTimestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp"@en ;
+    rdfs:comment "Event timestamp (UTC, immutable)"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:dateTime .
+
+aaa:callAmount a owl:DatatypeProperty ;
+    rdfs:label "call amount"@en ;
+    rdfs:comment "Dollar amount called"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:decimal .
+
+aaa:callDate a owl:DatatypeProperty ;
+    rdfs:label "call date"@en ;
+    rdfs:comment "Date notice was issued"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:date .
+
+aaa:callId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "call ID"@en ;
+    rdfs:comment "Unique call notice ID"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:string .
+
+aaa:callNumber a owl:DatatypeProperty ;
+    rdfs:label "call number"@en ;
+    rdfs:comment "Sequential call number"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:integer .
+
+aaa:callPercentage a owl:DatatypeProperty ;
+    rdfs:label "call percentage"@en ;
+    rdfs:comment "Percentage of commitment called"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:decimal .
+
+aaa:country a owl:DatatypeProperty ;
+    rdfs:label "country"@en ;
+    rdfs:comment "ISO 3166-1 alpha-2 country"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:string .
+
+aaa:createdAt a owl:DatatypeProperty ;
+    rdfs:label "created at"@en ;
+    rdfs:comment "Record creation timestamp (UTC)"@en ;
+    rdfs:domain aaa:AAAEntity ;
+    rdfs:range xsd:dateTime .
+
+aaa:currency a owl:DatatypeProperty ;
+    rdfs:label "currency"@en ;
+    rdfs:comment "ISO 4217 currency code"@en ;
+    rdfs:domain aaa:AAAEntity ;
+    rdfs:range xsd:string .
+
+aaa:distributionAmount a owl:DatatypeProperty ;
+    rdfs:label "distribution amount"@en ;
+    rdfs:comment "Amount distributed to investors"@en ;
+    rdfs:domain aaa:Distribution ;
+    rdfs:range xsd:decimal .
+
+aaa:distributionDate a owl:DatatypeProperty ;
+    rdfs:label "distribution date"@en ;
+    rdfs:comment "Date distribution was made"@en ;
+    rdfs:domain aaa:Distribution ;
+    rdfs:range xsd:date .
+
+aaa:distributionType a owl:DatatypeProperty ;
+    rdfs:label "distribution type"@en ;
+    rdfs:comment "RETURN_OF_CAPITAL|INCOME|GAIN|RECALLABLE"@en ;
+    rdfs:domain aaa:Distribution ;
+    rdfs:range xsd:string .
+
+aaa:domicile a owl:DatatypeProperty ;
+    rdfs:label "domicile"@en ;
+    rdfs:comment "Legal domicile jurisdiction"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:dueDate a owl:DatatypeProperty ;
+    rdfs:label "due date"@en ;
+    rdfs:comment "Payment due date"@en ;
+    rdfs:domain aaa:CapitalCall ;
+    rdfs:range xsd:date .
+
+aaa:entityId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "entity ID"@en ;
+    rdfs:comment "Unique entity UUID"@en ;
+    rdfs:domain aaa:AAAEntity ;
+    rdfs:range xsd:string .
+
+aaa:feeAmount a owl:DatatypeProperty ;
+    rdfs:label "fee amount"@en ;
+    rdfs:comment "Calculated fee amount"@en ;
+    rdfs:domain aaa:FeeRecord ;
+    rdfs:range xsd:decimal .
+
+aaa:feePct a owl:DatatypeProperty ;
+    rdfs:label "fee pct"@en ;
+    rdfs:comment "Fee rate as a percentage"@en ;
+    rdfs:domain aaa:FeeRecord ;
+    rdfs:range xsd:decimal .
+
+aaa:feePeriodEnd a owl:DatatypeProperty ;
+    rdfs:label "fee period end"@en ;
+    rdfs:comment "End of fee calculation period"@en ;
+    rdfs:domain aaa:FeeRecord ;
+    rdfs:range xsd:date .
+
+aaa:feePeriodStart a owl:DatatypeProperty ;
+    rdfs:label "fee period start"@en ;
+    rdfs:comment "Start of fee calculation period"@en ;
+    rdfs:domain aaa:FeeRecord ;
+    rdfs:range xsd:date .
+
+aaa:feeType a owl:DatatypeProperty ;
+    rdfs:label "fee type"@en ;
+    rdfs:comment "MANAGEMENT|INCENTIVE|ADMIN|CUSTODY|AUDIT"@en ;
+    rdfs:domain aaa:FeeRecord ;
+    rdfs:range xsd:string .
+
+aaa:fiscalYearEnd a owl:DatatypeProperty ;
+    rdfs:label "fiscal year end"@en ;
+    rdfs:comment "MM-DD fiscal year end"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:fundId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "fund ID"@en ;
+    rdfs:comment "Unique fund identifier"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:fundName a owl:DatatypeProperty ;
+    rdfs:label "fund name"@en ;
+    rdfs:comment "Full legal fund name"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:fundStatus a owl:DatatypeProperty ;
+    rdfs:label "fund status"@en ;
+    rdfs:comment "OPEN|CLOSED|LIQUIDATING|TERMINATED"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:fxRate a owl:DatatypeProperty ;
+    rdfs:label "FX rate"@en ;
+    rdfs:comment "FX conversion rate applied"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:decimal .
+
+aaa:grossAmount a owl:DatatypeProperty ;
+    rdfs:label "gross amount"@en ;
+    rdfs:comment "Gross notional amount"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:decimal .
+
+aaa:hasCapitalCall a owl:ObjectProperty ;
+    rdfs:label "has capital call"@en ;
+    rdfs:comment "Fund issues capital call"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:CapitalCall .
+
+aaa:hasCounterparty a owl:ObjectProperty ;
+    rdfs:label "has counterparty"@en ;
+    rdfs:comment "Transaction has counterparty"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range aaa:Counterparty .
+
+aaa:hasDistribution a owl:ObjectProperty ;
+    rdfs:label "has distribution"@en ;
+    rdfs:comment "Fund makes distribution"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:Distribution .
+
+aaa:hasDocument a owl:ObjectProperty ;
+    rdfs:label "has document"@en ;
+    rdfs:comment "Transaction has attached document"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range aaa:Document .
+
+aaa:hasFeeRecord a owl:ObjectProperty ;
+    rdfs:label "has fee record"@en ;
+    rdfs:comment "Fund records fee"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:FeeRecord .
+
+aaa:hasKYC a owl:ObjectProperty ;
+    rdfs:label "has KYC check"@en ;
+    rdfs:comment "Investor has KYC record"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range aaa:KYCCheck .
+
+aaa:hasNAVRecord a owl:ObjectProperty ;
+    rdfs:label "has NAV record"@en ;
+    rdfs:comment "Fund records NAV snapshot"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:NAVRecord .
+
+aaa:hasTransaction a owl:ObjectProperty ;
+    rdfs:label "has transaction"@en ;
+    rdfs:comment "Fund records a transaction"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:Transaction .
+
+aaa:inceptionDate a owl:DatatypeProperty ;
+    rdfs:label "inception date"@en ;
+    rdfs:comment "Fund inception / launch date"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:date .
+
+aaa:investorId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "investor ID"@en ;
+    rdfs:comment "Unique investor UUID"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:string .
+
+aaa:investorName a owl:DatatypeProperty ;
+    rdfs:label "investor name"@en ;
+    rdfs:comment "Full legal name"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:string .
+
+aaa:investorType a owl:DatatypeProperty ;
+    rdfs:label "investor type"@en ;
+    rdfs:comment "INSURANCE_CO|PENSION|ENDOWMENT|FAMILY_OFFICE|INDIVIDUAL|SOVEREIGN_WEALTH"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:string .
+
+aaa:kycCheckDate a owl:DatatypeProperty ;
+    rdfs:label "KYC check date"@en ;
+    rdfs:comment "Date check was performed"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:date .
+
+aaa:kycId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "KYC ID"@en ;
+    rdfs:comment "Unique KYC record ID"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:string .
+
+aaa:kycProvider a owl:DatatypeProperty ;
+    rdfs:label "KYC provider"@en ;
+    rdfs:comment "LexisNexis|Refinitiv|Jumio|Internal"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:string .
+
+aaa:kycReviewDate a owl:DatatypeProperty ;
+    rdfs:label "KYC review date"@en ;
+    rdfs:comment "Next scheduled review"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:date .
+
+aaa:kycStatus a owl:DatatypeProperty ;
+    rdfs:label "KYC status"@en ;
+    rdfs:comment "APPROVED|PENDING|FAILED|EXPIRED"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:string .
+
+aaa:logId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "log ID"@en ;
+    rdfs:comment "Unique log entry UUID"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:managedBy a owl:ObjectProperty ;
+    rdfs:label "managed by"@en ;
+    rdfs:comment "Fund is managed by GP"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:FundManager .
+
+aaa:navDate a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "NAV date"@en ;
+    rdfs:comment "Valuation date"@en ;
+    rdfs:domain aaa:NAVRecord ;
+    rdfs:range xsd:date .
+
+aaa:navPerUnit a owl:DatatypeProperty ;
+    rdfs:label "NAV per unit"@en ;
+    rdfs:comment "NAV per share / unit"@en ;
+    rdfs:domain aaa:NAVRecord ;
+    rdfs:range xsd:decimal .
+
+aaa:netAmount a owl:DatatypeProperty ;
+    rdfs:label "net amount"@en ;
+    rdfs:comment "Net amount after fees / expenses"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:decimal .
+
+aaa:newValue a owl:DatatypeProperty ;
+    rdfs:label "new value (JSON)"@en ;
+    rdfs:comment "JSON snapshot after change"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:oldValue a owl:DatatypeProperty ;
+    rdfs:label "old value (JSON)"@en ;
+    rdfs:comment "JSON snapshot before change"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:ontology a owl:Ontology ;
+    rdfs:label "Apollo AAA Dual-Fund Ontology"@en ;
+    dcterms:created "2024-01-01"^^xsd:date ;
+    dcterms:publisher "Apollo Global Management" ;
+    rdfs:comment "OWL ontology covering both Apollo Aligned Alternatives (private equity feeder) and Athene AAA Structured Credit (fixed-income / insurance ABS) fund families. Shares common transaction and participant vocabulary; extends with fund-specific asset, tranche, and credit-quality concepts."@en ;
+    owl:versionIRI <https://ontology.apollo.com/aaa/ontology/1.0> .
+
+aaa:ownsAccount a owl:ObjectProperty ;
+    rdfs:label "owns account"@en ;
+    rdfs:comment "Investor owns account"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range aaa:Account .
+
+ape:ManagementFeeInvoice a owl:Class ;
+    rdfs:label "Management Fee Invoice"@en ;
+    rdfs:comment "Quarterly management fee invoice"@en ;
+    rdfs:subClassOf aaa:FeeRecord .
+
+ape:Redemption a owl:Class ;
+    rdfs:label "PE Redemption"@en ;
+    rdfs:comment "LP redemption / withdrawal from the fund"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+ape:Subscription a owl:Class ;
+    rdfs:label "PE Subscription"@en ;
+    rdfs:comment "LP subscription / admission event"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+ape:calledAmount a owl:DatatypeProperty ;
+    rdfs:label "called amount"@en ;
+    rdfs:comment "Capital called to date"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:decimal .
+
+ape:carryAmount a owl:DatatypeProperty ;
+    rdfs:label "carry amount"@en ;
+    rdfs:comment "Total carry paid to GP"@en ;
+    rdfs:domain ape:CarryDistribution ;
+    rdfs:range xsd:decimal .
+
+ape:carryPct a owl:DatatypeProperty ;
+    rdfs:label "carry pct"@en ;
+    rdfs:comment "Carried interest %"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:carryRate a owl:DatatypeProperty ;
+    rdfs:label "carry rate"@en ;
+    rdfs:comment "Carry rate applied"@en ;
+    rdfs:domain ape:CarryDistribution ;
+    rdfs:range xsd:decimal .
+
+ape:commitmentAmount a owl:DatatypeProperty ;
+    rdfs:label "commitment amount"@en ;
+    rdfs:comment "Total committed capital"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:decimal .
+
+ape:commitmentId a owl:DatatypeProperty ;
+    rdfs:label "commitment ID"@en ;
+    rdfs:comment "Unique LP commitment ID"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:string .
+
+ape:commitsTo a owl:ObjectProperty ;
+    rdfs:label "commits to"@en ;
+    rdfs:comment "LP commits capital to PE fund"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range ape:PEFund .
+
+ape:committedDate a owl:DatatypeProperty ;
+    rdfs:label "committed date"@en ;
+    rdfs:comment "Date commitment was signed"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:date .
+
+ape:companyName a owl:DatatypeProperty ;
+    rdfs:label "company name"@en ;
+    rdfs:comment "Portfolio company legal name"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:string .
+
+ape:currentEV a owl:DatatypeProperty ;
+    rdfs:label "current EV"@en ;
+    rdfs:comment "Current estimated enterprise value"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:decimal .
+
+ape:drawdownNoticeId a owl:DatatypeProperty ;
+    rdfs:label "drawdown notice ID"@en ;
+    rdfs:comment "Unique drawdown notice ID"@en ;
+    rdfs:domain ape:DrawdownNotice ;
+    rdfs:range xsd:string .
+
+ape:drawdownPct a owl:DatatypeProperty ;
+    rdfs:label "drawdown pct"@en ;
+    rdfs:comment "% of unfunded commitment drawn"@en ;
+    rdfs:domain ape:DrawdownNotice ;
+    rdfs:range xsd:decimal .
+
+ape:drawdownPurpose a owl:DatatypeProperty ;
+    rdfs:label "drawdown purpose"@en ;
+    rdfs:comment "INVESTMENT|FEE_PAYMENT|EXPENSE|RECALLABLE_DISTRIBUTION"@en ;
+    rdfs:domain ape:DrawdownNotice ;
+    rdfs:range xsd:string .
+
+ape:entryEV a owl:DatatypeProperty ;
+    rdfs:label "entry EV"@en ;
+    rdfs:comment "Enterprise value at entry"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:decimal .
+
+ape:exitDate a owl:DatatypeProperty ;
+    rdfs:label "exit date"@en ;
+    rdfs:comment "Exit / realization date (nullable)"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:date .
+
+ape:fundStrategy a owl:DatatypeProperty ;
+    rdfs:label "fund strategy"@en ;
+    rdfs:comment "BUYOUT|GROWTH|CREDIT|REAL_ASSETS|HYBRID"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:string .
+
+ape:fundTermYears a owl:DatatypeProperty ;
+    rdfs:label "fund term years"@en ;
+    rdfs:comment "Total fund term (years)"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:integer .
+
+ape:geography a owl:DatatypeProperty ;
+    rdfs:label "geography"@en ;
+    rdfs:comment "Primary operating geography"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:string .
+
+ape:gpCommitment a owl:DatatypeProperty ;
+    rdfs:label "GP commitment"@en ;
+    rdfs:comment "GP co-investment commitment"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:grossMoic a owl:DatatypeProperty ;
+    rdfs:label "gross MOIC"@en ;
+    rdfs:comment "Gross MOIC before fees"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:hardCap a owl:DatatypeProperty ;
+    rdfs:label "hard cap"@en ;
+    rdfs:comment "Maximum fund raise (USD)"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:hasCoInvestment a owl:ObjectProperty ;
+    rdfs:label "has co-investment"@en ;
+    rdfs:comment "Fund has co-investment"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range ape:CoInvestment .
+
+ape:hasCommitment a owl:ObjectProperty ;
+    rdfs:label "has commitment"@en ;
+    rdfs:comment "Fund tracks LP commitment"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range ape:Commitment .
+
+ape:hasValuation a owl:ObjectProperty ;
+    rdfs:label "has valuation"@en ;
+    rdfs:comment "Portfolio company has valuation"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range ape:PortfolioValuation .
+
+ape:hurdleSatisfied a owl:DatatypeProperty ;
+    rdfs:label "hurdle satisfied"@en ;
+    rdfs:comment "Whether hurdle rate was met"@en ;
+    rdfs:domain ape:CarryDistribution ;
+    rdfs:range xsd:boolean .
+
+ape:investmentDate a owl:DatatypeProperty ;
+    rdfs:label "investment date"@en ;
+    rdfs:comment "Initial investment date"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:date .
+
+ape:investmentPeriod a owl:DatatypeProperty ;
+    rdfs:label "investment period"@en ;
+    rdfs:comment "Investment period (years)"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:integer .
+
+ape:investsIn a owl:ObjectProperty ;
+    rdfs:label "invests in"@en ;
+    rdfs:comment "Fund invests in portfolio co"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range ape:PortfolioCompany .
+
+ape:irr a owl:DatatypeProperty ;
+    rdfs:label "IRR"@en ;
+    rdfs:comment "Internal rate of return"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:linkedToCommitment a owl:ObjectProperty ;
+    rdfs:label "linked to commitment"@en ;
+    rdfs:comment "Drawdown linked to commitment"@en ;
+    rdfs:domain ape:DrawdownNotice ;
+    rdfs:range ape:Commitment .
+
+ape:managementFeePct a owl:DatatypeProperty ;
+    rdfs:label "management fee pct"@en ;
+    rdfs:comment "Annual management fee %"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:moic a owl:DatatypeProperty ;
+    rdfs:label "MOIC"@en ;
+    rdfs:comment "Multiple on invested capital"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:ownershipPct a owl:DatatypeProperty ;
+    rdfs:label "ownership pct"@en ;
+    rdfs:comment "Fund ownership percentage"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:decimal .
+
+ape:portfolioCoId a owl:DatatypeProperty ;
+    rdfs:label "portfolio co ID"@en ;
+    rdfs:comment "Unique portfolio company ID"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:string .
+
+ape:preferredReturn a owl:DatatypeProperty ;
+    rdfs:label "preferred return"@en ;
+    rdfs:comment "Hurdle / preferred return %"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:realisedValue a owl:DatatypeProperty ;
+    rdfs:label "realised value"@en ;
+    rdfs:comment "Realised distributions"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:sector a owl:DatatypeProperty ;
+    rdfs:label "sector"@en ;
+    rdfs:comment "GICS sector classification"@en ;
+    rdfs:domain ape:PortfolioCompany ;
+    rdfs:range xsd:string .
+
+ape:shareClass a owl:DatatypeProperty ;
+    rdfs:label "share class"@en ;
+    rdfs:comment "CLASS_A|CLASS_I|CLASS_S|CLASS_D"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:string .
+
+ape:targetSize a owl:DatatypeProperty ;
+    rdfs:label "target size"@en ;
+    rdfs:comment "Target fund raise (USD)"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:decimal .
+
+ape:totalValue a owl:DatatypeProperty ;
+    rdfs:label "total value"@en ;
+    rdfs:comment "TVPI = realised + unrealised"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:uncalledAmount a owl:DatatypeProperty ;
+    rdfs:label "uncalled amount"@en ;
+    rdfs:comment "Remaining unfunded commitment"@en ;
+    rdfs:domain ape:Commitment ;
+    rdfs:range xsd:decimal .
+
+ape:unrealisedValue a owl:DatatypeProperty ;
+    rdfs:label "unrealised value"@en ;
+    rdfs:comment "Unrealised fair value"@en ;
+    rdfs:domain ape:PortfolioValuation ;
+    rdfs:range xsd:decimal .
+
+ape:vintageYear a owl:DatatypeProperty ;
+    rdfs:label "vintage year"@en ;
+    rdfs:comment "Fund vintage year"@en ;
+    rdfs:domain ape:PEFund ;
+    rdfs:range xsd:integer .
+
+aaa:pepFlag a owl:DatatypeProperty ;
+    rdfs:label "PEP flag"@en ;
+    rdfs:comment "Politically Exposed Person"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:boolean .
+
+aaa:performedBy a owl:DatatypeProperty ;
+    rdfs:label "performed by"@en ;
+    rdfs:comment "User or system actor"@en ;
+    rdfs:domain aaa:AuditLog ;
+    rdfs:range xsd:string .
+
+aaa:placedBy a owl:ObjectProperty ;
+    rdfs:label "placed by"@en ;
+    rdfs:comment "Transaction placed by investor"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range aaa:Investor .
+
+aaa:qualifiedPurchaser a owl:DatatypeProperty ;
+    rdfs:label "qualified purchaser"@en ;
+    rdfs:comment "Qualified purchaser flag (>$5M)"@en ;
+    rdfs:domain aaa:Investor ;
+    rdfs:range xsd:boolean .
+
+aaa:reportingCurrency a owl:DatatypeProperty ;
+    rdfs:label "reporting currency"@en ;
+    rdfs:comment "Primary reporting currency"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range xsd:string .
+
+aaa:riskRating a owl:DatatypeProperty ;
+    rdfs:label "risk rating"@en ;
+    rdfs:comment "LOW|MEDIUM|HIGH"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:string .
+
+aaa:sanctionsFlag a owl:DatatypeProperty ;
+    rdfs:label "sanctions flag"@en ;
+    rdfs:comment "OFAC/sanctions hit flag"@en ;
+    rdfs:domain aaa:KYCCheck ;
+    rdfs:range xsd:boolean .
+
+asc:accruedInterest a owl:DatatypeProperty ;
+    rdfs:label "accrued interest"@en ;
+    rdfs:comment "Accrued interest to date"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:appliesTo a owl:ObjectProperty ;
+    rdfs:label "applies to security"@en ;
+    rdfs:comment "Rating applies to security"@en ;
+    rdfs:domain asc:CreditRating ;
+    rdfs:range asc:SecurityHolding .
+
+asc:assetType a owl:DatatypeProperty ;
+    rdfs:label "asset type"@en ;
+    rdfs:comment "CLO|RMBS|CMBS|ABS|CRE_CLO|CONSUMER_ABS"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:string .
+
+asc:attachmentPoint a owl:DatatypeProperty ;
+    rdfs:label "attachment point"@en ;
+    rdfs:comment "Loss attachment point %"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:decimal .
+
+asc:backedBy a owl:ObjectProperty ;
+    rdfs:label "backed by collateral"@en ;
+    rdfs:comment "Security backed by pool"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range asc:CollateralPool .
+
+asc:cdr a owl:DatatypeProperty ;
+    rdfs:label "CDR"@en ;
+    rdfs:comment "Conditional default rate"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:decimal .
+
+asc:collateralCount a owl:DatatypeProperty ;
+    rdfs:label "collateral count"@en ;
+    rdfs:comment "Number of underlying loans/assets"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:integer .
+
+asc:couponAmount a owl:DatatypeProperty ;
+    rdfs:label "coupon amount"@en ;
+    rdfs:comment "Cash coupon received"@en ;
+    rdfs:domain asc:CouponPayment ;
+    rdfs:range xsd:decimal .
+
+asc:couponDate a owl:DatatypeProperty ;
+    rdfs:label "coupon payment date"@en ;
+    rdfs:comment "Date coupon was received"@en ;
+    rdfs:domain asc:CouponPayment ;
+    rdfs:range xsd:date .
+
+asc:couponRate a owl:DatatypeProperty ;
+    rdfs:label "coupon rate"@en ;
+    rdfs:comment "Stated coupon / spread over SOFR"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:decimal .
+
+asc:couponType a owl:DatatypeProperty ;
+    rdfs:label "coupon type"@en ;
+    rdfs:comment "FIXED|FLOATING|ZERO_COUPON"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:string .
+
+asc:cpr a owl:DatatypeProperty ;
+    rdfs:label "CPR"@en ;
+    rdfs:comment "Conditional prepayment rate"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:decimal .
+
+asc:currentBalance a owl:DatatypeProperty ;
+    rdfs:label "current balance"@en ;
+    rdfs:comment "Current outstanding balance"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:decimal .
+
+asc:currentBalance_t a owl:DatatypeProperty ;
+    rdfs:label "current balance"@en ;
+    rdfs:comment "Current outstanding balance"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:decimal .
+
+asc:currentPrice a owl:DatatypeProperty ;
+    rdfs:label "current price"@en ;
+    rdfs:comment "Current clean price (% of par)"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:cusip a owl:DatatypeProperty ;
+    rdfs:label "CUSIP"@en ;
+    rdfs:comment "CUSIP identifier"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:string .
+
+asc:defaultAmount a owl:DatatypeProperty ;
+    rdfs:label "default amount"@en ;
+    rdfs:comment "Defaulted principal amount"@en ;
+    rdfs:domain asc:DefaultEvent ;
+    rdfs:range xsd:decimal .
+
+asc:detachmentPoint a owl:DatatypeProperty ;
+    rdfs:label "detachment point"@en ;
+    rdfs:comment "Loss detachment point %"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:decimal .
+
+asc:duration a owl:DatatypeProperty ;
+    rdfs:label "duration"@en ;
+    rdfs:comment "Portfolio modified duration"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:expectedMaturity a owl:DatatypeProperty ;
+    rdfs:label "expected maturity"@en ;
+    rdfs:comment "Expected repayment date"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:date .
+
+asc:faceAmount a owl:DatatypeProperty ;
+    rdfs:label "face amount"@en ;
+    rdfs:comment "Par / face amount held"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:faceValue a owl:DatatypeProperty ;
+    rdfs:label "face value"@en ;
+    rdfs:comment "Par / face amount"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:decimal .
+
+asc:fixedRate a owl:DatatypeProperty ;
+    rdfs:label "fixed rate"@en ;
+    rdfs:comment "Fixed rate on interest rate swap"@en ;
+    rdfs:domain asc:HedgeContract ;
+    rdfs:range xsd:decimal .
+
+asc:fundedBy a owl:ObjectProperty ;
+    rdfs:label "funded by repo"@en ;
+    rdfs:comment "Fund uses repo funding"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range asc:RepoFacility .
+
+asc:haircut a owl:DatatypeProperty ;
+    rdfs:label "haircut"@en ;
+    rdfs:comment "Collateral haircut %"@en ;
+    rdfs:domain asc:RepoFacility ;
+    rdfs:range xsd:decimal .
+
+asc:hasCollateral a owl:ObjectProperty ;
+    rdfs:label "has collateral pool"@en ;
+    rdfs:comment "Fund backed by collateral pool"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range asc:CollateralPool .
+
+asc:hasTranche a owl:ObjectProperty ;
+    rdfs:label "has tranche"@en ;
+    rdfs:comment "Pool has credit tranche"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range asc:Tranche .
+
+asc:hedgeMaturity a owl:DatatypeProperty ;
+    rdfs:label "hedge maturity"@en ;
+    rdfs:comment "Hedge contract maturity"@en ;
+    rdfs:domain asc:HedgeContract ;
+    rdfs:range xsd:date .
+
+asc:hedgeType a owl:DatatypeProperty ;
+    rdfs:label "hedge type"@en ;
+    rdfs:comment "IR_SWAP|CDS|TOTAL_RETURN_SWAP|FX_FORWARD"@en ;
+    rdfs:domain asc:HedgeContract ;
+    rdfs:range xsd:string .
+
+asc:hedgedBy a owl:ObjectProperty ;
+    rdfs:label "hedged by"@en ;
+    rdfs:comment "Fund has hedge overlay"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range asc:HedgeContract .
+
+asc:holds a owl:ObjectProperty ;
+    rdfs:label "holds security"@en ;
+    rdfs:comment "Fund holds security"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range asc:SecurityHolding .
+
+asc:isin a owl:DatatypeProperty ;
+    rdfs:label "ISIN"@en ;
+    rdfs:comment "International securities ID"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:string .
+
+asc:leverageRatio a owl:DatatypeProperty ;
+    rdfs:label "leverage ratio"@en ;
+    rdfs:comment "Debt / equity leverage ratio"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:linkedToHolding a owl:ObjectProperty ;
+    rdfs:label "linked to holding"@en ;
+    rdfs:comment "Coupon linked to holding"@en ;
+    rdfs:domain asc:CouponPayment ;
+    rdfs:range asc:SecurityHolding .
+
+asc:markToMarket a owl:DatatypeProperty ;
+    rdfs:label "mark to market"@en ;
+    rdfs:comment "Current MTM value"@en ;
+    rdfs:domain asc:HedgeContract ;
+    rdfs:range xsd:decimal .
+
+asc:marketValue a owl:DatatypeProperty ;
+    rdfs:label "market value"@en ;
+    rdfs:comment "Current market value"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:maturityDate a owl:DatatypeProperty ;
+    rdfs:label "maturity date"@en ;
+    rdfs:comment "Legal final maturity"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:date .
+
+asc:minCreditQuality a owl:DatatypeProperty ;
+    rdfs:label "min credit quality"@en ;
+    rdfs:comment "Minimum required tranche rating"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:string .
+
+asc:notionalAmount a owl:DatatypeProperty ;
+    rdfs:label "notional amount"@en ;
+    rdfs:comment "Hedge notional"@en ;
+    rdfs:domain asc:HedgeContract ;
+    rdfs:range xsd:decimal .
+
+asc:oas a owl:DatatypeProperty ;
+    rdfs:label "OAS"@en ;
+    rdfs:comment "Option-adjusted spread (bps)"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:originalBalance a owl:DatatypeProperty ;
+    rdfs:label "original balance"@en ;
+    rdfs:comment "Original pool balance"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:decimal .
+
+asc:overcollateralisation a owl:DatatypeProperty ;
+    rdfs:label "overcollateralisation"@en ;
+    rdfs:comment "OC ratio (collateral / liabilities)"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:poolId a owl:DatatypeProperty ;
+    rdfs:label "pool ID"@en ;
+    rdfs:comment "Unique collateral pool ID"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:string .
+
+asc:poolName a owl:DatatypeProperty ;
+    rdfs:label "pool name"@en ;
+    rdfs:comment "Pool description"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:string .
+
+asc:prepaymentAmount a owl:DatatypeProperty ;
+    rdfs:label "prepayment amount"@en ;
+    rdfs:comment "Unscheduled prepayment amount"@en ;
+    rdfs:domain asc:PrepaymentEvent ;
+    rdfs:range xsd:decimal .
+
+asc:principalAmount a owl:DatatypeProperty ;
+    rdfs:label "principal amount"@en ;
+    rdfs:comment "Principal repaid"@en ;
+    rdfs:domain asc:PrincipalPayment ;
+    rdfs:range xsd:decimal .
+
+asc:principalDate a owl:DatatypeProperty ;
+    rdfs:label "principal payment date"@en ;
+    rdfs:comment "Date principal was received"@en ;
+    rdfs:domain asc:PrincipalPayment ;
+    rdfs:range xsd:date .
+
+asc:purchaseDate a owl:DatatypeProperty ;
+    rdfs:label "purchase date"@en ;
+    rdfs:comment "Date security was acquired"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:date .
+
+asc:purchasePrice a owl:DatatypeProperty ;
+    rdfs:label "purchase price"@en ;
+    rdfs:comment "Price paid at acquisition"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+asc:ratedBy a owl:ObjectProperty ;
+    rdfs:label "rated by"@en ;
+    rdfs:comment "Tranche has credit rating"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range asc:CreditRating .
+
+asc:ratingAgency a owl:DatatypeProperty ;
+    rdfs:label "rating agency"@en ;
+    rdfs:comment "Moody's|S&P|Fitch|KBRA"@en ;
+    rdfs:domain asc:CreditRating ;
+    rdfs:range xsd:string .
+
+asc:ratingDate a owl:DatatypeProperty ;
+    rdfs:label "rating date"@en ;
+    rdfs:comment "Date rating was assigned"@en ;
+    rdfs:domain asc:CreditRating ;
+    rdfs:range xsd:date .
+
+asc:ratingOutlook a owl:DatatypeProperty ;
+    rdfs:label "rating outlook"@en ;
+    rdfs:comment "STABLE|POSITIVE|NEGATIVE|WATCH"@en ;
+    rdfs:domain asc:CreditRating ;
+    rdfs:range xsd:string .
+
+asc:ratingValue a owl:DatatypeProperty ;
+    rdfs:label "rating value"@en ;
+    rdfs:comment "AAA|AA|A|BBB|BB|B|CCC|D"@en ;
+    rdfs:domain asc:CreditRating ;
+    rdfs:range xsd:string .
+
+asc:recoveryRate a owl:DatatypeProperty ;
+    rdfs:label "recovery rate"@en ;
+    rdfs:comment "Expected recovery rate %"@en ;
+    rdfs:domain asc:DefaultEvent ;
+    rdfs:range xsd:decimal .
+
+asc:referenceRate a owl:DatatypeProperty ;
+    rdfs:label "reference rate"@en ;
+    rdfs:comment "SOFR|LIBOR|EURIBOR|FIXED"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:string .
+
+asc:reinvestmentAmount a owl:DatatypeProperty ;
+    rdfs:label "reinvestment amount"@en ;
+    rdfs:comment "Amount reinvested in new collateral"@en ;
+    rdfs:domain asc:Reinvestment ;
+    rdfs:range xsd:decimal .
+
+asc:repoCapacity a owl:DatatypeProperty ;
+    rdfs:label "repo capacity"@en ;
+    rdfs:comment "Maximum repo facility size"@en ;
+    rdfs:domain asc:RepoFacility ;
+    rdfs:range xsd:decimal .
+
+asc:repoMaturity a owl:DatatypeProperty ;
+    rdfs:label "repo maturity"@en ;
+    rdfs:comment "Repo facility maturity date"@en ;
+    rdfs:domain asc:RepoFacility ;
+    rdfs:range xsd:date .
+
+asc:repoOutstanding a owl:DatatypeProperty ;
+    rdfs:label "repo outstanding"@en ;
+    rdfs:comment "Current outstanding repo balance"@en ;
+    rdfs:domain asc:RepoFacility ;
+    rdfs:range xsd:decimal .
+
+asc:repoRate a owl:DatatypeProperty ;
+    rdfs:label "repo rate"@en ;
+    rdfs:comment "Repo interest rate"@en ;
+    rdfs:domain asc:RepoFacility ;
+    rdfs:range xsd:decimal .
+
+asc:securityId a owl:DatatypeProperty ;
+    rdfs:label "security ID"@en ;
+    rdfs:comment "CUSIP / ISIN identifier"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:string .
+
+asc:securityName a owl:DatatypeProperty ;
+    rdfs:label "security name"@en ;
+    rdfs:comment "Security full name"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:string .
+
+asc:securityType a owl:DatatypeProperty ;
+    rdfs:label "security type"@en ;
+    rdfs:comment "CLO|RMBS|CMBS|ABS_AUTO|ABS_CARD|CRE|CONSUMER"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:string .
+
+asc:targetYield a owl:DatatypeProperty ;
+    rdfs:label "target yield"@en ;
+    rdfs:comment "Target net annualised yield"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:trancheId a owl:DatatypeProperty ;
+    rdfs:label "tranche ID"@en ;
+    rdfs:comment "Unique tranche identifier"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:string .
+
+asc:trancheName a owl:DatatypeProperty ;
+    rdfs:label "tranche name"@en ;
+    rdfs:comment "Class A / Class B / Junior etc."@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:string .
+
+asc:trancheType a owl:DatatypeProperty ;
+    rdfs:label "tranche type"@en ;
+    rdfs:comment "SENIOR|MEZZANINE|SUBORDINATE|EQUITY"@en ;
+    rdfs:domain asc:Tranche ;
+    rdfs:range xsd:string .
+
+asc:wace a owl:DatatypeProperty ;
+    rdfs:label "WACE"@en ;
+    rdfs:comment "Weighted avg coupon equivalent"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:wal a owl:DatatypeProperty ;
+    rdfs:label "WAL"@en ;
+    rdfs:comment "Weighted avg life (years)"@en ;
+    rdfs:domain asc:SCFund ;
+    rdfs:range xsd:decimal .
+
+asc:waps a owl:DatatypeProperty ;
+    rdfs:label "WAPS"@en ;
+    rdfs:comment "Weighted avg prepayment speed"@en ;
+    rdfs:domain asc:CollateralPool ;
+    rdfs:range xsd:decimal .
+
+asc:yieldToMaturity a owl:DatatypeProperty ;
+    rdfs:label "yield to maturity"@en ;
+    rdfs:comment "YTM at current price"@en ;
+    rdfs:domain asc:SecurityHolding ;
+    rdfs:range xsd:decimal .
+
+aaa:servedBy a owl:ObjectProperty ;
+    rdfs:label "served by"@en ;
+    rdfs:comment "Fund administered by servicer"@en ;
+    rdfs:domain aaa:Fund ;
+    rdfs:range aaa:Servicer .
+
+aaa:settledIn a owl:ObjectProperty ;
+    rdfs:label "settled in account"@en ;
+    rdfs:comment "Transaction settled in account"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range aaa:Account .
+
+aaa:settlementDate a owl:DatatypeProperty ;
+    rdfs:label "settlement date"@en ;
+    rdfs:comment "Settlement / value date"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:date .
+
+aaa:sourceSystem a owl:DatatypeProperty ;
+    rdfs:label "source system"@en ;
+    rdfs:comment "Originating system or platform"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:string .
+
+aaa:totalNAV a owl:DatatypeProperty ;
+    rdfs:label "total NAV"@en ;
+    rdfs:comment "Total fund NAV"@en ;
+    rdfs:domain aaa:NAVRecord ;
+    rdfs:range xsd:decimal .
+
+aaa:transactionDate a owl:DatatypeProperty ;
+    rdfs:label "transaction date"@en ;
+    rdfs:comment "Trade / event date"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:date .
+
+aaa:transactionId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "transaction ID"@en ;
+    rdfs:comment "Unique transaction UUID"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:string .
+
+aaa:transactionStatus a owl:DatatypeProperty ;
+    rdfs:label "transaction status"@en ;
+    rdfs:comment "PENDING|CONFIRMED|SETTLED|FAILED|CANCELLED"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:string .
+
+aaa:transactionType a owl:DatatypeProperty ;
+    rdfs:label "transaction type"@en ;
+    rdfs:comment "Transaction classification"@en ;
+    rdfs:domain aaa:Transaction ;
+    rdfs:range xsd:string .
+
+aaa:unitsOutstanding a owl:DatatypeProperty ;
+    rdfs:label "units outstanding"@en ;
+    rdfs:comment "Total units / shares outstanding"@en ;
+    rdfs:domain aaa:NAVRecord ;
+    rdfs:range xsd:decimal .
+
+aaa:updatedAt a owl:DatatypeProperty ;
+    rdfs:label "updated at"@en ;
+    rdfs:comment "Last update timestamp (UTC)"@en ;
+    rdfs:domain aaa:AAAEntity ;
+    rdfs:range xsd:dateTime .
+
+aaa:Counterparty a owl:Class ;
+    rdfs:label "Counterparty"@en ;
+    rdfs:comment "Trade counterparty, swap provider or repo dealer"@en ;
+    rdfs:subClassOf aaa:Participant .
+
+aaa:Document a owl:Class ;
+    rdfs:label "Document"@en ;
+    rdfs:comment "Legal or compliance document"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:FundManager a owl:Class ;
+    rdfs:label "Fund Manager"@en ;
+    rdfs:comment "Apollo GP managing the fund"@en ;
+    rdfs:subClassOf aaa:Participant .
+
+aaa:Servicer a owl:Class ;
+    rdfs:label "Servicer"@en ;
+    rdfs:comment "Administrative / collateral servicer"@en ;
+    rdfs:subClassOf aaa:Participant .
+
+ape:CoInvestment a owl:Class ;
+    rdfs:label "Co-Investment"@en ;
+    rdfs:comment "Direct co-invest alongside the PE fund"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:PrepaymentEvent a owl:Class ;
+    rdfs:label "Prepayment Event"@en ;
+    rdfs:comment "Unscheduled principal prepayment"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+asc:Reinvestment a owl:Class ;
+    rdfs:label "Reinvestment"@en ;
+    rdfs:comment "Reinvestment of principal in new collateral"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+aaa:Account a owl:Class ;
+    rdfs:label "Account"@en ;
+    rdfs:comment "Investor brokerage or custody account"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:DefaultEvent a owl:Class ;
+    rdfs:label "Default Event"@en ;
+    rdfs:comment "Borrower default on underlying collateral"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+asc:PrincipalPayment a owl:Class ;
+    rdfs:label "Principal Payment"@en ;
+    rdfs:comment "Scheduled principal repayment"@en ;
+    rdfs:subClassOf aaa:Distribution .
+
+ape:CarryDistribution a owl:Class ;
+    rdfs:label "Carry Distribution"@en ;
+    rdfs:comment "Carried interest distribution to GP"@en ;
+    rdfs:subClassOf aaa:Distribution .
+
+asc:CouponPayment a owl:Class ;
+    rdfs:label "Coupon Payment"@en ;
+    rdfs:comment "Scheduled interest / coupon receipt"@en ;
+    rdfs:subClassOf aaa:Distribution .
+
+aaa:Participant a owl:Class ;
+    rdfs:label "Participant"@en ;
+    rdfs:comment "Any party interacting with an AAA fund"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+ape:DrawdownNotice a owl:Class ;
+    rdfs:label "Drawdown Notice"@en ;
+    rdfs:comment "GP capital call drawdown notice"@en ;
+    rdfs:subClassOf aaa:CapitalCall .
+
+aaa:NAVRecord a owl:Class ;
+    rdfs:label "NAV Record"@en ;
+    rdfs:comment "Point-in-time net asset value snapshot"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:CreditRating a owl:Class ;
+    rdfs:label "Credit Rating"@en ;
+    rdfs:comment "External credit rating on a tranche or holding"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:HedgeContract a owl:Class ;
+    rdfs:label "Hedge Contract"@en ;
+    rdfs:comment "Interest rate swap, CDS or FX hedge overlay"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:RepoFacility a owl:Class ;
+    rdfs:label "Repo Facility"@en ;
+    rdfs:comment "Repurchase agreement / repo funding line"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:Distribution a owl:Class ;
+    rdfs:label "Distribution"@en ;
+    rdfs:comment "Cash distribution to investors"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+aaa:FeeRecord a owl:Class ;
+    rdfs:label "Fee Record"@en ;
+    rdfs:comment "Management, incentive or expense record"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+ape:PortfolioValuation a owl:Class ;
+    rdfs:label "Portfolio Valuation"@en ;
+    rdfs:comment "Quarterly fair-value mark of a portfolio company"@en ;
+    rdfs:subClassOf aaa:NAVRecord .
+
+aaa:CapitalCall a owl:Class ;
+    rdfs:label "Capital Call"@en ;
+    rdfs:comment "GP capital call or LP distribution notice"@en ;
+    rdfs:subClassOf aaa:Transaction .
+
+ape:Commitment a owl:Class ;
+    rdfs:label "PE Commitment"@en ;
+    rdfs:comment "LP capital commitment to the PE fund"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:AuditLog a owl:Class ;
+    rdfs:label "Audit Log"@en ;
+    rdfs:comment "Immutable state-change log entry"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:KYCCheck a owl:Class ;
+    rdfs:label "KYC Check"@en ;
+    rdfs:comment "Know-Your-Customer / AML compliance check"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:Investor a owl:Class ;
+    rdfs:label "Investor"@en ;
+    rdfs:comment "LP or policyholder allocating to an AAA fund"@en ;
+    rdfs:subClassOf aaa:Participant .
+
+ape:PortfolioCompany a owl:Class ;
+    rdfs:label "Portfolio Company"@en ;
+    rdfs:comment "Underlying PE portfolio company investment"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:SCFund a owl:Class ;
+    rdfs:label "SC Fund"@en ;
+    rdfs:comment "Athene AAA Structured Credit fund vehicle"@en ;
+    rdfs:subClassOf aaa:Fund .
+
+asc:CollateralPool a owl:Class ;
+    rdfs:label "Collateral Pool"@en ;
+    rdfs:comment "Pool of underlying ABS/CLO/RMBS/CMBS collateral"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+ape:PEFund a owl:Class ;
+    rdfs:label "PE Fund"@en ;
+    rdfs:comment "Apollo Aligned Alternatives PE feeder vehicle"@en ;
+    rdfs:subClassOf aaa:Fund .
+
+asc:Tranche a owl:Class ;
+    rdfs:label "Tranche"@en ;
+    rdfs:comment "Credit tranche within a structured deal (AAA, AA, A, BBB, etc.)"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:Fund a owl:Class ;
+    rdfs:label "Fund"@en ;
+    rdfs:comment "Any AAA fund vehicle (PE or SC)"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+asc:SecurityHolding a owl:Class ;
+    rdfs:label "Security Holding"@en ;
+    rdfs:comment "Position in a specific ABS/CLO security"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:Transaction a owl:Class ;
+    rdfs:label "Transaction"@en ;
+    rdfs:comment "Any financial event in an AAA fund"@en ;
+    rdfs:subClassOf aaa:AAAEntity .
+
+aaa:AAAEntity a owl:Class ;
+    rdfs:label "AAA Entity"@en ;
+    rdfs:comment "Abstract root for all AAA fund entities"@en .
+

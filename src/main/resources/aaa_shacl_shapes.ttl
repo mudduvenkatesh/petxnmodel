@@ -1,0 +1,453 @@
+@prefix aaa: <https://ontology.apollo.com/aaa/> .
+@prefix ape: <https://ontology.apollo.com/aaa/pe/> .
+@prefix asc: <https://ontology.apollo.com/aaa/sc/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shx: <https://ontology.apollo.com/aaa/shapes/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+shx:CapitalCallShape a sh:NodeShape ;
+    rdfs:label "Capital call shape"@en ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:minInclusive 1.0 ;
+            sh:path aaa:callNumber ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:callAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:callPercentage ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:dueDate ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:callDate ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "call ID"@en ;
+            sh:path aaa:callId ] ;
+    sh:targetClass aaa:CapitalCall .
+
+shx:CollateralPoolShape a sh:NodeShape ;
+    rdfs:label "Collateral pool shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxInclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:cdr ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "CLO" "RMBS" "CMBS" "ABS" "CRE_CLO" "CONSUMER_ABS" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:assetType ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:currentBalance ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxInclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:cpr ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:originalBalance ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:poolId ] ;
+    sh:targetClass asc:CollateralPool .
+
+shx:CommitmentShape a sh:NodeShape ;
+    rdfs:label "PE commitment shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:committedDate ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:calledAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:uncalledAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:commitmentAmount ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "CLASS_A" "CLASS_I" "CLASS_S" "CLASS_D" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:shareClass ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:commitmentId ] ;
+    sh:targetClass ape:Commitment .
+
+shx:CreditRatingShape a sh:NodeShape ;
+    rdfs:label "Credit rating shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:ratingDate ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "Moody's" "S&P" "Fitch" "KBRA" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:ratingAgency ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "AAA" "AA+" "AA" "AA-" "A+" "A" "A-" "BBB+" "BBB" "BBB-" "BB" "B" "CCC" "D" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:ratingValue ] ;
+    sh:targetClass asc:CreditRating .
+
+shx:DistributionShape a sh:NodeShape ;
+    rdfs:label "Distribution shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:distributionDate ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "RETURN_OF_CAPITAL" "INCOME" "GAIN" "RECALLABLE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:distributionType ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:distributionAmount ] ;
+    sh:targetClass aaa:Distribution .
+
+shx:InvestorShape a sh:NodeShape ;
+    rdfs:label "Investor shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "investor ID"@en ;
+            sh:path aaa:investorId ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "country"@en ;
+            sh:path aaa:country ;
+            sh:pattern "^[A-Z]{2}$" ],
+        [ sh:class aaa:KYCCheck ;
+            sh:minCount 1 ;
+            sh:name "has KYC check"@en ;
+            sh:path aaa:hasKYC ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "ACCREDITED" "QUALIFIED_PURCHASER" "INSTITUTIONAL" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:accreditationStatus ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "qualified purchaser"@en ;
+            sh:path aaa:qualifiedPurchaser ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "INSURANCE_CO" "PENSION" "ENDOWMENT" "FAMILY_OFFICE" "INDIVIDUAL" "SOVEREIGN_WEALTH" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:investorType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "investor name"@en ;
+            sh:path aaa:investorName ] ;
+    sh:targetClass aaa:Investor .
+
+shx:KYCShape a sh:NodeShape ;
+    rdfs:label "KYC check shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "KYC ID"@en ;
+            sh:path aaa:kycId ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:pepFlag ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "LOW" "MEDIUM" "HIGH" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:riskRating ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:kycCheckDate ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "APPROVED" "PENDING" "FAILED" "EXPIRED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:kycStatus ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:sanctionsFlag ] ;
+    sh:targetClass aaa:KYCCheck .
+
+shx:NAVRecordShape a sh:NodeShape ;
+    rdfs:label "NAV record shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:unitsOutstanding ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:navDate ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:navPerUnit ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path aaa:totalNAV ] ;
+    sh:targetClass aaa:NAVRecord .
+
+shx:PEFundShape a sh:NodeShape ;
+    rdfs:label "PE fund shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:preferredReturn ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:fundName ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:fundId ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1980.0 ;
+            sh:path ape:vintageYear ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:managementFeePct ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "BUYOUT" "GROWTH" "CREDIT" "REAL_ASSETS" "HYBRID" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:fundStrategy ],
+        [ sh:class aaa:FundManager ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:managedBy ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:carryPct ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "OPEN" "CLOSED" "LIQUIDATING" "TERMINATED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:fundStatus ] ;
+    sh:targetClass ape:PEFund .
+
+shx:PortfolioCompanyShape a sh:NodeShape ;
+    rdfs:label "Portfolio company shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxInclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:ownershipPct ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:geography ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:companyName ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:sector ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:portfolioCoId ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path ape:entryEV ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path ape:investmentDate ] ;
+    sh:targetClass ape:PortfolioCompany .
+
+shx:SCFundShape a sh:NodeShape ;
+    rdfs:label "Structured credit fund shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:fundId ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:leverageRatio ],
+        [ sh:class asc:CollateralPool ;
+            sh:minCount 1 ;
+            sh:path asc:hasCollateral ],
+        [ sh:class aaa:FundManager ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:managedBy ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:targetYield ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:fundName ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "AAA" "AA" "A" "BBB" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:minCreditQuality ] ;
+    sh:targetClass asc:SCFund .
+
+shx:SecurityHoldingShape a sh:NodeShape ;
+    rdfs:label "Security holding shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:securityId ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "CLO" "RMBS" "CMBS" "ABS_AUTO" "ABS_CARD" "CRE" "CONSUMER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:securityType ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:purchaseDate ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:currentPrice ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:marketValue ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:path asc:yieldToMaturity ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:faceAmount ] ;
+    sh:targetClass asc:SecurityHolding .
+
+shx:TrancheShape a sh:NodeShape ;
+    rdfs:label "Tranche shape"@en ;
+    sh:property [ sh:class asc:CreditRating ;
+            sh:minCount 1 ;
+            sh:path asc:ratedBy ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:trancheId ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "FIXED" "FLOATING" "ZERO_COUPON" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:couponType ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:faceValue ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxInclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:attachmentPoint ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "SENIOR" "MEZZANINE" "SUBORDINATE" "EQUITY" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:trancheType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:trancheName ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxInclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:path asc:detachmentPoint ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path asc:maturityDate ] ;
+    sh:targetClass asc:Tranche .
+
+shx:TransactionShape a sh:NodeShape ;
+    rdfs:label "Transaction shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction date"@en ;
+            sh:path aaa:transactionDate ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "settlement date"@en ;
+            sh:path aaa:settlementDate ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "currency"@en ;
+            sh:path aaa:currency ;
+            sh:pattern "^[A-Z]{3}$" ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "PENDING" "CONFIRMED" "SETTLED" "FAILED" "CANCELLED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:path aaa:transactionStatus ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction type"@en ;
+            sh:path aaa:transactionType ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "gross amount"@en ;
+            sh:path aaa:grossAmount ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction ID"@en ;
+            sh:path aaa:transactionId ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ] ;
+    sh:targetClass aaa:Transaction .
+

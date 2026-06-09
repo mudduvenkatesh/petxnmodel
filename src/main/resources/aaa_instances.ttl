@@ -1,0 +1,329 @@
+@prefix aaa: <https://ontology.apollo.com/aaa/> .
+@prefix ape: <https://ontology.apollo.com/aaa/pe/> .
+@prefix asc: <https://ontology.apollo.com/aaa/sc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.apollo.com/aaa/instance/auditlog/log-pe-001> a aaa:AuditLog ;
+    aaa:auditAction "STATUS_CHANGE" ;
+    aaa:auditEntityId "txn-aaa-pe-2022-001" ;
+    aaa:auditEntityType "PETransaction" ;
+    aaa:auditOf <https://data.apollo.com/aaa/instance/transaction/pe/txn-aaa-pe-2022-001> ;
+    aaa:auditTimestamp "2022-06-15T16:00:00"^^xsd:dateTime ;
+    aaa:logId "log-pe-001" ;
+    aaa:newValue "{\"status\":\"SETTLED\"}" ;
+    aaa:oldValue "{\"status\":\"CONFIRMED\"}" ;
+    aaa:performedBy "system:settlement-engine" .
+
+<https://data.apollo.com/aaa/instance/auditlog/log-sc-001> a aaa:AuditLog ;
+    aaa:auditAction "STATUS_CHANGE" ;
+    aaa:auditEntityId "cpn-clo-atlas-2024-q2" ;
+    aaa:auditEntityType "CouponPayment" ;
+    aaa:auditOf <https://data.apollo.com/aaa/instance/payment/coupon/cpn-clo-atlas-2024-q2> ;
+    aaa:auditTimestamp "2024-06-15T18:30:00"^^xsd:dateTime ;
+    aaa:logId "log-sc-001" ;
+    aaa:newValue "{\"status\":\"SETTLED\"}" ;
+    aaa:oldValue "{\"status\":\"PENDING\"}" ;
+    aaa:performedBy "system:coupon-processor" .
+
+<https://data.apollo.com/aaa/instance/fund/sc/athene-aaa-structured-credit-iv> a asc:SCFund ;
+    aaa:domicile "Delaware" ;
+    aaa:fundId "fund-aaa-sc-004" ;
+    aaa:fundName "Athene AAA Structured Credit Fund IV" ;
+    aaa:fundStatus "OPEN" ;
+    aaa:hasNAVRecord <https://data.apollo.com/aaa/instance/nav/sc/nav-aaa-sc-2024-q2> ;
+    aaa:hasTransaction <https://data.apollo.com/aaa/instance/payment/coupon/cpn-clo-atlas-2024-q2>,
+        <https://data.apollo.com/aaa/instance/payment/principal/prn-rmbs-fnma-2024-q2> ;
+    aaa:inceptionDate "2021-07-01"^^xsd:date ;
+    aaa:managedBy <https://data.apollo.com/aaa/instance/manager/athene-holding> ;
+    aaa:reportingCurrency "USD" ;
+    asc:duration 2.8 ;
+    asc:fundedBy <https://data.apollo.com/aaa/instance/repo/repo-facility-sc-001> ;
+    asc:hasCollateral <https://data.apollo.com/aaa/instance/pool/clo-us-2024-01>,
+        <https://data.apollo.com/aaa/instance/pool/rmbs-agency-2024-02> ;
+    asc:hedgedBy <https://data.apollo.com/aaa/instance/hedge/ir-swap-sc-2024-001> ;
+    asc:holds <https://data.apollo.com/aaa/instance/security/clo-atlas-2022-3a>,
+        <https://data.apollo.com/aaa/instance/security/rmbs-fnma-2023-m12-a2> ;
+    asc:leverageRatio 3.2 ;
+    asc:minCreditQuality "AAA" ;
+    asc:overcollateralisation 1.42 ;
+    asc:targetYield 0.0625 ;
+    asc:wal 4.1 .
+
+<https://data.apollo.com/aaa/instance/investor/pe/family-office-xyz> a aaa:Investor ;
+    aaa:accreditationStatus "QUALIFIED_PURCHASER" ;
+    aaa:country "US" ;
+    aaa:investorId "inv-pe-002-family-xyz" ;
+    aaa:investorName "XYZ Family Office Holdings" ;
+    aaa:investorType "FAMILY_OFFICE" ;
+    aaa:qualifiedPurchaser true .
+
+<https://data.apollo.com/aaa/instance/investor/sc/athene-life-re> a aaa:Investor ;
+    aaa:accreditationStatus "INSTITUTIONAL" ;
+    aaa:country "BM" ;
+    aaa:investorId "inv-sc-001-athene-life" ;
+    aaa:investorName "Athene Life Re Ltd." ;
+    aaa:investorType "INSURANCE_CO" ;
+    aaa:qualifiedPurchaser true .
+
+<https://data.apollo.com/aaa/instance/investor/sc/sovereign-wealth-mid> a aaa:Investor ;
+    aaa:accreditationStatus "INSTITUTIONAL" ;
+    aaa:country "AE" ;
+    aaa:investorId "inv-sc-002-swf-mid" ;
+    aaa:investorName "Middle Eastern Sovereign Wealth Fund" ;
+    aaa:investorType "SOVEREIGN_WEALTH" ;
+    aaa:qualifiedPurchaser true .
+
+<https://data.apollo.com/aaa/instance/capitalcall/pe/call-aaa-pe-001> a ape:DrawdownNotice ;
+    aaa:callAmount 7500000.0 ;
+    aaa:callDate "2022-09-01"^^xsd:date ;
+    aaa:callId "call-aaa-pe-001" ;
+    aaa:callNumber 1 ;
+    aaa:callPercentage 0.15 ;
+    aaa:dueDate "2022-09-15"^^xsd:date ;
+    ape:drawdownPurpose "INVESTMENT" ;
+    ape:linkedToCommitment <https://data.apollo.com/aaa/instance/commitment/pe/comm-pe-001> .
+
+<https://data.apollo.com/aaa/instance/distribution/pe/dist-aaa-pe-2024-001> a aaa:Distribution ;
+    aaa:currency "USD" ;
+    aaa:distributionAmount 3200000.0 ;
+    aaa:distributionDate "2024-03-31"^^xsd:date ;
+    aaa:distributionType "INCOME" .
+
+<https://data.apollo.com/aaa/instance/fund/pe/apollo-aligned-alternatives-ii> a ape:PEFund ;
+    aaa:domicile "Cayman Islands" ;
+    aaa:fundId "fund-aaa-pe-002" ;
+    aaa:fundName "Apollo Aligned Alternatives II, L.P." ;
+    aaa:fundStatus "OPEN" ;
+    aaa:hasCapitalCall <https://data.apollo.com/aaa/instance/capitalcall/pe/call-aaa-pe-001> ;
+    aaa:hasDistribution <https://data.apollo.com/aaa/instance/distribution/pe/dist-aaa-pe-2024-001> ;
+    aaa:hasNAVRecord <https://data.apollo.com/aaa/instance/nav/pe/nav-aaa-pe-2024-q2> ;
+    aaa:hasTransaction <https://data.apollo.com/aaa/instance/transaction/pe/txn-aaa-pe-2022-001> ;
+    aaa:inceptionDate "2022-01-15"^^xsd:date ;
+    aaa:managedBy <https://data.apollo.com/aaa/instance/manager/apollo-global-management> ;
+    ape:carryPct 0.2 ;
+    ape:fundStrategy "HYBRID" ;
+    ape:fundTermYears 10 ;
+    ape:gpCommitment 50000000.0 ;
+    ape:hardCap 7500000000.0 ;
+    ape:hasCommitment <https://data.apollo.com/aaa/instance/commitment/pe/comm-pe-001> ;
+    ape:investmentPeriod 5 ;
+    ape:investsIn <https://data.apollo.com/aaa/instance/portfolioco/healthcare-partners>,
+        <https://data.apollo.com/aaa/instance/portfolioco/techco-alpha> ;
+    ape:managementFeePct 0.015 ;
+    ape:preferredReturn 0.07 ;
+    ape:targetSize 5000000000.0 ;
+    ape:vintageYear 2022 ;
+    aaa:reportingCurrency "USD" .
+
+<https://data.apollo.com/aaa/instance/hedge/ir-swap-sc-2024-001> a asc:HedgeContract ;
+    aaa:entityId "hedge-ir-swap-001" ;
+    asc:fixedRate 0.0425 ;
+    asc:hedgeMaturity "2029-06-15"^^xsd:date ;
+    asc:hedgeType "IR_SWAP" ;
+    asc:markToMarket -2850000.0 ;
+    asc:notionalAmount 200000000.0 .
+
+<https://data.apollo.com/aaa/instance/investor/pe/pension-fund-abc> a aaa:Investor ;
+    aaa:accreditationStatus "INSTITUTIONAL" ;
+    aaa:country "US" ;
+    aaa:hasKYC <https://data.apollo.com/aaa/instance/kyc/pe/kyc-pe-001> ;
+    aaa:investorId "inv-pe-001-pension-abc" ;
+    aaa:investorName "ABC State Pension Fund" ;
+    aaa:investorType "PENSION" ;
+    ape:commitsTo <https://data.apollo.com/aaa/instance/fund/pe/apollo-aligned-alternatives-ii> ;
+    aaa:qualifiedPurchaser true .
+
+<https://data.apollo.com/aaa/instance/kyc/pe/kyc-pe-001> a aaa:KYCCheck ;
+    aaa:kycCheckDate "2024-01-10"^^xsd:date ;
+    aaa:kycId "kyc-pe-001" ;
+    aaa:kycProvider "Refinitiv" ;
+    aaa:kycReviewDate "2025-01-10"^^xsd:date ;
+    aaa:kycStatus "APPROVED" ;
+    aaa:pepFlag false ;
+    aaa:riskRating "LOW" ;
+    aaa:sanctionsFlag false .
+
+<https://data.apollo.com/aaa/instance/manager/apollo-global-management> a aaa:FundManager ;
+    aaa:entityId "mgr-apollo-001" ;
+    aaa:investorName "Apollo Global Management, L.P." .
+
+<https://data.apollo.com/aaa/instance/manager/athene-holding> a aaa:FundManager ;
+    aaa:entityId "mgr-athene-001" ;
+    aaa:investorName "Athene Holding Ltd." .
+
+<https://data.apollo.com/aaa/instance/nav/pe/nav-aaa-pe-2024-q2> a aaa:NAVRecord ;
+    aaa:navDate "2024-06-30"^^xsd:date ;
+    aaa:navPerUnit 1187.5 ;
+    aaa:totalNAV 2850000000.0 ;
+    aaa:unitsOutstanding 2400633.0 .
+
+<https://data.apollo.com/aaa/instance/nav/sc/nav-aaa-sc-2024-q2> a aaa:NAVRecord ;
+    aaa:navDate "2024-06-30"^^xsd:date ;
+    aaa:navPerUnit 1043.28 ;
+    aaa:totalNAV 1250000000.0 ;
+    aaa:unitsOutstanding 1198400.0 .
+
+<https://data.apollo.com/aaa/instance/payment/principal/prn-rmbs-fnma-2024-q2> a asc:PrincipalPayment ;
+    aaa:currency "USD" ;
+    asc:principalAmount 875000.0 ;
+    asc:principalDate "2024-06-25"^^xsd:date ;
+    aaa:transactionId "prn-rmbs-fnma-2024-q2" ;
+    aaa:transactionStatus "SETTLED" .
+
+<https://data.apollo.com/aaa/instance/portfolioco/healthcare-partners> a ape:PortfolioCompany ;
+    ape:companyName "Healthcare Partners Group LLC" ;
+    ape:currentEV 745000000.0 ;
+    ape:entryEV 620000000.0 ;
+    ape:geography "North America" ;
+    ape:investmentDate "2023-03-15"^^xsd:date ;
+    ape:ownershipPct 0.25 ;
+    ape:portfolioCoId "pc-002-healthcare-partners" ;
+    ape:sector "Healthcare" .
+
+<https://data.apollo.com/aaa/instance/portfolioco/techco-alpha> a ape:PortfolioCompany ;
+    ape:companyName "TechCo Alpha Holdings, Inc." ;
+    ape:currentEV 1275000000.0 ;
+    ape:entryEV 850000000.0 ;
+    ape:geography "North America" ;
+    ape:hasValuation <https://data.apollo.com/aaa/instance/valuation/pe/val-techco-2024-q2> ;
+    ape:investmentDate "2022-09-01"^^xsd:date ;
+    ape:ownershipPct 0.32 ;
+    ape:portfolioCoId "pc-001-techco-alpha" ;
+    ape:sector "Information Technology" .
+
+<https://data.apollo.com/aaa/instance/rating/moodys-tranche-class-a> a asc:CreditRating ;
+    asc:ratingAgency "Moody's" ;
+    asc:ratingDate "2024-03-01"^^xsd:date ;
+    asc:ratingOutlook "STABLE" ;
+    asc:ratingValue "AAA" .
+
+<https://data.apollo.com/aaa/instance/rating/sp-tranche-class-a> a asc:CreditRating ;
+    asc:ratingAgency "S&P" ;
+    asc:ratingDate "2024-03-05"^^xsd:date ;
+    asc:ratingOutlook "STABLE" ;
+    asc:ratingValue "AAA" .
+
+<https://data.apollo.com/aaa/instance/repo/repo-facility-sc-001> a asc:RepoFacility ;
+    aaa:entityId "repo-facility-001" ;
+    asc:haircut 0.05 ;
+    asc:repoCapacity 300000000.0 ;
+    asc:repoMaturity "2025-06-30"^^xsd:date ;
+    asc:repoOutstanding 185000000.0 ;
+    asc:repoRate 0.0532 .
+
+<https://data.apollo.com/aaa/instance/security/rmbs-fnma-2023-m12-a2> a asc:SecurityHolding ;
+    asc:backedBy <https://data.apollo.com/aaa/instance/pool/rmbs-agency-2024-02> ;
+    asc:currentPrice 97.5 ;
+    asc:cusip "3136AVCZ8" ;
+    asc:faceAmount 50000000.0 ;
+    asc:isin "US3136AVCZ88" ;
+    asc:marketValue 48750000.0 ;
+    asc:oas 85.0 ;
+    asc:purchaseDate "2023-04-20"^^xsd:date ;
+    asc:purchasePrice 98.5 ;
+    asc:securityId "sec-rmbs-fnma-2023-m12-a2" ;
+    asc:securityName "FNMA Multifamily 2023-M12 Class A2" ;
+    asc:securityType "RMBS" ;
+    asc:yieldToMaturity 0.0558 .
+
+<https://data.apollo.com/aaa/instance/tranche/clo-2024-01-class-a> a asc:Tranche ;
+    asc:attachmentPoint 0.0 ;
+    asc:couponRate 0.0175 ;
+    asc:couponType "FLOATING" ;
+    asc:currentBalance_t 397950000.0 ;
+    asc:detachmentPoint 0.65 ;
+    asc:expectedMaturity "2031-01-15"^^xsd:date ;
+    asc:faceValue 422500000.0 ;
+    asc:maturityDate "2037-07-15"^^xsd:date ;
+    asc:ratedBy <https://data.apollo.com/aaa/instance/rating/moodys-tranche-class-a>,
+        <https://data.apollo.com/aaa/instance/rating/sp-tranche-class-a> ;
+    asc:referenceRate "SOFR" ;
+    asc:trancheId "tranche-clo-2024-01-class-a" ;
+    asc:trancheName "Class A — Senior Secured Floating" ;
+    asc:trancheType "SENIOR" .
+
+<https://data.apollo.com/aaa/instance/tranche/clo-2024-01-class-b> a asc:Tranche ;
+    asc:attachmentPoint 0.65 ;
+    asc:couponRate 0.026 ;
+    asc:couponType "FLOATING" ;
+    asc:detachmentPoint 0.84 ;
+    asc:faceValue 123500000.0 ;
+    asc:referenceRate "SOFR" ;
+    asc:trancheId "tranche-clo-2024-01-class-b" ;
+    asc:trancheName "Class B — Senior Secured Floating" ;
+    asc:trancheType "MEZZANINE" .
+
+<https://data.apollo.com/aaa/instance/valuation/pe/val-techco-2024-q2> a ape:PortfolioValuation ;
+    aaa:navDate "2024-06-30"^^xsd:date ;
+    ape:grossMoic 1.62 ;
+    ape:irr 0.224 ;
+    ape:moic 1.5 ;
+    ape:realisedValue 0.0 ;
+    ape:totalValue 272000000.0 ;
+    ape:unrealisedValue 272000000.0 .
+
+<https://data.apollo.com/aaa/instance/commitment/pe/comm-pe-001> a ape:Commitment ;
+    ape:calledAmount 15000000.0 ;
+    ape:commitmentAmount 50000000.0 ;
+    ape:commitmentId "comm-pe-001" ;
+    ape:committedDate "2022-06-01"^^xsd:date ;
+    ape:shareClass "CLASS_I" ;
+    ape:uncalledAmount 35000000.0 .
+
+<https://data.apollo.com/aaa/instance/payment/coupon/cpn-clo-atlas-2024-q2> a asc:CouponPayment ;
+    aaa:currency "USD" ;
+    asc:couponAmount 1312500.0 ;
+    asc:couponDate "2024-06-15"^^xsd:date ;
+    asc:linkedToHolding <https://data.apollo.com/aaa/instance/security/clo-atlas-2022-3a> ;
+    aaa:transactionId "cpn-clo-atlas-2024-q2" ;
+    aaa:transactionStatus "SETTLED" .
+
+<https://data.apollo.com/aaa/instance/pool/clo-us-2024-01> a asc:CollateralPool ;
+    asc:assetType "CLO" ;
+    asc:cdr 0.0088 ;
+    asc:collateralCount 185 ;
+    asc:cpr 0.182 ;
+    asc:currentBalance 612000000.0 ;
+    asc:hasTranche <https://data.apollo.com/aaa/instance/tranche/clo-2024-01-class-a>,
+        <https://data.apollo.com/aaa/instance/tranche/clo-2024-01-class-b> ;
+    asc:originalBalance 650000000.0 ;
+    asc:poolId "pool-clo-us-2024-01" ;
+    asc:poolName "US BSL CLO Portfolio 2024-1" .
+
+<https://data.apollo.com/aaa/instance/pool/rmbs-agency-2024-02> a asc:CollateralPool ;
+    asc:assetType "RMBS" ;
+    asc:cdr 0.0025 ;
+    asc:collateralCount 2340 ;
+    asc:cpr 0.089 ;
+    asc:currentBalance 398000000.0 ;
+    asc:originalBalance 420000000.0 ;
+    asc:poolId "pool-rmbs-agency-2024-02" ;
+    asc:poolName "Agency RMBS Pool 2024-2" .
+
+<https://data.apollo.com/aaa/instance/security/clo-atlas-2022-3a> a asc:SecurityHolding ;
+    asc:accruedInterest 125000.0 ;
+    asc:backedBy <https://data.apollo.com/aaa/instance/pool/clo-us-2024-01> ;
+    asc:currentPrice 98.5 ;
+    asc:cusip "04655DAA5" ;
+    asc:faceAmount 75000000.0 ;
+    asc:isin "US04655DAA54" ;
+    asc:marketValue 73875000.0 ;
+    asc:oas 182.0 ;
+    asc:purchaseDate "2022-11-15"^^xsd:date ;
+    asc:purchasePrice 99.25 ;
+    asc:securityId "sec-clo-atlas-2022-3a" ;
+    asc:securityName "Atlas CLO 2022-3 Class A Notes" ;
+    asc:securityType "CLO" ;
+    asc:yieldToMaturity 0.0672 .
+
+<https://data.apollo.com/aaa/instance/transaction/pe/txn-aaa-pe-2022-001> a ape:Subscription ;
+    aaa:currency "USD" ;
+    aaa:grossAmount 50000000.0 ;
+    aaa:netAmount 50000000.0 ;
+    aaa:placedBy <https://data.apollo.com/aaa/instance/investor/pe/pension-fund-abc> ;
+    aaa:settlementDate "2022-06-15"^^xsd:date ;
+    aaa:transactionDate "2022-06-01"^^xsd:date ;
+    aaa:transactionId "txn-aaa-pe-2022-001" ;
+    aaa:transactionStatus "SETTLED" ;
+    aaa:transactionType "SUBSCRIPTION" .
+

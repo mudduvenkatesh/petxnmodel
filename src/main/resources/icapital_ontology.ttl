@@ -1,0 +1,790 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ic: <https://ontology.icapital.com/trig/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ic:accountNumber a owl:DatatypeProperty ;
+    rdfs:label "account number"@en ;
+    rdfs:comment "Custodian account number (masked)"@en ;
+    rdfs:domain ic:Account ;
+    rdfs:range xsd:string .
+
+ic:accountType a owl:DatatypeProperty ;
+    rdfs:label "account type"@en ;
+    rdfs:comment "INDIVIDUAL|JOINT|IRA_TRAD|IRA_ROTH|TRUST|CORPORATE"@en ;
+    rdfs:domain ic:Account ;
+    rdfs:range xsd:string .
+
+ic:accreditationStatus a owl:DatatypeProperty ;
+    rdfs:label "accreditation status"@en ;
+    rdfs:comment "ACCREDITED|QUALIFIED_PURCHASER|QUALIFIED_CLIENT"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:string .
+
+ic:action a owl:DatatypeProperty ;
+    rdfs:label "action"@en ;
+    rdfs:comment "CREATE|UPDATE|DELETE|STATUS_CHANGE|APPROVE"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:advisedBy a owl:ObjectProperty ;
+    rdfs:label "advised by"@en ;
+    rdfs:comment "Investor advised by RIA"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range ic:Advisor .
+
+ic:advisorName a owl:DatatypeProperty ;
+    rdfs:label "advisor name"@en ;
+    rdfs:comment "Advisor full name"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:string .
+
+ic:asOfDate a owl:DatatypeProperty ;
+    rdfs:label "as-of date"@en ;
+    rdfs:comment "Valuation date"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:date .
+
+ic:assetClass a owl:DatatypeProperty ;
+    rdfs:label "asset class"@en ;
+    rdfs:comment "PRIVATE_EQUITY|PRIVATE_CREDIT|REAL_ESTATE|HEDGE_FUND"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:string .
+
+ic:auditOf a owl:ObjectProperty ;
+    rdfs:label "audit of"@en ;
+    rdfs:comment "Audit log entry for any entity"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range ic:TRIGEntity .
+
+ic:aumUsd a owl:DatatypeProperty ;
+    rdfs:label "AUM USD"@en ;
+    rdfs:comment "Assets under management"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:decimal .
+
+ic:callAmount a owl:DatatypeProperty ;
+    rdfs:label "call amount"@en ;
+    rdfs:comment "Dollar amount of this call"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:decimal .
+
+ic:callDate a owl:DatatypeProperty ;
+    rdfs:label "call date"@en ;
+    rdfs:comment "Date notice was sent"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:date .
+
+ic:callNumber a owl:DatatypeProperty ;
+    rdfs:label "call number"@en ;
+    rdfs:comment "Sequential call number"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:integer .
+
+ic:callPercentage a owl:DatatypeProperty ;
+    rdfs:label "call percentage"@en ;
+    rdfs:comment "Percentage of total commitment called"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:decimal .
+
+ic:calledAmount a owl:DatatypeProperty ;
+    rdfs:label "called amount"@en ;
+    rdfs:comment "Capital called to date"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:calledPct a owl:DatatypeProperty ;
+    rdfs:label "called pct"@en ;
+    rdfs:comment "Percentage of commitment called"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:carriedInterestPct a owl:DatatypeProperty ;
+    rdfs:label "carried interest pct"@en ;
+    rdfs:comment "Carried interest percentage"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:carryPct a owl:DatatypeProperty ;
+    rdfs:label "carry pct"@en ;
+    rdfs:comment "Carried interest percentage"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:decimal .
+
+ic:checkDate a owl:DatatypeProperty ;
+    rdfs:label "check date"@en ;
+    rdfs:comment "Date KYC check was performed"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:date .
+
+ic:className a owl:DatatypeProperty ;
+    rdfs:label "class name"@en ;
+    rdfs:comment "CLASS_A|CLASS_I|CLASS_S|CLASS_D"@en ;
+    rdfs:domain ic:ShareClass ;
+    rdfs:range xsd:string .
+
+ic:clearingCode a owl:DatatypeProperty ;
+    rdfs:label "clearing code"@en ;
+    rdfs:comment "ABA routing / clearing code"@en ;
+    rdfs:domain ic:Custodian ;
+    rdfs:range xsd:string .
+
+ic:commitmentAmount a owl:DatatypeProperty ;
+    rdfs:label "commitment amount"@en ;
+    rdfs:comment "Total committed capital"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:country a owl:DatatypeProperty ;
+    rdfs:label "country"@en ;
+    rdfs:comment "ISO 3166-1 alpha-2 country code"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:string .
+
+ic:createdAt a owl:DatatypeProperty ;
+    rdfs:label "created at"@en ;
+    rdfs:comment "Record creation timestamp (UTC)"@en ;
+    rdfs:domain ic:TRIGEntity ;
+    rdfs:range xsd:dateTime .
+
+ic:currency a owl:DatatypeProperty ;
+    rdfs:label "currency"@en ;
+    rdfs:comment "ISO 4217 currency code"@en ;
+    rdfs:domain ic:ShareClass ;
+    rdfs:range xsd:string .
+
+ic:currentNav a owl:DatatypeProperty ;
+    rdfs:label "current NAV"@en ;
+    rdfs:comment "Current net asset value"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:custodianName a owl:DatatypeProperty ;
+    rdfs:label "custodian name"@en ;
+    rdfs:comment "Institution name"@en ;
+    rdfs:domain ic:Custodian ;
+    rdfs:range xsd:string .
+
+ic:dateOfBirth a owl:DatatypeProperty ;
+    rdfs:label "date of birth"@en ;
+    rdfs:comment "DOB for individuals"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:date .
+
+ic:distributionAmount a owl:DatatypeProperty ;
+    rdfs:label "distribution amount"@en ;
+    rdfs:comment "Distribution amount if any"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:distributionType a owl:DatatypeProperty ;
+    rdfs:label "distribution type"@en ;
+    rdfs:comment "RETURN_OF_CAPITAL|INCOME|GAIN|RECALLABLE"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:string .
+
+ic:distributionsRcvd a owl:DatatypeProperty ;
+    rdfs:label "distributions received"@en ;
+    rdfs:comment "Total distributions received"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:docType a owl:DatatypeProperty ;
+    rdfs:label "document type"@en ;
+    rdfs:comment "SUBSCRIPTION_AGREEMENT|PPM|SIDE_LETTER|TAX_FORM|ID_VERIFICATION"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:string .
+
+ic:dtccId a owl:DatatypeProperty ;
+    rdfs:label "DTCC ID"@en ;
+    rdfs:comment "DTCC / DTC participant number"@en ;
+    rdfs:domain ic:Custodian ;
+    rdfs:range xsd:string .
+
+ic:dueDate a owl:DatatypeProperty ;
+    rdfs:label "due date"@en ;
+    rdfs:comment "Payment due date"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:date .
+
+ic:effectiveDate a owl:DatatypeProperty ;
+    rdfs:label "effective date"@en ;
+    rdfs:comment "Settlement / value date"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:date .
+
+ic:email a owl:DatatypeProperty ;
+    rdfs:label "email"@en ;
+    rdfs:comment "Primary business email"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:string .
+
+ic:entityId a owl:DatatypeProperty ;
+    rdfs:label "entity ID"@en ;
+    rdfs:comment "ID of the mutated entity"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:entityType a owl:DatatypeProperty ;
+    rdfs:label "entity type"@en ;
+    rdfs:comment "Type of mutated entity"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:fileName a owl:DatatypeProperty ;
+    rdfs:label "file name"@en ;
+    rdfs:comment "Original file name"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:string .
+
+ic:firmName a owl:DatatypeProperty ;
+    rdfs:label "firm name"@en ;
+    rdfs:comment "RIA / BD firm name"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:string .
+
+ic:foundedYear a owl:DatatypeProperty ;
+    rdfs:label "founded year"@en ;
+    rdfs:comment "Year firm was established"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:integer .
+
+ic:fundName a owl:DatatypeProperty ;
+    rdfs:label "fund name"@en ;
+    rdfs:comment "Full legal fund name"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:string .
+
+ic:fundStatus a owl:DatatypeProperty ;
+    rdfs:label "fund status"@en ;
+    rdfs:comment "FUNDRAISING|INVESTING|HARVESTING|LIQUIDATED"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:string .
+
+ic:fundTermYears a owl:DatatypeProperty ;
+    rdfs:label "fund term years"@en ;
+    rdfs:comment "Investment period in years"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:integer .
+
+ic:fundType a owl:DatatypeProperty ;
+    rdfs:label "fund type"@en ;
+    rdfs:comment "BUYOUT|VENTURE|GROWTH|REAL_ASSETS|CREDIT|HEDGE_FUND"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:string .
+
+ic:hardCap a owl:DatatypeProperty ;
+    rdfs:label "hard cap"@en ;
+    rdfs:comment "Hard cap on commitments"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:decimal .
+
+ic:hasCapitalCall a owl:ObjectProperty ;
+    rdfs:label "has capital call"@en ;
+    rdfs:comment "Transaction has capital calls"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range ic:CapitalCall .
+
+ic:hasDocument a owl:ObjectProperty ;
+    rdfs:label "has document"@en ;
+    rdfs:comment "Transaction has document"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range ic:Document .
+
+ic:hasFinancial a owl:ObjectProperty ;
+    rdfs:label "has financial"@en ;
+    rdfs:comment "Transaction has financial record"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range ic:Financial ;
+    owl:inverseOf ic:isFinancialOf .
+
+ic:hasKYC a owl:ObjectProperty ;
+    rdfs:label "has KYC check"@en ;
+    rdfs:comment "Investor has KYC/AML record"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range ic:KYC .
+
+ic:hasOrder a owl:ObjectProperty ;
+    rdfs:label "has order"@en ;
+    rdfs:comment "Transaction is linked to an Order"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range ic:Order ;
+    owl:inverseOf ic:isOrderOf .
+
+ic:hasShareClass a owl:ObjectProperty ;
+    rdfs:label "has share class"@en ;
+    rdfs:comment "Fund has share class"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range ic:ShareClass ;
+    owl:inverseOf ic:shareClassOf .
+
+ic:heldAt a owl:ObjectProperty ;
+    rdfs:label "held at"@en ;
+    rdfs:comment "Account held at custodian"@en ;
+    rdfs:domain ic:Account ;
+    rdfs:range ic:Custodian .
+
+ic:heldByAccount a owl:ObjectProperty ;
+    rdfs:label "held by account"@en ;
+    rdfs:comment "Position held in account"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range ic:Account .
+
+ic:holdsFund a owl:ObjectProperty ;
+    rdfs:label "holds fund"@en ;
+    rdfs:comment "Position is in this fund"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range ic:Fund .
+
+ic:hqLocation a owl:DatatypeProperty ;
+    rdfs:label "HQ location"@en ;
+    rdfs:comment "Headquarters city / country"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:string .
+
+ic:investorName a owl:DatatypeProperty ;
+    rdfs:label "investor name"@en ;
+    rdfs:comment "Full legal name or entity name"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:string .
+
+ic:investorType a owl:DatatypeProperty ;
+    rdfs:label "investor type"@en ;
+    rdfs:comment "INDIVIDUAL|TRUST|IRA|CORPORATION|FOUNDATION|PARTNERSHIP|LLC"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:string .
+
+ic:ipAddress a owl:DatatypeProperty ;
+    rdfs:label "IP address"@en ;
+    rdfs:comment "Source IP address"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:irr a owl:DatatypeProperty ;
+    rdfs:label "IRR"@en ;
+    rdfs:comment "Internal rate of return"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:isActive a owl:DatatypeProperty ;
+    rdfs:label "is active"@en ;
+    rdfs:comment "Active status flag"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:boolean .
+
+ic:isExecuted a owl:DatatypeProperty ;
+    rdfs:label "is executed"@en ;
+    rdfs:comment "Fully executed flag"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:boolean .
+
+ic:isRecallable a owl:DatatypeProperty ;
+    rdfs:label "is recallable"@en ;
+    rdfs:comment "Whether capital may be recalled"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range xsd:boolean .
+
+ic:issuedByFund a owl:ObjectProperty ;
+    rdfs:label "issued by fund"@en ;
+    rdfs:comment "Capital call issued by fund"@en ;
+    rdfs:domain ic:CapitalCall ;
+    rdfs:range ic:Fund .
+
+ic:jurisdiction a owl:DatatypeProperty ;
+    rdfs:label "jurisdiction"@en ;
+    rdfs:comment "Regulatory jurisdiction"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:string .
+
+ic:kycCheckStatus a owl:DatatypeProperty ;
+    rdfs:label "KYC check status"@en ;
+    rdfs:comment "APPROVED|PENDING|FAILED|EXPIRED"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:string .
+
+ic:kycStatus a owl:DatatypeProperty ;
+    rdfs:label "KYC status"@en ;
+    rdfs:comment "APPROVED|PENDING|FAILED"@en ;
+    rdfs:domain ic:Account ;
+    rdfs:range xsd:string .
+
+ic:liquidityWindow a owl:DatatypeProperty ;
+    rdfs:label "liquidity window"@en ;
+    rdfs:comment "Quarterly|Semi-annual|Annual|Closed-end"@en ;
+    rdfs:domain ic:ShareClass ;
+    rdfs:range xsd:string .
+
+ic:lockUpPeriod a owl:DatatypeProperty ;
+    rdfs:label "lock-up period"@en ;
+    rdfs:comment "Lock-up duration description"@en ;
+    rdfs:domain ic:ShareClass ;
+    rdfs:range xsd:string .
+
+ic:managedBy a owl:ObjectProperty ;
+    rdfs:label "managed by"@en ;
+    rdfs:comment "Order managed by advisor"@en ;
+    rdfs:domain ic:Order ;
+    rdfs:range ic:Advisor .
+
+ic:managementFeePct a owl:DatatypeProperty ;
+    rdfs:label "management fee pct"@en ;
+    rdfs:comment "Annual management fee percentage"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:managerName a owl:DatatypeProperty ;
+    rdfs:label "manager name"@en ;
+    rdfs:comment "GP firm name"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:string .
+
+ic:minInvestment a owl:DatatypeProperty ;
+    rdfs:label "min investment"@en ;
+    rdfs:comment "Minimum subscription amount"@en ;
+    rdfs:domain ic:ShareClass ;
+    rdfs:range xsd:decimal .
+
+ic:moic a owl:DatatypeProperty ;
+    rdfs:label "MOIC"@en ;
+    rdfs:comment "Multiple on invested capital"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:nav a owl:DatatypeProperty ;
+    rdfs:label "NAV"@en ;
+    rdfs:comment "Net Asset Value at transaction date"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:navPerUnit a owl:DatatypeProperty ;
+    rdfs:label "NAV per unit"@en ;
+    rdfs:comment "NAV per unit or share"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:newValue a owl:DatatypeProperty ;
+    rdfs:label "new value"@en ;
+    rdfs:comment "JSON snapshot of new state"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:oldValue a owl:DatatypeProperty ;
+    rdfs:label "old value"@en ;
+    rdfs:comment "JSON snapshot of previous state"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:ontology a owl:Ontology ;
+    rdfs:label "iCapital TRIG Ontology"@en ;
+    dcterms:created "2024-01-01"^^xsd:date ;
+    dcterms:publisher "iCapital Network" ;
+    rdfs:comment "OWL ontology covering Transaction, Relationship, Investment and Governance domains for the iCapital alternative-investment platform."@en ;
+    owl:versionIRI <https://ontology.icapital.com/trig/ontology/1.0> .
+
+ic:openedDate a owl:DatatypeProperty ;
+    rdfs:label "opened date"@en ;
+    rdfs:comment "Account opening date"@en ;
+    rdfs:domain ic:Account ;
+    rdfs:range xsd:date .
+
+ic:ownsAccount a owl:ObjectProperty ;
+    rdfs:label "owns account"@en ;
+    rdfs:comment "Investor owns account"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range ic:Account ;
+    owl:inverseOf ic:accountOwnedBy .
+
+ic:pepFlag a owl:DatatypeProperty ;
+    rdfs:label "PEP flag"@en ;
+    rdfs:comment "Politically Exposed Person flag"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:boolean .
+
+ic:performedBy a owl:DatatypeProperty ;
+    rdfs:label "performed by"@en ;
+    rdfs:comment "User or system that performed the action"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:string .
+
+ic:placedBy a owl:ObjectProperty ;
+    rdfs:label "placed by"@en ;
+    rdfs:comment "Order placed by investor"@en ;
+    rdfs:domain ic:Order ;
+    rdfs:range ic:Investor .
+
+ic:preferredReturn a owl:DatatypeProperty ;
+    rdfs:label "preferred return"@en ;
+    rdfs:comment "Hurdle / preferred return pct"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:provider a owl:DatatypeProperty ;
+    rdfs:label "provider"@en ;
+    rdfs:comment "LexisNexis|Refinitiv|Jumio|Internal"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:string .
+
+ic:qualifiedPurchaser a owl:DatatypeProperty ;
+    rdfs:label "qualified purchaser"@en ;
+    rdfs:comment "Qualified purchaser flag"@en ;
+    rdfs:domain ic:Investor ;
+    rdfs:range xsd:boolean .
+
+ic:reviewDate a owl:DatatypeProperty ;
+    rdfs:label "review date"@en ;
+    rdfs:comment "Next scheduled review date"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:date .
+
+ic:riaCrdNumber a owl:DatatypeProperty ;
+    rdfs:label "RIA CRD number"@en ;
+    rdfs:comment "SEC / FINRA CRD number"@en ;
+    rdfs:domain ic:Advisor ;
+    rdfs:range xsd:string .
+
+ic:riskRating a owl:DatatypeProperty ;
+    rdfs:label "risk rating"@en ;
+    rdfs:comment "LOW|MEDIUM|HIGH"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:string .
+
+ic:sanctionsFlag a owl:DatatypeProperty ;
+    rdfs:label "sanctions flag"@en ;
+    rdfs:comment "OFAC/sanctions list flag"@en ;
+    rdfs:domain ic:KYC ;
+    rdfs:range xsd:boolean .
+
+ic:secRegistered a owl:DatatypeProperty ;
+    rdfs:label "SEC registered"@en ;
+    rdfs:comment "SEC-registered flag"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:boolean .
+
+ic:settledThrough a owl:ObjectProperty ;
+    rdfs:label "settled through"@en ;
+    rdfs:comment "Order settled through account"@en ;
+    rdfs:domain ic:Order ;
+    rdfs:range ic:Account .
+
+ic:signedDate a owl:DatatypeProperty ;
+    rdfs:label "signed date"@en ;
+    rdfs:comment "Date investor signed"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:date .
+
+ic:sourceSystem a owl:DatatypeProperty ;
+    rdfs:label "source system"@en ;
+    rdfs:comment "Originating platform or API"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:string .
+
+ic:sponsoredBy a owl:ObjectProperty ;
+    rdfs:label "sponsored by"@en ;
+    rdfs:comment "Fund sponsored by GP manager"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range ic:FundManager .
+
+ic:storageUri a owl:DatatypeProperty ;
+    rdfs:label "storage URI"@en ;
+    rdfs:comment "Secure storage URI"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:anyURI .
+
+ic:strategyFocus a owl:DatatypeProperty ;
+    rdfs:label "strategy focus"@en ;
+    rdfs:comment "Investment strategy description"@en ;
+    rdfs:domain ic:FundManager ;
+    rdfs:range xsd:string .
+
+ic:subscriptionAmount a owl:DatatypeProperty ;
+    rdfs:label "subscription amount"@en ;
+    rdfs:comment "Amount for this call"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:targetSize a owl:DatatypeProperty ;
+    rdfs:label "target size"@en ;
+    rdfs:comment "Target fund size (USD)"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:decimal .
+
+ic:targetsFund a owl:ObjectProperty ;
+    rdfs:label "targets fund"@en ;
+    rdfs:comment "Order targets a fund"@en ;
+    rdfs:domain ic:Order ;
+    rdfs:range ic:Fund .
+
+ic:timestamp a owl:DatatypeProperty ;
+    rdfs:label "timestamp"@en ;
+    rdfs:comment "Event timestamp (UTC, immutable)"@en ;
+    rdfs:domain ic:AuditLog ;
+    rdfs:range xsd:dateTime .
+
+ic:totalCommitment a owl:DatatypeProperty ;
+    rdfs:label "total commitment"@en ;
+    rdfs:comment "Total committed capital"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:transactionDate a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "transaction date"@en ;
+    rdfs:comment "Date transaction was submitted"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:date .
+
+ic:transactionId a owl:DatatypeProperty,
+        owl:FunctionalProperty ;
+    rdfs:label "transaction ID"@en ;
+    rdfs:comment "Unique UUID for the transaction"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:string .
+
+ic:transactionStatus a owl:DatatypeProperty ;
+    rdfs:label "transaction status"@en ;
+    rdfs:comment "PENDING|APPROVED|FUNDED|REJECTED|CANCELLED"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:string .
+
+ic:transactionType a owl:DatatypeProperty ;
+    rdfs:label "transaction type"@en ;
+    rdfs:comment "SUBSCRIPTION|REDEMPTION|TRANSFER|DISTRIBUTION"@en ;
+    rdfs:domain ic:Transaction ;
+    rdfs:range xsd:string .
+
+ic:uncalledAmount a owl:DatatypeProperty ;
+    rdfs:label "uncalled amount"@en ;
+    rdfs:comment "Remaining unfunded commitment"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:unitsPurchased a owl:DatatypeProperty ;
+    rdfs:label "units purchased"@en ;
+    rdfs:comment "Units / shares acquired"@en ;
+    rdfs:domain ic:Financial ;
+    rdfs:range xsd:decimal .
+
+ic:unrealizedGain a owl:DatatypeProperty ;
+    rdfs:label "unrealized gain"@en ;
+    rdfs:comment "Unrealized gain or loss"@en ;
+    rdfs:domain ic:Position ;
+    rdfs:range xsd:decimal .
+
+ic:updatedAt a owl:DatatypeProperty ;
+    rdfs:label "updated at"@en ;
+    rdfs:comment "Last update timestamp (UTC)"@en ;
+    rdfs:domain ic:TRIGEntity ;
+    rdfs:range xsd:dateTime .
+
+ic:uploadDate a owl:DatatypeProperty ;
+    rdfs:label "upload date"@en ;
+    rdfs:comment "Date document was uploaded"@en ;
+    rdfs:domain ic:Document ;
+    rdfs:range xsd:date .
+
+ic:vintageYear a owl:DatatypeProperty ;
+    rdfs:label "vintage year"@en ;
+    rdfs:comment "Fund vintage year"@en ;
+    rdfs:domain ic:Fund ;
+    rdfs:range xsd:integer .
+
+ic:GovernanceDomain a owl:Class ;
+    rdfs:label "Governance Domain"@en ;
+    rdfs:comment "Entities in the Governance (G) TRIG domain"@en ;
+    rdfs:subClassOf ic:TRIGEntity .
+
+ic:Custodian a owl:Class ;
+    rdfs:label "Custodian"@en ;
+    rdfs:comment "Financial institution that holds and safeguards assets"@en ;
+    rdfs:subClassOf ic:RelationshipDomain .
+
+ic:InvestmentDomain a owl:Class ;
+    rdfs:label "Investment Domain"@en ;
+    rdfs:comment "Entities in the Investment (I) TRIG domain"@en ;
+    rdfs:subClassOf ic:TRIGEntity .
+
+ic:RelationshipDomain a owl:Class ;
+    rdfs:label "Relationship Domain"@en ;
+    rdfs:comment "Entities in the Relationship (R) TRIG domain"@en ;
+    rdfs:subClassOf ic:TRIGEntity .
+
+ic:TransactionDomain a owl:Class ;
+    rdfs:label "Transaction Domain"@en ;
+    rdfs:comment "Entities in the Transaction (T) TRIG domain"@en ;
+    rdfs:subClassOf ic:TRIGEntity .
+
+ic:Order a owl:Class ;
+    rdfs:label "Order"@en ;
+    rdfs:comment "Subscription order linking investor, fund and account"@en ;
+    rdfs:subClassOf ic:TransactionDomain .
+
+ic:ShareClass a owl:Class ;
+    rdfs:label "Share Class"@en ;
+    rdfs:comment "A specific share class within a fund with distinct terms"@en ;
+    rdfs:subClassOf ic:InvestmentDomain .
+
+ic:Document a owl:Class ;
+    rdfs:label "Document"@en ;
+    rdfs:comment "Subscription agreement, PPM or compliance document"@en ;
+    rdfs:subClassOf ic:GovernanceDomain .
+
+ic:FundManager a owl:Class ;
+    rdfs:label "Fund Manager"@en ;
+    rdfs:comment "General Partner (GP) entity that sponsors funds"@en ;
+    rdfs:subClassOf ic:InvestmentDomain .
+
+ic:TRIGEntity a owl:Class ;
+    rdfs:label "TRIG Entity"@en ;
+    rdfs:comment "Abstract root class for all iCapital TRIG entities"@en .
+
+ic:Account a owl:Class ;
+    rdfs:label "Account"@en ;
+    rdfs:comment "Brokerage or custodial account belonging to an investor"@en ;
+    rdfs:subClassOf ic:RelationshipDomain .
+
+ic:Advisor a owl:Class ;
+    rdfs:label "Advisor"@en ;
+    rdfs:comment "Registered Investment Advisor managing investor accounts"@en ;
+    rdfs:subClassOf ic:RelationshipDomain .
+
+ic:KYC a owl:Class ;
+    rdfs:label "KYC/AML Check"@en ;
+    rdfs:comment "Know-Your-Customer and Anti-Money-Laundering compliance check"@en ;
+    rdfs:subClassOf ic:GovernanceDomain .
+
+ic:AuditLog a owl:Class ;
+    rdfs:label "Audit Log"@en ;
+    rdfs:comment "Immutable change log entry for any TRIG entity"@en ;
+    rdfs:subClassOf ic:GovernanceDomain .
+
+ic:CapitalCall a owl:Class ;
+    rdfs:label "Capital Call"@en ;
+    rdfs:comment "Individual capital call or distribution notice"@en ;
+    rdfs:subClassOf ic:TransactionDomain .
+
+ic:Investor a owl:Class ;
+    rdfs:label "Investor"@en ;
+    rdfs:comment "Individual or entity that places subscriptions on iCapital"@en ;
+    rdfs:subClassOf ic:RelationshipDomain .
+
+ic:Position a owl:Class ;
+    rdfs:label "Position"@en ;
+    rdfs:comment "Point-in-time snapshot of an investor account holding"@en ;
+    rdfs:subClassOf ic:InvestmentDomain .
+
+ic:Transaction a owl:Class ;
+    rdfs:label "Transaction"@en ;
+    rdfs:comment "Core transaction header for subscriptions, redemptions, distributions and transfers"@en ;
+    rdfs:subClassOf ic:TransactionDomain .
+
+ic:Financial a owl:Class ;
+    rdfs:label "Financial"@en ;
+    rdfs:comment "Monetary amounts and fee economics attached to a transaction"@en ;
+    rdfs:subClassOf ic:TransactionDomain .
+
+ic:Fund a owl:Class ;
+    rdfs:label "Fund"@en ;
+    rdfs:comment "Private equity or alternatives fund on the iCapital platform"@en ;
+    rdfs:subClassOf ic:InvestmentDomain .
+

@@ -1,0 +1,434 @@
+@prefix ic: <https://ontology.icapital.com/trig/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shx: <https://ontology.icapital.com/shapes/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+shx:AccountShape a sh:NodeShape ;
+    rdfs:label "Account shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:in ( "INDIVIDUAL" "JOINT" "IRA_TRAD" "IRA_ROTH" "TRUST" "CORPORATE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "account type"@en ;
+            sh:path ic:accountType ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "APPROVED" "PENDING" "FAILED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "KYC status"@en ;
+            sh:path ic:kycStatus ],
+        [ sh:class ic:Custodian ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "held at custodian"@en ;
+            sh:path ic:heldAt ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "opened date"@en ;
+            sh:path ic:openedDate ],
+        [ sh:class ic:Investor ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "owned by investor"@en ;
+            sh:path ic:accountOwnedBy ] ;
+    sh:targetClass ic:Account .
+
+shx:AdvisorShape a sh:NodeShape ;
+    rdfs:label "Advisor shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "email"@en ;
+            sh:path ic:email ;
+            sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "firm name"@en ;
+            sh:path ic:firmName ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "is active"@en ;
+            sh:path ic:isActive ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "advisor name"@en ;
+            sh:path ic:advisorName ] ;
+    sh:targetClass ic:Advisor .
+
+shx:AuditLogShape a sh:NodeShape ;
+    rdfs:label "Audit log shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "old value (JSON)"@en ;
+            sh:path ic:oldValue ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "performed by"@en ;
+            sh:path ic:performedBy ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "CREATE" "UPDATE" "DELETE" "STATUS_CHANGE" "APPROVE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "action"@en ;
+            sh:path ic:action ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "timestamp"@en ;
+            sh:path ic:timestamp ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "entity type"@en ;
+            sh:path ic:entityType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "entity ID"@en ;
+            sh:path ic:entityId ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:name "new value (JSON)"@en ;
+            sh:path ic:newValue ] ;
+    sh:targetClass ic:AuditLog .
+
+shx:CapitalCallShape a sh:NodeShape ;
+    rdfs:label "Capital call shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "call percentage"@en ;
+            sh:path ic:callPercentage ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "call amount"@en ;
+            sh:path ic:callAmount ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "due date"@en ;
+            sh:path ic:dueDate ],
+        [ sh:datatype xsd:integer ;
+            sh:minCount 1 ;
+            sh:minInclusive 1.0 ;
+            sh:name "call number"@en ;
+            sh:path ic:callNumber ],
+        [ sh:class ic:Fund ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "issued by fund"@en ;
+            sh:path ic:issuedByFund ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "call date"@en ;
+            sh:path ic:callDate ] ;
+    sh:targetClass ic:CapitalCall .
+
+shx:DocumentShape a sh:NodeShape ;
+    rdfs:label "Document shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "upload date"@en ;
+            sh:path ic:uploadDate ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "is executed"@en ;
+            sh:path ic:isExecuted ],
+        [ sh:datatype xsd:anyURI ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "storage URI"@en ;
+            sh:path ic:storageUri ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "file name"@en ;
+            sh:path ic:fileName ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "SUBSCRIPTION_AGREEMENT" "PPM" "SIDE_LETTER" "TAX_FORM" "ID_VERIFICATION" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "document type"@en ;
+            sh:path ic:docType ] ;
+    sh:targetClass ic:Document .
+
+shx:FinancialShape a sh:NodeShape ;
+    rdfs:label "Financial shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "called amount"@en ;
+            sh:path ic:calledAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "subscription amount"@en ;
+            sh:path ic:subscriptionAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "uncalled amount"@en ;
+            sh:path ic:uncalledAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "commitment amount"@en ;
+            sh:path ic:commitmentAmount ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "carried interest pct"@en ;
+            sh:path ic:carriedInterestPct ],
+        [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "management fee pct"@en ;
+            sh:path ic:managementFeePct ] ;
+    sh:targetClass ic:Financial .
+
+shx:FundShape a sh:NodeShape ;
+    rdfs:label "Fund shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:maxExclusive 1.0 ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "carry pct"@en ;
+            sh:path ic:carryPct ],
+        [ sh:datatype xsd:integer ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:minInclusive 1980.0 ;
+            sh:name "vintage year"@en ;
+            sh:path ic:vintageYear ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "BUYOUT" "VENTURE" "GROWTH" "REAL_ASSETS" "CREDIT" "HEDGE_FUND" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "fund type"@en ;
+            sh:path ic:fundType ],
+        [ sh:class ic:FundManager ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "sponsored by GP"@en ;
+            sh:path ic:sponsoredBy ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "fund name"@en ;
+            sh:path ic:fundName ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "FUNDRAISING" "INVESTING" "HARVESTING" "LIQUIDATED" ) ;
+            sh:minCount 1 ;
+            sh:name "fund status"@en ;
+            sh:path ic:fundStatus ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "PRIVATE_EQUITY" "PRIVATE_CREDIT" "REAL_ESTATE" "HEDGE_FUND" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "asset class"@en ;
+            sh:path ic:assetClass ] ;
+    sh:targetClass ic:Fund .
+
+shx:InvestorShape a sh:NodeShape ;
+    rdfs:label "Investor shape"@en ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "country code"@en ;
+            sh:path ic:country ;
+            sh:pattern "^[A-Z]{2}$" ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "INDIVIDUAL" "TRUST" "IRA" "CORPORATION" "FOUNDATION" "PARTNERSHIP" "LLC" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "investor type"@en ;
+            sh:path ic:investorType ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "investor name"@en ;
+            sh:path ic:investorName ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "ACCREDITED" "QUALIFIED_PURCHASER" "QUALIFIED_CLIENT" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "accreditation status"@en ;
+            sh:path ic:accreditationStatus ],
+        [ sh:class ic:KYC ;
+            sh:minCount 1 ;
+            sh:name "has KYC check"@en ;
+            sh:path ic:hasKYC ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "qualified purchaser flag"@en ;
+            sh:path ic:qualifiedPurchaser ] ;
+    sh:targetClass ic:Investor .
+
+shx:KYCShape a sh:NodeShape ;
+    rdfs:label "KYC/AML shape"@en ;
+    sh:property [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "check date"@en ;
+            sh:path ic:checkDate ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "sanctions flag"@en ;
+            sh:path ic:sanctionsFlag ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "APPROVED" "PENDING" "FAILED" "EXPIRED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "status"@en ;
+            sh:path ic:kycCheckStatus ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "LOW" "MEDIUM" "HIGH" ) ;
+            sh:minCount 1 ;
+            sh:name "risk rating"@en ;
+            sh:path ic:riskRating ],
+        [ sh:datatype xsd:boolean ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "PEP flag"@en ;
+            sh:path ic:pepFlag ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "provider"@en ;
+            sh:path ic:provider ] ;
+    sh:targetClass ic:KYC .
+
+shx:OrderShape a sh:NodeShape ;
+    rdfs:label "Order shape"@en ;
+    sh:property [ sh:class ic:Investor ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "placed by investor"@en ;
+            sh:path ic:placedBy ],
+        [ sh:class ic:Account ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "settled through account"@en ;
+            sh:path ic:settledThrough ],
+        [ sh:datatype xsd:dateTime ;
+            sh:minCount 1 ;
+            sh:name "created at"@en ;
+            sh:path ic:createdAt ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "USD" "EUR" "GBP" "CHF" "JPY" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "currency"@en ;
+            sh:path ic:currency ],
+        [ sh:class ic:Fund ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "targets fund"@en ;
+            sh:path ic:targetsFund ] ;
+    sh:targetClass ic:Order .
+
+shx:PositionShape a sh:NodeShape ;
+    rdfs:label "Position shape"@en ;
+    sh:property [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "total commitment"@en ;
+            sh:path ic:totalCommitment ],
+        [ sh:class ic:Account ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "held by account"@en ;
+            sh:path ic:heldByAccount ],
+        [ sh:datatype xsd:decimal ;
+            sh:name "IRR"@en ;
+            sh:path ic:irr ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "as-of date"@en ;
+            sh:path ic:asOfDate ],
+        [ sh:datatype xsd:decimal ;
+            sh:minInclusive 0.0 ;
+            sh:name "MOIC"@en ;
+            sh:path ic:moic ],
+        [ sh:datatype xsd:decimal ;
+            sh:minCount 1 ;
+            sh:minInclusive 0.0 ;
+            sh:name "current NAV"@en ;
+            sh:path ic:currentNav ],
+        [ sh:class ic:Fund ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "holds fund"@en ;
+            sh:path ic:holdsFund ] ;
+    sh:targetClass ic:Position .
+
+shx:TransactionShape a sh:NodeShape ;
+    rdfs:label "Transaction shape"@en ;
+    sh:property [ sh:class ic:Order ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "linked order"@en ;
+            sh:path ic:hasOrder ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "effective date"@en ;
+            sh:path ic:effectiveDate ],
+        [ sh:datatype xsd:string ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction ID"@en ;
+            sh:path ic:transactionId ;
+            sh:pattern "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$" ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "SUBSCRIPTION" "REDEMPTION" "TRANSFER" "DISTRIBUTION" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction type"@en ;
+            sh:path ic:transactionType ],
+        [ sh:class ic:Financial ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "financial record"@en ;
+            sh:path ic:hasFinancial ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "updated at"@en ;
+            sh:path ic:updatedAt ],
+        [ sh:datatype xsd:date ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction date"@en ;
+            sh:path ic:transactionDate ],
+        [ sh:datatype xsd:string ;
+            sh:in ( "PENDING" "APPROVED" "FUNDED" "REJECTED" "CANCELLED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "transaction status"@en ;
+            sh:path ic:transactionStatus ],
+        [ sh:datatype xsd:dateTime ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:name "created at"@en ;
+            sh:path ic:createdAt ] ;
+    sh:targetClass ic:Transaction .
+
