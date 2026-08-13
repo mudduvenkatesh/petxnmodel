@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Data & Override — Data Model & Flow</title>
+<style>
+  :root{
+    --green:#007B63; --green-soft:#cfe7dd; --green-tint:#f2f8f5; --green-dark:#0a3d2e;
+    --ink:#181818; --muted:#5c5c5c; --faint:#8a8a8a; --line:#e2e2e2; --bg:#f4f6f5; --card:#fff;
+    --semarchy:#3a5bd0; --semarchy-soft:#e7ecfb;
+    --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.55;font-size:15px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px;}
+  a{color:var(--green);}
+
+  /* header */
+  header{background:linear-gradient(135deg,#0a3d2e,#0b6f53);color:#fff;padding:40px 0 34px;margin-bottom:32px;}
+  header .wrap{padding-top:0;padding-bottom:0;}
+  .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.8;font-weight:600;}
+  header h1{font-size:30px;margin:8px 0 8px;font-weight:700;letter-spacing:-.01em;}
+  header p{margin:0;max-width:760px;opacity:.92;font-size:16px;}
+  .wordmark{font-family:Garamond,Georgia,serif;letter-spacing:.14em;font-weight:600;}
+
+  h2{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700;margin:44px 0 4px;}
+  .sec-title{font-size:22px;font-weight:700;margin:2px 0 16px;letter-spacing:-.01em;}
+  .lead{color:var(--muted);max-width:820px;margin:0 0 18px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+  .pad{padding:20px 22px;}
+
+  /* pillars */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .pillar{padding:20px;border-radius:12px;border:1px solid var(--line);background:#fff;}
+  .pillar .num{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+  .pillar h3{margin:0 0 6px;font-size:16px;}
+  .pillar p{margin:0;color:var(--muted);font-size:14px;}
+  .pillar code{background:var(--green-tint);color:var(--green-dark);padding:1px 6px;border-radius:4px;font-size:12.5px;}
+
+  /* two sources */
+  .split{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;}
+  .src{border-radius:12px;padding:18px 20px;}
+  .src.cm{background:var(--semarchy-soft);border:1px solid #c9d4f5;}
+  .src.sf{background:var(--green-tint);border:1px solid var(--green-soft);}
+  .src h3{margin:0 0 4px;font-size:16px;display:flex;align-items:center;gap:8px;}
+  .src .who{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+  .src.cm .who{color:var(--semarchy);}
+  .src.sf .who{color:var(--green);}
+  .src ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14px;}
+  .src li{margin:4px 0;}
+  .vs{align-self:center;font-weight:700;color:var(--faint);font-size:13px;}
+
+  /* object cards / ER */
+  .er{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .obj{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;}
+  .obj-head{padding:12px 16px;font-weight:700;font-size:15px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .obj-head .tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:rgba(255,255,255,.22);padding:2px 7px;border-radius:4px;}
+  .obj-head.sf{background:var(--green);}
+  .obj-head.cm{background:var(--semarchy);}
+  .obj-head.log{background:#5c6b82;}
+  .obj-body{padding:6px 0;}
+  .frow{display:grid;grid-template-columns:1fr auto;gap:10px;padding:7px 16px;border-bottom:1px solid #f2f2f2;font-size:13px;align-items:baseline;}
+  .frow:last-child{border-bottom:none;}
+  .frow .fn{font-weight:600;}
+  .frow .ft{color:var(--faint);font-size:11.5px;text-align:right;white-space:nowrap;}
+  .frow .fd{grid-column:1/-1;color:var(--muted);font-size:12px;margin-top:1px;}
+  .obj-note{padding:10px 16px;background:#fafafa;border-top:1px solid #f2f2f2;font-size:12px;color:var(--muted);}
+  .key{color:var(--green);font-weight:700;}
+
+  .relbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 0;font-size:13px;color:var(--muted);}
+  .relbar span{background:#fff;border:1px solid var(--line);border-radius:20px;padding:5px 14px;}
+  .relbar b{color:var(--ink);}
+
+  /* tags */
+  .tag-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:3px 7px;border-radius:4px;}
+  .t-mkt{background:#f0f0f0;color:#9b9b9b;}
+  .t-ovr{background:var(--green);color:#fff;}
+  .t-nomkt{background:#f0f0f0;color:#9b9b9b;}
+  .legend{display:grid;grid-template-columns:1fr;gap:10px;}
+  .legend .row{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:start;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;}
+  .legend .row .desc{color:var(--muted);font-size:13.5px;}
+  .legend .row .desc code{background:var(--green-tint);color:var(--green-dark);padding:1px 5px;border-radius:4px;font-size:12px;}
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center;}
+  .flow .node{border-radius:12px;padding:16px;text-align:center;border:1px solid var(--line);background:#fff;}
+  .flow .node .ttl{font-weight:700;font-size:14px;margin-bottom:4px;}
+  .flow .node .sub{font-size:12.5px;color:var(--muted);}
+  .flow .node.cm{background:var(--semarchy-soft);border-color:#c9d4f5;}
+  .flow .node.sf{background:var(--green-tint);border-color:var(--green-soft);}
+  .arrow{display:flex;flex-direction:column;align-items:center;color:var(--green);font-size:12px;font-weight:600;min-width:70px;text-align:center;}
+  .arrow .a{font-size:22px;line-height:1;}
+  .feedback{margin-top:14px;background:#fffaf0;border:1px dashed #e6c37a;border-radius:10px;padding:12px 16px;font-size:13.5px;color:#7a5a12;display:flex;gap:10px;align-items:center;}
+  .feedback .a{color:#c58a1a;font-size:20px;}
+
+  /* lifecycle */
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .step:last-child{border-bottom:none;}
+  .step .when{font-size:12px;color:var(--faint);font-weight:600;}
+  .step .when .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);margin-right:6px;}
+  .step h4{margin:0 0 4px;font-size:15px;}
+  .step p{margin:0 0 8px;color:var(--muted);font-size:13.5px;}
+  .state{display:inline-flex;gap:8px;align-items:center;font-size:12.5px;background:#fafafa;border:1px solid var(--line);border-radius:8px;padding:6px 10px;}
+  .state .lbl{color:var(--faint);}
+  .logline{font-size:12.5px;color:var(--muted);margin-top:8px;padding-left:12px;border-left:3px solid var(--green-soft);}
+  .logline b{color:var(--ink);}
+  .branch{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+  .branch .opt{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff;font-size:13px;}
+  .branch .opt .h{font-weight:700;margin-bottom:4px;}
+
+  /* match table */
+  table.tbl{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  table.tbl th{background:#fafafa;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);font-weight:700;padding:10px 14px;border-bottom:1px solid var(--line);}
+  table.tbl td{padding:11px 14px;border-bottom:1px solid #f2f2f2;vertical-align:top;color:var(--ink);}
+  table.tbl tr:last-child td{border-bottom:none;}
+  table.tbl td.muted{color:var(--muted);}
+
+  .map{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;}
+  .map .m{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:8px 0;border-bottom:1px solid #f2f2f2;font-size:13.5px;align-items:baseline;}
+  .map .m .u{font-weight:600;white-space:nowrap;}
+  .map .m .d{color:var(--muted);font-size:12.5px;}
+
+  .note{font-size:12.5px;color:var(--faint);margin-top:10px;}
+  .footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--faint);font-size:12.5px;}
+  /* data model: two columns */
+  .er2{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
+  .er-right{display:flex;flex-direction:column;gap:18px;}
+  .obj .frow.compact{padding:6px 16px;}
+  .obj .frow.compact .ft{font-size:11.5px;}
+  /* vertical pipeline */
+  .pipe{display:flex;flex-direction:column;}
+  .pstep{display:grid;grid-template-columns:34px 1fr;gap:14px;padding:12px 0;position:relative;}
+  .pstep:not(:last-child)::before{content:"";position:absolute;left:16px;top:36px;bottom:-12px;width:2px;background:var(--green-soft);}
+  .pnum{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:1;}
+  .pbody h4{margin:3px 0 3px;font-size:15px;}
+  .pbody p{margin:0;color:var(--muted);font-size:13.5px;}
+  .pbody code{background:var(--green-tint);color:var(--green-dark);padding:1px 5px;border-radius:4px;font-size:12px;}
+  /* scenarios */
+  .scen{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+  .scen .s{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .scen .s-head{padding:12px 16px;font-weight:700;font-size:15px;color:#fff;background:var(--green);}
+  .scen .s-head .k{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;opacity:.85;display:block;margin-bottom:2px;}
+  .scen .s-body{padding:4px 16px 6px;flex:1;}
+  .scen ol{margin:8px 0 4px;padding-left:20px;}
+  .scen li{margin:7px 0;font-size:13.5px;color:var(--muted);}
+  .scen li b{color:var(--ink);}
+  .scen .outcome{margin:6px 16px 16px;background:var(--green-tint);border:1px solid var(--green-soft);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--green-dark);}
+  .subhead{font-size:16px;font-weight:700;margin:24px 0 12px;letter-spacing:-.01em;}
+  .tbl .vs-cell{white-space:nowrap;}
+
+  /* visual flow boxes */
+  .flow2{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;}
+  .fnode{flex:1 1 200px;min-width:180px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column;}
+  .fnode .fh{padding:9px 12px;font-weight:700;font-size:13px;color:#fff;}
+  .fnode.cm{border-color:#c9d4f5;} .fnode.cm .fh{background:var(--semarchy);}
+  .fnode.sf{border-color:var(--green-soft);} .fnode.sf .fh{background:var(--green);}
+  .fnode ul{margin:0;padding:9px 12px 11px 26px;}
+  .fnode li{font-size:12px;color:var(--muted);margin:4px 0;}
+  .farrow{display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--green);font-weight:600;font-size:10.5px;min-width:52px;text-transform:uppercase;letter-spacing:.04em;text-align:center;}
+  .farrow .aa{font-size:22px;line-height:1;}
+  .jsonex{margin:0;background:#f6faf8;border:1px solid var(--green-soft);border-radius:8px;padding:10px 12px;font-family:Consolas,Menlo,Monaco,monospace;font-size:11.5px;line-height:1.5;color:#2f3b36;white-space:pre;overflow-x:auto;}
+  .jsonex .jk{color:var(--semarchy);}
+  .jsonex .js{color:var(--green-dark);}
+
+  /* golden profile chips */
+  .gchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .gchip{display:inline-block;font-size:11.5px;background:var(--semarchy-soft);color:#2b3f8f;border:1px solid #c9d4f5;border-radius:20px;padding:3px 10px;}
+
+  @media (max-width:820px){
+    .pillars,.er,.er2,.map,.scen{grid-template-columns:1fr;}.flow2{flex-direction:column;}.farrow{flex-direction:row;gap:6px;}.farrow .aa{transform:rotate(90deg);}
+    .split{grid-template-columns:1fr;}.vs{transform:rotate(90deg);}
+    .flow{grid-template-columns:1fr;}.arrow{flex-direction:row;justify-content:center;}.arrow .a{transform:rotate(90deg);}
+    .step{grid-template-columns:1fr;}.branch{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow"><span class="wordmark">APOLLO</span> &nbsp;·&nbsp; CFXP</div>
+    <h1>Market Data &amp; Override — Data Model &amp; Flow</h1>
+    <p>How Client Master (Semarchy) and Salesforce work together to show market-sourced values, let relationship managers override them with a reason, keep a full decision history, and feed those decisions back to improve source quality.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- CONCEPT -->
+  <h2>The concept</h2>
+  <div class="sec-title">Two systems, one clean split — plus a running history</div>
+  <p class="lead">Semarchy owns <em>what the market says</em>. Salesforce owns <em>what we display</em> and <em>what we decided</em>. Neither silently overwrites the other, and every decision is logged.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="num">1</div>
+      <h3>Contact (effective value)</h3>
+      <p>Standard Salesforce fields (<code>Name</code>, <code>Email</code>, <code>Phone</code>, <code>Address</code>…) hold the value everyone sees and every integration reads. Nothing else in Salesforce has to change.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">2</div>
+      <h3>Market Data Control Table</h3>
+      <p>A child record per field carries the <b>market value</b>, its <b>sources &amp; as-of date</b>, the <b>field state</b>, and the <b>override decision + reason</b>. This is what the field component reads and the Data Review page manages.</p>
+    </div>
+    <div class="pillar">
+      <div class="num">3</div>
+      <h3>Market Data Audit</h3>
+      <p>A running, append-only history of every decision — override, accept market, keep, or match event — with who, when, the change, and the reason. Powers the <b>Audit</b> tab.</p>
+    </div>
+  </div>
+
+  <!-- OWNERSHIP -->
+  <h2>Ownership</h2>
+  <div class="sec-title">Who is the source of truth for what</div>
+  <div class="split">
+    <div class="src cm">
+      <div class="who">Client Master · Semarchy</div>
+      <h3>Master of market data &amp; distributor of the golden record</h3>
+      <ul>
+        <li>The market value for each profile field</li>
+        <li><b>Market Profile Metadata</b> — one JSON object per field: which sources provided the value and the most recent date one did</li>
+        <li>Publishes updates to Salesforce; never writes the displayed value directly</li>
+        <li><b>Distributor of the Final Golden Record</b> &mdash; takes the resolved values back from Salesforce (post any salesperson decisions) and distributes the golden profile across Apollo</li>
+      </ul>
+    </div>
+    <div class="vs">⇄</div>
+    <div class="src sf">
+      <div class="who">Salesforce</div>
+      <h3>Master of the effective value &amp; decisions</h3>
+      <ul>
+        <li>The displayed value on the Contact</li>
+        <li>The override state, who/when, permanent flag, and reason</li>
+        <li>The decision history — and the feedback signal sent back to Semarchy</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DATA MODEL -->
+  <h2>Data model</h2>
+  <div class="sec-title">Semarchy on the left, Salesforce on the right</div>
+  <p class="lead">Semarchy sends one market value (with metadata) per profile field. In Salesforce, effective values live on the Contact, a control table holds the market + decision layer (one row per field), and an audit table logs every decision.</p>
+
+  <div class="er2">
+    <!-- LEFT: Semarchy -->
+    <div class="er-left">
+      <div class="obj">
+        <div class="obj-head cm">Semarchy &mdash; Market Profile <span class="tag">source</span></div>
+        <div class="obj-body">
+          <div class="frow compact"><span class="fn">Market Name</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Title</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Phone</span><span class="ft">Phone</span></div>
+          <div class="frow compact"><span class="fn">Market Mobile</span><span class="ft">Phone</span></div>
+          <div class="frow compact"><span class="fn">Market Other Phone</span><span class="ft">Phone</span></div>
+          <div class="frow compact"><span class="fn">Market Email</span><span class="ft">Email</span></div>
+          <div class="frow compact"><span class="fn">Market Secondary Email</span><span class="ft">Email</span></div>
+          <div class="frow compact"><span class="fn">Market Address</span><span class="ft">Address</span></div>
+          <div class="frow compact"><span class="fn">Market Secondary Address</span><span class="ft">Address</span></div>
+          <div class="frow compact"><span class="fn">Market Firm</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Organization</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Secondary Firm</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Secondary Office</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Dual Registered</span><span class="ft">Checkbox</span></div>
+          <div class="frow compact"><span class="fn">Market CRD</span><span class="ft">Text</span></div>
+          <div class="frow compact"><span class="fn">Market Type</span><span class="ft">Picklist</span></div>
+          <div class="frow compact"><span class="fn">Market SubType</span><span class="ft">Picklist</span></div>
+          <div class="frow compact"><span class="fn">Market Website</span><span class="ft">URL</span></div>
+          <div class="frow compact"><span class="fn key">Market Profile Metadata</span><span class="ft">JSON</span>
+            <span class="fd">One nested child object per field &mdash; the sources that provided the value and the most recent date one did.</span></div>
+        </div>
+        <div class="obj-note">
+          <div style="margin-bottom:8px;">The metadata is a single JSON payload that nests one object per field. Example (2 of many fields):</div>
+          <div class="jsonex">{
+  <span class="jk">"phone"</span>: {
+    <span class="jk">"value"</span>: <span class="js">"+1 858-909-4700"</span>,
+    <span class="jk">"sources"</span>: [<span class="js">"Discovery"</span>],
+    <span class="jk">"lastProvidedOn"</span>: <span class="js">"2026-07-14"</span>
+  },
+  <span class="jk">"firm"</span>: {
+    <span class="jk">"value"</span>: <span class="js">"LPL Financial LLC"</span>,
+    <span class="jk">"sources"</span>: [<span class="js">"SS&amp;C"</span>, <span class="js">"FINTRX"</span>],
+    <span class="jk">"lastProvidedOn"</span>: <span class="js">"2026-07-14"</span>
+  },
+  ...
+}</div>
+        </div>
+      </div>
+      <div class="obj" style="margin-top:18px;">
+        <div class="obj-head cm">Semarchy &mdash; Final Golden Profile <span class="tag">distributed</span></div>
+        <div class="obj-body" style="padding:12px 16px;">
+          <div style="font-size:12.5px;color:var(--muted);margin-bottom:10px;">The resolved values returned from Salesforce (after salesperson decisions) &mdash; the same fields as above, <b>without the &ldquo;Market&rdquo; prefix</b>. This is the golden record distributed across Apollo.</div>
+          <div class="gchips"><span class="gchip">Name</span><span class="gchip">Title</span><span class="gchip">Phone</span><span class="gchip">Mobile</span><span class="gchip">Other Phone</span><span class="gchip">Email</span><span class="gchip">Secondary Email</span><span class="gchip">Address</span><span class="gchip">Secondary Address</span><span class="gchip">Firm</span><span class="gchip">Organization</span><span class="gchip">Secondary Firm</span><span class="gchip">Secondary Office</span><span class="gchip">Dual Registered</span><span class="gchip">CRD</span><span class="gchip">Type</span><span class="gchip">SubType</span><span class="gchip">Website</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Salesforce (3 stacked, all green) -->
+    <div class="er-right">
+      <div class="obj">
+        <div class="obj-head sf">Contact <span class="tag">standard</span></div>
+        <div class="obj-body">
+          <div class="frow"><span class="fn">Name / Email / Phone / Address</span><span class="ft">standard</span>
+            <span class="fd">The effective (displayed) value</span></div>
+          <div class="frow"><span class="fn">Firm / Type / CRD / Website &hellip;</span><span class="ft">custom</span>
+            <span class="fd">Effective values not covered by standard fields</span></div>
+        </div>
+        <div class="obj-note">Consumers, matching, and standard features keep working unchanged.</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-head sf">Market Data Control Table <span class="tag">child · Market_Data_Control__c</span></div>
+        <div class="obj-body">
+          <div class="frow"><span class="fn">Contact</span><span class="ft">master-detail</span></div>
+          <div class="frow"><span class="fn">Field API Name / Attribute Label</span><span class="ft">text</span><span class="fd">Which Contact field this governs</span></div>
+          <div class="frow"><span class="fn">Market Value</span><span class="ft">text</span></div>
+          <div class="frow"><span class="fn">Market Sources</span><span class="ft">multi-select</span></div>
+          <div class="frow"><span class="fn">Market As-Of</span><span class="ft">date</span></div>
+          <div class="frow"><span class="fn">Market Metadata</span><span class="ft">JSON</span></div>
+          <div class="frow"><span class="fn key">Value Source</span><span class="ft">picklist</span><span class="fd">Market · Manual Override · No Market Data &rarr; drives the tag</span></div>
+          <div class="frow"><span class="fn">Override Locked</span><span class="ft">checkbox</span></div>
+          <div class="frow"><span class="fn">Overridden By / On</span><span class="ft">user · datetime</span></div>
+          <div class="frow"><span class="fn key">Override Reason</span><span class="ft">long text</span></div>
+          <div class="frow"><span class="fn">Has Fresher Market Data</span><span class="ft">formula</span><span class="fd">As-Of &gt; Overridden On &amp; not locked &rarr; the bell</span></div>
+        </div>
+        <div class="obj-note">Current value is resolved from the parent Contact field &mdash; not duplicated here.</div>
+      </div>
+
+      <div class="obj">
+        <div class="obj-head sf">Market Data Audit <span class="tag">child · Market_Data_Audit__c</span></div>
+        <div class="obj-body">
+          <div class="frow"><span class="fn">Contact / Market Data Control Table</span><span class="ft">lookup</span></div>
+          <div class="frow"><span class="fn">Attribute Label</span><span class="ft">text</span></div>
+          <div class="frow"><span class="fn key">Decision</span><span class="ft">picklist</span><span class="fd">Overridden · Used Market Data · Kept Until Next Update · Kept Permanently · Adopted on Match · Preserved on Match · Filled from Market · Created</span></div>
+          <div class="frow"><span class="fn">Previous Value / New Value</span><span class="ft">text</span></div>
+          <div class="frow"><span class="fn">Market Value / Sources</span><span class="ft">text</span></div>
+          <div class="frow"><span class="fn">Reason</span><span class="ft">long text</span></div>
+          <div class="frow"><span class="fn">Decided By / On</span><span class="ft">user · datetime</span></div>
+        </div>
+        <div class="obj-note">Append-only. One row per decision &rarr; the <b>Audit</b> tab timeline.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relbar">
+    <span><b>Contact</b> &nbsp;1 &mdash;&mdash; *&nbsp; <b>Market Data Control Table</b></span>
+    <span><b>Contact</b> &nbsp;1 &mdash;&mdash; *&nbsp; <b>Market Data Audit</b></span>
+    <span><b>Market Data Control Table</b> &nbsp;1 &mdash;&mdash; *&nbsp; <b>Market Data Audit</b></span>
+  </div>
+  <p class="note">The attribute catalog (which fields are governed, editable, hyperlinked, and how each behaves on match) is intentionally left to the Salesforce team to implement.</p>
+
+  <!-- STATES -->
+  <h2>Field states</h2>
+  <div class="sec-title">One field, one tag &mdash; driven by Value Source</div>
+  <div class="legend">
+    <div class="row">
+      <div><span class="tag-badge t-mkt">MKT</span></div>
+      <div class="desc"><b>Value Source = Market.</b> The displayed value came straight from market data. Hover shows the <code>source(s)</code> and <code>as-of date</code>.</div>
+    </div>
+    <div class="row">
+      <div><span class="tag-badge t-ovr">OVERRIDDEN</span></div>
+      <div class="desc"><b>Value Source = Manual Override &mdash; no alert.</b> A person is deliberately holding a value that differs from market, and the market data is <em>not</em> newer than that decision. Nothing to review right now.</div>
+    </div>
+    <div class="row">
+      <div><span class="tag-badge t-ovr">OVERRIDDEN &nbsp;<svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6c0 5-2 6-2 7h16s-2-2-2-7a6 6 0 0 0-6-6z"/><path d="M9.8 20a2.2 2.2 0 0 0 4.4 0z"/></svg></span></div>
+      <div class="desc"><b>Value Source = Manual Override &mdash; active alert.</b> Same as above, but newer market data has arrived (<code>As-Of &gt; Overridden On</code>). The <b>bell</b> flags it for review in the field hover and on the Data Review page. &ldquo;Keep permanently&rdquo; locks it instead (next state).</div>
+    </div>
+    <div class="row">
+      <div><span class="tag-badge t-ovr">OVERRIDDEN &nbsp;<span style="color:#fff;font-weight:700;font-size:11px;line-height:1;">&#8734;</span></span></div>
+      <div class="desc"><b>Value Source = Manual Override &mdash; permanent.</b> The user chose &ldquo;Keep permanently,&rdquo; locking the override (<code>Override Locked</code>). The <b>&#8734;</b> replaces the bell and no future market update will flag it for review.</div>
+    </div>
+    <div class="row">
+      <div><span class="tag-badge t-nomkt">NO MKT DATA</span></div>
+      <div class="desc"><b>Value Source = No Market Data.</b> A person entered a value for a field no source provides. Nothing to override; shown for transparency.</div>
+    </div>
+  </div>
+
+  <!-- FLOW -->
+  <h2>Data flow</h2>
+  <div class="sec-title">How an initial push proliferates through Salesforce</div>
+  <p class="lead">When Semarchy publishes, the data fans out across the Salesforce tables in a set order: the control table is written first, then the Contact fields and the audit rows are derived from it.</p>
+
+  <div class="card pad">
+    <div class="flow2">
+      <div class="fnode cm">
+        <div class="fh">1 &middot; Semarchy publishes</div>
+        <ul><li>Market value for each field</li><li>Market Profile Metadata (sources, as-of)</li></ul>
+      </div>
+      <div class="farrow"><span class="aa">&rarr;</span>publish</div>
+      <div class="fnode sf">
+        <div class="fh">2 &middot; Market Data Control Table</div>
+        <ul><li>Upsert <b>one row per field</b></li><li>Value &middot; Sources &middot; As-Of &middot; Metadata</li><li>Contact not touched yet</li></ul>
+      </div>
+      <div class="farrow"><span class="aa">&rarr;</span>resolve</div>
+      <div class="fnode sf">
+        <div class="fh">3 &middot; Contact fields + Value Source</div>
+        <ul><li>Fill market value where the field is <b>empty</b></li><li>Keep existing values &rarr; decide Market vs. Override</li><li>Set the bell where market is newer</li></ul>
+      </div>
+      <div class="farrow"><span class="aa">&rarr;</span>log</div>
+      <div class="fnode sf">
+        <div class="fh">4 &middot; Market Data Audit</div>
+        <ul><li>One initial entry per field</li><li>Filled / Adopted / Preserved / No Market Source</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="subhead">Resolution rules (per field, step&nbsp;3)</div>
+  <table class="tbl">
+    <thead><tr><th>Existing Contact value</th><th>Market data</th><th>Value Source</th><th>Write to Contact field</th><th>Audit entry</th></tr></thead>
+    <tbody>
+      <tr><td class="muted">empty</td><td class="muted">present</td><td><span class="tag-badge t-mkt">MKT</span></td><td>market value</td><td>Filled from Market</td></tr>
+      <tr><td class="muted">= market value</td><td class="muted">present</td><td><span class="tag-badge t-mkt">MKT</span></td><td class="muted">no change</td><td>Matched Market</td></tr>
+      <tr><td class="muted">&ne; market &middot; <b>preserve</b> policy</td><td class="muted">present</td><td><span class="tag-badge t-ovr">OVERRIDDEN</span></td><td class="muted">keep existing</td><td>Preserved on Match</td></tr>
+      <tr><td class="muted">&ne; market &middot; <b>adopt</b> policy</td><td class="muted">present</td><td><span class="tag-badge t-mkt">MKT</span></td><td>market value</td><td>Adopted on Match</td></tr>
+      <tr><td class="muted">any value</td><td class="muted">none</td><td><span class="tag-badge t-nomkt">NO MKT DATA</span></td><td class="muted">keep existing</td><td>No Market Source</td></tr>
+    </tbody>
+  </table>
+
+  <div class="subhead">Two entry scenarios</div>
+  <div class="scen">
+    <div class="s">
+      <div class="s-head"><span class="k">Scenario A</span>New record from Semarchy</div>
+      <div class="s-body">
+        <ol>
+          <li><b>Create the Contact</b> from the incoming Semarchy record.</li>
+          <li><b>Upsert one control-table row per market field</b> (value, sources, as-of, metadata).</li>
+          <li>Every Contact field is empty, so <b>copy the market value into each field</b>. Value Source = <span class="tag-badge t-mkt">MKT</span> across the board.</li>
+          <li><b>Audit:</b> one &ldquo;Filled from Market&rdquo; entry per field.</li>
+        </ol>
+      </div>
+      <div class="outcome">Result: a fully market-sourced contact &mdash; every market-backed field shows <b>MKT</b>, and no overrides exist yet.</div>
+    </div>
+    <div class="s">
+      <div class="s-head"><span class="k">Scenario B</span>Existing Salesforce record matched for the first time</div>
+      <div class="s-body">
+        <ol>
+          <li><b>Upsert one control-table row per market field</b> &mdash; the Contact fields are not touched yet.</li>
+          <li><b>Resolve each field</b> against the existing value (per the rules above): fill blanks from market; keep values that already equal market; <b>preserve differing manual values as</b> <span class="tag-badge t-ovr">OVERRIDDEN</span>; <b>adopt market</b> on system-authoritative fields (e.g., Name, Dual Registered, CRD).</li>
+          <li>Set the <b>bell</b> wherever the market As-Of is newer than the preserved value.</li>
+          <li><b>Audit:</b> one entry per field &mdash; Filled from Market / Adopted on Match / Preserved on Match / No Market Source.</li>
+        </ol>
+      </div>
+      <div class="outcome">Result: manual values are preserved (never silently overwritten), blanks are filled from market, and system fields adopt market &mdash; exactly the &ldquo;post-match&rdquo; state in the prototype.</div>
+    </div>
+  </div>
+
+  <div class="feedback">
+    <span class="a">&#8617;</span>
+    <div><b>Feedback loop.</b> Override decisions and their reasons flow back to Semarchy so stewardship can see <em>where</em> and <em>why</em> values diverge from market &mdash; the signal that continuously improves source quality.</div>
+  </div>
+
+  <!-- LIFECYCLE -->
+  <h2>Worked example</h2>
+  <div class="sec-title">The life of one field — <em>Phone</em> on an advisor</div>
+  <div class="card pad">
+    <div class="steps">
+      <div class="step">
+        <div class="when"><span class="dot"></span>Jun 10</div>
+        <div>
+          <h4>Market value arrives</h4>
+          <p>Discovery provides <b>+1 858-909-4700</b>, as-of Jun 10. The field renders straight from market.</p>
+          <span class="state"><span class="lbl">Displayed</span> +1 858-909-4700 &nbsp;<span class="tag-badge t-mkt">MKT</span></span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><span class="dot"></span>Jun 28</div>
+        <div>
+          <h4>RM overrides with a reason</h4>
+          <p>On a call the RM confirms the advisor's direct office line and overrides the value, entering a reason.</p>
+          <span class="state"><span class="lbl">Displayed</span> +1 951-693-9900 &nbsp;<span class="tag-badge t-ovr">OVERRIDDEN</span></span>
+          <div class="logline"><b>Log:</b> Overridden · +1 858-909-4700 → +1 951-693-9900 · Will Chen · “Direct office line confirmed on call; market shows the main branch.”</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><span class="dot"></span>Jul 14</div>
+        <div>
+          <h4>Newer market data lands</h4>
+          <p>Discovery refreshes the value (as-of Jul 14). Because the market date is now newer than the override, the field flags for review.</p>
+          <span class="state"><span class="lbl">Displayed</span> +1 951-693-9900 &nbsp;<span class="tag-badge t-ovr">OVERRIDDEN <svg width="9" height="9" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a6 6 0 0 0-6 6c0 5-2 6-2 7h16s-2-2-2-7a6 6 0 0 0-6-6z"/><path d="M9.8 20a2.2 2.2 0 0 0 4.4 0z"/></svg></span> &nbsp;<span class="lbl">bell = fresher market data</span></span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><span class="dot"></span>Jul 16</div>
+        <div>
+          <h4>RM reviews — two ways to resolve</h4>
+          <p>From the field hover or the bulk <b>Data Review</b> page, the RM picks one:</p>
+          <div class="branch">
+            <div class="opt"><div class="h">Use market data</div>Adopts the market value; field returns to <span class="tag-badge t-mkt">MKT</span>. <div class="logline"><b>Log:</b> Used Market Data · Will Chen</div></div>
+            <div class="opt"><div class="h">Keep (until next update / permanently)</div>Retains the override; “permanently” stops future bells. <div class="logline"><b>Log:</b> Kept Permanently · Will Chen · reason retained</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MATCH -->
+  <h2>Match behavior</h2>
+  <div class="sec-title">When a manually-created contact matches market data</div>
+  <p class="lead">Manually-entered values are never silently overwritten. On match, each field resolves by its configured policy (owned by the Salesforce team):</p>
+  <table class="tbl">
+    <thead><tr><th>Field policy</th><th>If a manual value exists</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><b>Preserve as override</b></td><td class="muted">yes</td><td>Keep the manual value; state = <span class="tag-badge t-ovr">OVERRIDDEN</span> — <em>even if identical to market</em> (no silent override). Logged as “Preserved on Match.”</td></tr>
+      <tr><td><b>Adopt market</b></td><td class="muted">yes / no</td><td>Take the market value; state = <span class="tag-badge t-mkt">MKT</span>. Logged as “Adopted on Match.” <span class="muted">(e.g., Name, Dual Registered, CRD.)</span></td></tr>
+      <tr><td>any</td><td class="muted">no manual value</td><td>Take the market value; state = <span class="tag-badge t-mkt">MKT</span>.</td></tr>
+      <tr><td>any (no market ever)</td><td class="muted">manual value</td><td>state = <span class="tag-badge t-nomkt">NO MKT DATA</span>.</td></tr>
+    </tbody>
+  </table>
+
+  <!-- UI MAPPING -->
+  <h2>UI → data</h2>
+  <div class="sec-title">Where each thing on screen comes from</div>
+  <div class="card pad">
+    <div class="map">
+      <div class="m"><span class="u">Field value</span><span class="d">Contact effective field (resolved via Field API Name)</span></div>
+      <div class="m"><span class="u">MKT hover</span><span class="d">Market Sources + Market As-Of</span></div>
+      <div class="m"><span class="u">OVERRIDDEN hover</span><span class="d">Overridden By/On + Market Value/Sources/As-Of + Reason</span></div>
+      <div class="m"><span class="u">NO MKT DATA hover</span><span class="d">Entered By/On (Value Source = No Market Data)</span></div>
+      <div class="m"><span class="u">Freshness bell</span><span class="d">Has Fresher Market Data (formula)</span></div>
+      <div class="m"><span class="u">Reason for override</span><span class="d">Override Reason</span></div>
+      <div class="m"><span class="u">Data Review rows</span><span class="d">Market Data Control Table where Value Source = Manual Override</span></div>
+      <div class="m"><span class="u">Data Review filters</span><span class="d">Contact Owner / Business Group / Sub-Region / Territory (existing)</span></div>
+      <div class="m"><span class="u">Bulk actions</span><span class="d">DML across selected Market Data Control Table rows + Decision Log entries</span></div>
+      <div class="m"><span class="u">Audit tab</span><span class="d">Market Data Audit for the contact</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Prototype &amp; model for discussion · CFXP Data, AI &amp; Innovation · Sample data is fictitious. The attribute catalog, external market-intelligence metrics, and platform implementation details are out of scope here and owned by the Salesforce team.
+  </div>
+
+</div>
+</body>
+</html>
