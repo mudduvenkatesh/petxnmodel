@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PE Transaction Flow — Swimlane & Sequence Diagrams</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f6fa; color: #1a1a2e; }
+
+header { background: #1a1a2e; color: #fff; padding: 18px 32px; }
+header h1 { font-size: 20px; font-weight: 700; }
+header p  { font-size: 12px; color: #aab; margin-top: 3px; }
+
+.top-tabs { display: flex; gap: 8px; padding: 16px 32px 0; background: #fff; border-bottom: 2px solid #e0e0e0; }
+.top-tab { padding: 10px 24px; font-size: 13px; font-weight: 700; cursor: pointer; border-radius: 6px 6px 0 0; border: 1.5px solid #ddd; border-bottom: none; background: #f5f6fa; color: #666; transition: all 0.15s; }
+.top-tab.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
+
+.sub-tabs { display: flex; gap: 6px; padding: 12px 32px; background: #fff; border-bottom: 1px solid #eee; }
+.sub-tab { padding: 6px 18px; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; color: #666; transition: all 0.15s; }
+.sub-tab.active { background: #2c7be5; color: #fff; border-color: #2c7be5; }
+
+.panel { display: none; padding: 24px 32px; }
+.panel.active { display: block; }
+
+/* ── SWIMLANE ── */
+.swimlane-wrap { overflow-x: auto; }
+table.sl { border-collapse: collapse; width: 100%; min-width: 1100px; }
+table.sl .phase-hdr td { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: #fff; text-align: center; padding: 7px 4px; border: 1px solid rgba(255,255,255,0.2); }
+table.sl .lane-row td { border: 1px solid #e0e0e0; vertical-align: top; padding: 10px 8px; }
+table.sl .lane-label { background: #1a1a2e; color: #fff; font-size: 10px; font-weight: 700; text-align: center; writing-mode: vertical-rl; transform: rotate(180deg); width: 36px; min-height: 70px; letter-spacing: 0.5px; text-transform: uppercase; }
+table.sl .lane-label.investor  { background: #2c3e6b; }
+table.sl .lane-label.ta        { background: #4a5568; }
+table.sl .lane-label.fa        { background: #2d6a4f; }
+table.sl .lane-label.gp        { background: #1a1a2e; }
+table.sl .lane-label.cust      { background: #5a3e6b; }
+table.sl .lane-label.reg       { background: #7b3f20; }
+table.sl .lane-label.audit     { background: #2d4a6b; }
+
+.sl-cell { background: #f9fafb; }
+.steps-list { display: flex; flex-direction: column; gap: 6px; }
+.sl-step { border-radius: 5px; padding: 6px 8px; font-size: 10.5px; font-weight: 600; line-height: 1.35; border-left: 3px solid; }
+.sl-step.commit  { background: #ebf4ff; border-color: #2c7be5; color: #1a4a8a; }
+.sl-step.capital { background: #e6faf4; border-color: #00b386; color: #1a5c3e; }
+.sl-step.invest  { background: #f3eeff; border-color: #8b5cf6; color: #4a1a8a; }
+.sl-step.monitor { background: #fffbeb; border-color: #f59e0b; color: #7a4a00; }
+.sl-step.exit    { background: #fef2f2; border-color: #ef4444; color: #8a1a1a; }
+.sl-step.sub     { background: #ebf4ff; border-color: #2c7be5; color: #1a4a8a; }
+.sl-step.deploy  { background: #f3eeff; border-color: #8b5cf6; color: #4a1a8a; }
+.sl-step.ongoing { background: #e6faf4; border-color: #00b386; color: #1a5c3e; }
+.sl-step.redeem  { background: #fef2f2; border-color: #ef4444; color: #8a1a1a; }
+.sl-step.neutral { background: #f4f6fb; border-color: #9ca3af; color: #374151; }
+
+.step-tag { font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; opacity: 0.7; display: block; margin-bottom: 2px; }
+
+/* phase color classes for header cells */
+.ph-commit  { background: #2c7be5 !important; }
+.ph-capital { background: #00b386 !important; }
+.ph-invest  { background: #8b5cf6 !important; }
+.ph-monitor { background: #f59e0b !important; color: #1a1a2e !important; }
+.ph-exit    { background: #ef4444 !important; }
+.ph-sub     { background: #2c7be5 !important; }
+.ph-deploy  { background: #8b5cf6 !important; }
+.ph-ongoing { background: #00b386 !important; }
+.ph-redeem  { background: #ef4444 !important; }
+
+/* ── SEQUENCE ── */
+.seq-wrap { overflow-x: auto; }
+.mermaid { background: #fff; border: 1.5px solid #e0e0e0; border-radius: 10px; padding: 24px; min-width: 900px; }
+
+/* legend */
+.legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 16px 0 0; }
+.leg { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: #555; }
+.leg-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+.section-note { font-size: 11px; color: #666; background: #fffde7; border-left: 3px solid #f59e0b; padding: 6px 10px; border-radius: 3px; margin-bottom: 14px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PE Transaction Flow — Swimlane &amp; Sequence Diagrams</h1>
+  <p>Drawdown Fund &amp; Evergreen Fund · Transfer Agency · Fund Admin · Custodian · Regulatory · Audit</p>
+</header>
+
+<!-- TOP TABS: fund type -->
+<div class="top-tabs">
+  <div class="top-tab active" onclick="switchFund('drawdown', this)">📉 Drawdown Fund</div>
+  <div class="top-tab" onclick="switchFund('evergreen', this)">🔄 Evergreen Fund</div>
+</div>
+
+<!-- SUB TABS: diagram type -->
+<div class="sub-tabs" id="sub-tabs-drawdown">
+  <div class="sub-tab active" onclick="switchDiagram('drawdown','swimlane', this)">Swimlane Diagram</div>
+  <div class="sub-tab" onclick="switchDiagram('drawdown','sequence', this)">Sequence Diagram</div>
+</div>
+<div class="sub-tabs" id="sub-tabs-evergreen" style="display:none">
+  <div class="sub-tab active" onclick="switchDiagram('evergreen','swimlane', this)">Swimlane Diagram</div>
+  <div class="sub-tab" onclick="switchDiagram('evergreen','sequence', this)">Sequence Diagram</div>
+</div>
+
+<!-- ════════════════════════════════════
+     DRAWDOWN – SWIMLANE
+     ════════════════════════════════════ -->
+<div id="drawdown-swimlane" class="panel active">
+  <p class="section-note">Phases run left-to-right. Each row = one service provider. Colour = phase.</p>
+  <div class="swimlane-wrap">
+  <table class="sl">
+    <thead>
+      <tr class="phase-hdr">
+        <td style="width:36px; background:#1a1a2e;"></td>
+        <td class="ph-commit">① Commitment</td>
+        <td class="ph-capital">② Capital Call</td>
+        <td class="ph-invest">③ Investment</td>
+        <td class="ph-monitor">④ Monitor &amp; Report</td>
+        <td class="ph-exit">⑤ Exit &amp; Distribute</td>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="lane-row">
+        <td class="lane-label investor">LP / Investor</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Executes Subscription Docs &amp; LPA</div>
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Confirms Commitment Amount</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step capital"><span class="step-tag">Call</span>Receives Capital Call Notice</div>
+          <div class="sl-step capital"><span class="step-tag">Call</span>Wires Funds (within 10 days)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Awaits deployment confirmation</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Reviews Quarterly Reports &amp; K-1 / Schedule</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Receives Distribution Payment</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label ta">Transfer Agent</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step commit"><span class="step-tag">Commit</span>KYC / AML / Sanctions Screening</div>
+          <div class="sl-step commit"><span class="step-tag">Commit</span>LP Register &amp; Cap Table Setup</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step capital"><span class="step-tag">Call</span>Issues &amp; Distributes Call Notices</div>
+          <div class="sl-step capital"><span class="step-tag">Call</span>Tracks Received Wires / Defaults</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Updates Unfunded Commitment Ledger</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Maintains LP Ownership Records</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Distributes Quarterly Statements</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Receives Distribution Instructions</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Processes Payments to LP Bank Accounts</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label fa">Fund Admin</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Reviews Subscription Docs</div>
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Opens Fund GL / Books Commitment</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step capital"><span class="step-tag">Call</span>Records Capital Call in GL</div>
+          <div class="sl-step capital"><span class="step-tag">Call</span>Confirms Wire Receipt from Custodian</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Books Investment at Cost in GL</div>
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Updates Portfolio Schedule</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Prepares NAV / Financial Statements</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>LP Capital Account Statements</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Provides Audit Support Package</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Calculates Waterfall &amp; Carried Interest</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Books Distribution in GL</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Issues Distribution Instruction to TA</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label gp">GP / Manager</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Closes Fund / Investment Period Begins</div>
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Establishes IC &amp; Investment Policy</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step capital"><span class="step-tag">Call</span>IC Approves Deal &amp; Authorises Call</div>
+          <div class="sl-step capital"><span class="step-tag">Call</span>Instructs TA to Issue Capital Call</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Executes SPA / Investment Docs</div>
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Instructs Custodian to Wire Purchase Price</div>
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Manages Portfolio Company</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Provides Quarterly Fair Value Marks (IPEV)</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Board Representation at Portfolio Cos</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Negotiates Exit (Trade Sale / IPO / Secondary)</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Receives Exit Proceeds, Authorises Distribution</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label cust">Custodian / Bank</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">Setup</span>Opens Fund Custody Account</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step capital"><span class="step-tag">Call</span>Receives LP Wire Proceeds</div>
+          <div class="sl-step capital"><span class="step-tag">Call</span>Confirms Receipt to Fund Admin</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Wires Purchase Price to Seller on GP Instruction</div>
+          <div class="sl-step invest"><span class="step-tag">Invest</span>Holds Fund Assets &amp; Cash</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Provides Cash &amp; Position Reconciliation</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Receives Exit Proceeds</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Executes Distribution Wires to LPs</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label reg">Regulatory</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step commit"><span class="step-tag">Commit</span>Fund Registration (SEC / FCA / AIFMD)</div>
+          <div class="sl-step commit"><span class="step-tag">Commit</span>AML / Sanctions Check at LP Onboarding</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>No specific regulatory action</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step invest"><span class="step-tag">Invest</span>FARA / CFIUS if cross-border (if applicable)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Form PF / AIFMD Annex IV Filing</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>FATCA / CRS Annual Reporting</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>ADV Updates (if RIA)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Large Disposal Notifications (if required)</div>
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Wind-down / Fund Deregistration</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label audit">External Audit</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">Setup</span>Reviews LPA &amp; Fund Docs at Inception</div>
+          <div class="sl-step neutral"><span class="step-tag">Setup</span>Agrees Accounting Policies (ASC 946 / IFRS)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>No specific audit action</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>No specific audit action</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Annual Financial Statement Audit (PCAOB / IAASB)</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Validates Fair Value Methodology</div>
+          <div class="sl-step monitor"><span class="step-tag">Monitor</span>Issues Audit Opinion to LPs</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step exit"><span class="step-tag">Exit</span>Audits Final Distribution &amp; Wind-down Accounts</div>
+        </div></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="legend">
+    <span style="font-size:10.5px;font-weight:800;color:#444">Phases: </span>
+    <div class="leg"><div class="leg-dot" style="background:#2c7be5"></div>Commitment</div>
+    <div class="leg"><div class="leg-dot" style="background:#00b386"></div>Capital Call</div>
+    <div class="leg"><div class="leg-dot" style="background:#8b5cf6"></div>Investment</div>
+    <div class="leg"><div class="leg-dot" style="background:#f59e0b"></div>Monitor &amp; Report</div>
+    <div class="leg"><div class="leg-dot" style="background:#ef4444"></div>Exit &amp; Distribute</div>
+    <div class="leg"><div class="leg-dot" style="background:#9ca3af"></div>Setup / N/A</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     DRAWDOWN – SEQUENCE
+     ════════════════════════════════════ -->
+<div id="drawdown-sequence" class="panel">
+  <p class="section-note">Sequence diagram showing message flow between all parties across all phases of a Drawdown fund lifecycle.</p>
+  <div class="seq-wrap">
+  <div class="mermaid">
+sequenceDiagram
+    participant LP as LP / Investor
+    participant TA as Transfer Agent
+    participant FA as Fund Admin
+    participant GP as GP / Manager
+    participant CUST as Custodian
+    participant REG as Regulatory
+    participant AUD as External Audit
+
+    rect rgb(235, 244, 255)
+        Note over LP,AUD: ── PHASE 1: COMMITMENT ──
+        LP->>TA: Submit Subscription Docs & LPA
+        TA->>REG: KYC / AML / Sanctions Screening
+        REG-->>TA: Investor Cleared
+        TA->>FA: Register LP — Cap Table & GL Setup
+        FA-->>TA: LP Account Confirmed
+        TA-->>LP: Subscription Confirmed
+        GP->>REG: Fund Registration (SEC / FCA / AIFMD)
+        REG-->>GP: Registration Acknowledged
+    end
+
+    rect rgb(230, 250, 244)
+        Note over LP,AUD: ── PHASE 2: CAPITAL CALL ──
+        GP->>FA: IC Approval — Initiate Capital Call
+        GP->>TA: Issue Capital Call Instruction
+        TA->>LP: Distribute Capital Call Notice (10-day wire deadline)
+        LP->>CUST: Wire Funds to Fund Account
+        CUST-->>FA: Wire Receipt Confirmed
+        FA->>FA: Record Capital Call in GL
+        FA->>GP: Capital Available — Confirm
+        FA->>TA: Update Unfunded Commitment Ledger
+    end
+
+    rect rgb(243, 238, 255)
+        Note over LP,AUD: ── PHASE 3: INVESTMENT ──
+        GP->>FA: Investment Approval (IC Memo + SPA)
+        FA->>CUST: Release Purchase Price Wire (GP Instruction)
+        CUST-->>GP: Wire Execution Confirmed
+        FA->>FA: Book Investment at Cost in GL
+        FA->>TA: Update Portfolio Schedule for LPs
+    end
+
+    rect rgb(255, 251, 235)
+        Note over LP,AUD: ── PHASE 4: MONITOR & REPORT ──
+        GP->>FA: Quarterly Fair Value Marks (IPEV Guidelines)
+        FA->>FA: Prepare NAV & Financial Statements
+        FA->>TA: Issue LP Capital Account Statements
+        TA-->>LP: Quarterly Report & K-1 / Tax Schedule
+        FA->>AUD: Provide Audit Support Package
+        AUD->>AUD: Annual Audit (ASC 946 / IFRS 10)
+        AUD->>AUD: Fair Value Methodology Review
+        AUD-->>FA: Audit Opinion Issued
+        AUD-->>LP: Audited Financials
+        FA->>REG: File Form PF / AIFMD Annex IV
+        FA->>REG: FATCA / CRS Annual Reporting
+        CUST->>FA: Cash & Position Reconciliation
+    end
+
+    rect rgb(254, 242, 242)
+        Note over LP,AUD: ── PHASE 5: EXIT & DISTRIBUTION ──
+        GP->>CUST: Receive Exit Proceeds (Trade Sale / IPO)
+        CUST-->>FA: Exit Proceeds Confirmed
+        FA->>FA: Calculate Distribution Waterfall & Carry
+        FA->>GP: Waterfall Approval
+        GP-->>FA: Distribution Authorised
+        FA->>TA: Issue Distribution Instructions
+        TA->>CUST: Payment Instructions per LP
+        CUST->>LP: Wire Distribution Proceeds
+        FA->>AUD: Wind-down Financial Statements
+        AUD-->>FA: Final Audit Opinion
+        GP->>REG: Fund Deregistration / Wind-down Notice
+  end
+  </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     EVERGREEN – SWIMLANE
+     ════════════════════════════════════ -->
+<div id="evergreen-swimlane" class="panel">
+  <p class="section-note">Phases run left-to-right. Each row = one service provider. Colour = phase. Evergreen funds operate continuously — subscription &amp; redemption run concurrently with ongoing operations.</p>
+  <div class="swimlane-wrap">
+  <table class="sl">
+    <thead>
+      <tr class="phase-hdr">
+        <td style="width:36px; background:#1a1a2e;"></td>
+        <td class="ph-sub">① Subscription</td>
+        <td class="ph-deploy">② Deployment</td>
+        <td class="ph-ongoing">③ Ongoing Operations</td>
+        <td class="ph-redeem">④ Redemption</td>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr class="lane-row">
+        <td class="lane-label investor">Investor</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Submits Subscription Form &amp; KYC Docs</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Wires Subscription Amount at NAV</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Receives Unit / Share Confirmation</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>Awaits deployment updates</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Receives Periodic NAV Statements</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Receives Income Distributions (if applicable)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Submits Redemption Request (subject to gate / lock-up)</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Receives Redemption Proceeds at NAV</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label ta">Transfer Agent</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>KYC / AML / Accreditation / Suitability Check</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Creates Investor Account in Register</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Issues Shares / Units at Current NAV</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>Updates unfunded pipeline if staged</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Maintains Share Register</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Processes Secondary Transfers</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Distributes Investor Statements &amp; Tax Docs</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Validates Gate / Lock-up Eligibility</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Cancels Units — Updates Register</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Sends Payment Instruction to Custodian</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label fa">Fund Admin</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Books Subscription in GL</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Calculates NAV per Share (Subscription Date)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>Records Investment Cost / Portfolio Draw</div>
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>Reconciles Cash Deployed vs. Subscribed</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Monthly / Quarterly NAV Calculation</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>LP / Investor Capital Account Statements</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Income Distribution Calculation</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Liquidity Sleeve Monitoring</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Annual Financial Statements for Audit</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Calculates Redemption NAV per Share</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Books Redemption in GL</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Issues Payment Instruction to Custodian</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label gp">GP / Manager</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Sets Subscription Policy, NAV Frequency &amp; Pricing</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Defines Eligible Investor Criteria</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>IC Approves Investments Continuously</div>
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>Deploys Capital into PE / Credit Assets</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Manages Portfolio — Fair Value Marks (IPEV / ASC 820)</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Manages Liquid Sleeve for Redemptions</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Determines Gate / Side-pocket Triggers</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Approves / Gates Redemption Queue</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Manages Liquidity to Fund Redemptions</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label cust">Custodian / Bank</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Receives Investor Subscription Wire</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Confirms Receipt to TA &amp; Fund Admin</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>Executes Investment Wires on GP Instruction</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Holds Fund Assets, Cash &amp; Liquid Sleeve</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Provides Cash &amp; Position Reconciliation</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Wires Redemption Proceeds to Investor</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label reg">Regulatory</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Fund Registration (40 Act / AIFMD / FCA)</div>
+          <div class="sl-step sub"><span class="step-tag">Sub</span>Investor Suitability &amp; Accreditation Rules</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step deploy"><span class="step-tag">Deploy</span>Concentration / Leverage Limit Monitoring</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Form PF / ADV / AIFMD Annex IV Reporting</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>FATCA / CRS Annual Filing</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>NAV Valuation Policy Oversight</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Gate / Side-pocket Disclosure Requirements</div>
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Liquidity Risk Reporting (AIFMD Art. 16)</div>
+        </div></td>
+      </tr>
+
+      <tr class="lane-row">
+        <td class="lane-label audit">External Audit</td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">Setup</span>Reviews Subscription &amp; Valuation Policies at Launch</div>
+          <div class="sl-step neutral"><span class="step-tag">Setup</span>Agrees Accounting Framework (IFRS / US GAAP)</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step neutral"><span class="step-tag">—</span>No specific audit action</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>Annual Financial Statement Audit</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>NAV Methodology &amp; Fair Value Testing (ASC 820)</div>
+          <div class="sl-step ongoing"><span class="step-tag">Ongoing</span>SOC 1 / ISAE 3402 — Fund Admin Controls</div>
+        </div></td>
+        <td class="sl-cell"><div class="steps-list">
+          <div class="sl-step redeem"><span class="step-tag">Redeem</span>Reviews Gate &amp; Side-pocket Disclosures</div>
+        </div></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </div>
+
+  <div class="legend">
+    <span style="font-size:10.5px;font-weight:800;color:#444">Phases: </span>
+    <div class="leg"><div class="leg-dot" style="background:#2c7be5"></div>Subscription</div>
+    <div class="leg"><div class="leg-dot" style="background:#8b5cf6"></div>Deployment</div>
+    <div class="leg"><div class="leg-dot" style="background:#00b386"></div>Ongoing Operations</div>
+    <div class="leg"><div class="leg-dot" style="background:#ef4444"></div>Redemption</div>
+    <div class="leg"><div class="leg-dot" style="background:#9ca3af"></div>Setup / N/A</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     EVERGREEN – SEQUENCE
+     ════════════════════════════════════ -->
+<div id="evergreen-sequence" class="panel">
+  <p class="section-note">Sequence diagram showing message flow between all parties across all phases of an Evergreen fund. Subscription &amp; Redemption phases can run concurrently with Ongoing Operations.</p>
+  <div class="seq-wrap">
+  <div class="mermaid">
+sequenceDiagram
+    participant INV as Investor
+    participant TA as Transfer Agent
+    participant FA as Fund Admin
+    participant GP as GP / Manager
+    participant CUST as Custodian
+    participant REG as Regulatory
+    participant AUD as External Audit
+
+    rect rgb(235, 244, 255)
+        Note over INV,AUD: ── PHASE 1: SUBSCRIPTION ──
+        INV->>TA: Submit Subscription Form & KYC Docs
+        TA->>REG: AML / Accreditation / Suitability Check
+        REG-->>TA: Investor Approved
+        FA->>TA: Current NAV per Share
+        TA->>INV: Issue Units / Shares at NAV
+        INV->>CUST: Wire Subscription Amount
+        CUST-->>FA: Subscription Wire Confirmed
+        FA->>FA: Book Subscription in GL
+        GP->>REG: Fund Registration (40 Act / AIFMD / FCA)
+        REG-->>GP: Registration Acknowledged
+    end
+
+    rect rgb(243, 238, 255)
+        Note over INV,AUD: ── PHASE 2: DEPLOYMENT ──
+        GP->>FA: Investment Decision (IC Approval)
+        FA->>CUST: Instruct Investment Wire
+        CUST-->>GP: Execution Confirmed
+        FA->>FA: Book Investment at Cost in GL
+        FA->>TA: Update Portfolio / Investor Capital Accounts
+    end
+
+    rect rgb(230, 250, 244)
+        Note over INV,AUD: ── PHASE 3: ONGOING OPERATIONS ──
+        GP->>FA: Monthly Fair Value Marks (ASC 820 / IPEV)
+        FA->>FA: Calculate NAV per Share
+        FA->>TA: Updated NAV & Capital Account Data
+        TA-->>INV: Periodic Statements & Tax Documents
+        CUST->>FA: Cash & Position Reconciliation
+        FA->>FA: Liquidity Sleeve Monitoring
+        FA->>AUD: Annual Financial Statements
+        AUD->>AUD: Annual Audit (IFRS / US GAAP)
+        AUD->>AUD: NAV Methodology & Fair Value Testing
+        AUD->>AUD: SOC 1 / ISAE 3402 Controls Review
+        AUD-->>FA: Audit Opinion Issued
+        AUD-->>INV: Audited Financials Distributed
+        FA->>REG: Form PF / ADV / AIFMD Annex IV Filing
+        FA->>REG: FATCA / CRS Annual Reporting
+        GP->>REG: Liquidity Risk Reporting (AIFMD Art. 16)
+    end
+
+    rect rgb(254, 242, 242)
+        Note over INV,AUD: ── PHASE 4: REDEMPTION ──
+        INV->>TA: Submit Redemption Request
+        TA->>GP: Gate / Lock-up Eligibility Check
+        GP-->>TA: Approved (or gated / queued)
+        FA->>TA: Redemption NAV per Share (as of dealing date)
+        TA->>TA: Cancel Units in Share Register
+        TA->>FA: Redemption Booking Instruction
+        FA->>FA: Book Redemption in GL
+        FA->>CUST: Payment Instruction
+        CUST->>INV: Wire Redemption Proceeds
+        GP->>REG: Gate / Side-pocket Disclosure (if triggered)
+        AUD-->>FA: Audit Review of Gate Disclosures (if applicable)
+    end
+  </div>
+  </div>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#ebf4ff',
+      primaryTextColor: '#1a1a2e',
+      primaryBorderColor: '#2c7be5',
+      lineColor: '#4a5568',
+      secondaryColor: '#f3eeff',
+      tertiaryColor: '#e6faf4',
+      noteBkgColor: '#fffde7',
+      noteTextColor: '#444',
+      activationBkgColor: '#f0f4ff',
+      sequenceNumberColor: '#fff',
+      actorBkg: '#1a1a2e',
+      actorTextColor: '#fff',
+      actorBorder: '#1a1a2e',
+      labelBoxBkgColor: '#f5f6fa',
+      labelTextColor: '#1a1a2e',
+    },
+    sequence: {
+      showSequenceNumbers: true,
+      actorMargin: 60,
+      width: 130,
+      height: 40,
+      boxMargin: 8,
+      boxTextMargin: 5,
+      noteMargin: 10,
+      messageMargin: 30,
+      mirrorActors: false,
+      rightAngles: false,
+      useMaxWidth: true,
+    }
+  });
+
+  function switchFund(fund, el) {
+    // hide all sub-tab bars
+    document.querySelectorAll('[id^="sub-tabs-"]').forEach(e => e.style.display = 'none');
+    document.getElementById('sub-tabs-' + fund).style.display = 'flex';
+    // mark top tab active
+    document.querySelectorAll('.top-tab').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    // find active sub-tab for this fund
+    const subEl = document.querySelector('#sub-tabs-' + fund + ' .sub-tab.active');
+    const diagramType = subEl ? subEl.textContent.toLowerCase().includes('swim') ? 'swimlane' : 'sequence' : 'swimlane';
+    showPanel(fund + '-' + diagramType);
+  }
+
+  function switchDiagram(fund, type, el) {
+    const tabBar = document.getElementById('sub-tabs-' + fund);
+    tabBar.querySelectorAll('.sub-tab').forEach(e => e.classList.remove('active'));
+    el.classList.add('active');
+    showPanel(fund + '-' + type);
+  }
+
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+</script>
+</body>
+</html>
