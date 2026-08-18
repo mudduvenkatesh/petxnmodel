@@ -1,0 +1,6 @@
+product_id,product_name,strategy,asset_class,geography,gp_entity
+PROD-001,Apollo Buyout,Buyout,Private Equity,Global,Apollo Management LP
+PROD-002,Apollo Credit Opportunities,Credit,Private Credit,Global,Apollo Credit Management LP
+PROD-003,Apollo Real Assets,Real Assets,Real Estate,North America,Apollo Real Assets LP
+PROD-004,Apollo Infrastructure Partners,Infrastructure,Infrastructure,Global,Apollo Infrastructure LP
+PROD-005,Apollo Growth Equity,Growth Equity,Private Equity,North America / Europe,Apollo Growth Management LP

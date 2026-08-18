@@ -1,0 +1,201 @@
+investor_id,investor_name,investor_type,jurisdiction,tax_status,aum_usdm,typical_pe_allocation_pct,contact_name,contact_email,kyc_status,erisa_plan,preferred_feeder,relationship_manager
+INV-0001,Los Angeles Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,114443.0,13.0,Contact Person 1,contact1@investor1.com,Approved,No,Domestic,J. Williams
+INV-0002,Princeton College Investment Office,Endowment,USA,US Tax-Exempt,11550.0,9.5,Contact Person 2,contact2@investor2.com,Approved,No,Domestic,T. Osei
+INV-0003,Gates Family Office,Family Office,Singapore,Taxable,9459.0,8.0,Contact Person 3,contact3@investor3.com,Approved,No,Offshore,M. Patel
+INV-0004,California State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,133946.0,17.7,Contact Person 4,contact4@investor4.com,Pending,No,Domestic,R. Chen
+INV-0005,Johnson Investments Ltd,Family Office,Luxembourg,Taxable,7719.0,13.8,Contact Person 5,contact5@investor5.com,Approved,No,Offshore,S. Park
+INV-0006,Penn College Investment Office,Endowment,USA,US Tax-Exempt,34720.0,17.0,Contact Person 6,contact6@investor6.com,Approved,No,Domestic,R. Chen
+INV-0007,Canada National Wealth Fund,Sovereign Wealth Fund,Saudi Arabia,Foreign Government,707276.0,18.0,Contact Person 7,contact7@investor7.com,Pending,No,Offshore,S. Park
+INV-0008,Temasek National Wealth Fund,Sovereign Wealth Fund,Singapore,Foreign Government,471026.0,6.7,Contact Person 8,contact8@investor8.com,Approved,No,Offshore,M. Patel
+INV-0009,NYU University Endowment,Endowment,USA,US Tax-Exempt,6373.0,4.1,Contact Person 9,contact9@investor9.com,Pending,No,Domestic,M. Patel
+INV-0010,AIG Employee Benefit Fund,Corporate Pension,USA,US Tax-Exempt,48612.0,18.0,Contact Person 10,contact10@investor10.com,Approved,No,Domestic,A. Mensah
+INV-0011,New Zealand National Wealth Fund,Sovereign Wealth Fund,Temasek,Foreign Government,52434.0,18.5,Contact Person 11,contact11@investor11.com,Approved,No,Offshore,J. Williams
+INV-0012,Princeton University Endowment,Endowment,USA,US Tax-Exempt,19322.0,3.3,Contact Person 12,contact12@investor12.com,Approved,No,Domestic,T. Osei
+INV-0013,Wisconsin Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,189655.0,16.0,Contact Person 13,contact13@investor13.com,Approved,No,Domestic,M. Patel
+INV-0014,Atlanta Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,123286.0,19.9,Contact Person 14,contact14@investor14.com,Approved,No,Domestic,M. Patel
+INV-0015,Stanford University Endowment,Endowment,USA,US Tax-Exempt,4137.0,4.2,Contact Person 15,contact15@investor15.com,Approved,No,Domestic,S. Park
+INV-0016,Virginia State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,69434.0,11.3,Contact Person 16,contact16@investor16.com,Approved,No,Domestic,S. Park
+INV-0017,Prudential Multi-Strategy Fund,Asset Manager / Bank,UK,Taxable,65276.0,10.0,Contact Person 17,contact17@investor17.com,Approved,No,Offshore,J. Williams
+INV-0018,Blackstone Family Office,Family Office,USA,Taxable,8351.0,6.2,Contact Person 18,contact18@investor18.com,Pending,No,Domestic,S. Park
+INV-0019,Duke College Investment Office,Endowment,USA,US Tax-Exempt,13241.0,14.1,Contact Person 19,contact19@investor19.com,Approved,No,Domestic,A. Mensah
+INV-0020,Johnson Charitable Foundation (20),Foundation,USA,US Tax-Exempt,6393.0,5.8,Contact Person 20,contact20@investor20.com,Approved,No,Domestic,R. Chen
+INV-0021,Government Pension Fund — Singapore,Sovereign Wealth Fund,Temasek,Foreign Government,367256.0,8.0,Contact Person 21,contact21@investor21.com,Approved,No,Offshore,M. Patel
+INV-0022,Aetna Life Insurance Company,Insurance Company,UK,Taxable,26578.0,19.3,Contact Person 22,contact22@investor22.com,Approved,No,Offshore,S. Park
+INV-0023,Minnesota State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,173055.0,13.1,Contact Person 23,contact23@investor23.com,Approved,No,Domestic,J. Williams
+INV-0024,Koch Investments Ltd,Family Office,Luxembourg,Taxable,4483.0,9.7,Contact Person 24,contact24@investor24.com,Approved,No,Offshore,R. Chen
+INV-0025,Abu Dhabi Investment Authority,Sovereign Wealth Fund,Canada,Foreign Government,393714.0,6.6,Contact Person 25,contact25@investor25.com,Approved,No,Offshore,S. Park
+INV-0026,Mars Charitable Foundation,Foundation,USA,US Tax-Exempt,5858.0,19.7,Contact Person 26,contact26@investor26.com,Approved,No,Domestic,J. Williams
+INV-0027,BlackRock Alternative Investment Fund,Asset Manager / Bank,USA,Taxable,470686.0,15.6,Contact Person 27,contact27@investor27.com,Approved,No,Domestic,T. Osei
+INV-0028,Temasek National Wealth Fund,Sovereign Wealth Fund,Malaysia,Foreign Government,307160.0,18.4,Contact Person 28,contact28@investor28.com,Approved,No,Offshore,A. Mensah
+INV-0029,Blackstone Investments Ltd,Family Office,Cayman Islands,Taxable,569.0,15.6,Contact Person 29,contact29@investor29.com,Pending,No,Offshore,M. Patel
+INV-0030,Washington State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,181266.0,12.4,Contact Person 30,contact30@investor30.com,Pending,No,Domestic,A. Mensah
+INV-0031,Saudi Arabia Investment Authority,Sovereign Wealth Fund,Norway,Foreign Government,207557.0,18.0,Contact Person 31,contact31@investor31.com,Pending,No,Offshore,M. Patel
+INV-0032,Fidelity Assurance plc,Insurance Company,France,Taxable,293100.0,6.0,Contact Person 32,contact32@investor32.com,Approved,No,Offshore,R. Chen
+INV-0033,AIG Investments,Asset Manager / Bank,USA,Taxable,96415.0,17.6,Contact Person 33,contact33@investor33.com,Approved,No,Domestic,S. Park
+INV-0034,Lincoln Multi-Strategy Fund,Asset Manager / Bank,USA,Taxable,166492.0,14.2,Contact Person 34,contact34@investor34.com,Pending,No,Domestic,T. Osei
+INV-0035,South Korea Investment Authority,Sovereign Wealth Fund,Malaysia,Foreign Government,259344.0,5.0,Contact Person 35,contact35@investor35.com,Approved,No,Offshore,S. Park
+INV-0036,Blackstone Investments Ltd,Family Office,Luxembourg,Taxable,2614.0,13.3,Contact Person 36,contact36@investor36.com,Approved,No,Offshore,R. Chen
+INV-0037,Koch Charitable Foundation,Foundation,USA,US Tax-Exempt,1144.0,10.3,Contact Person 37,contact37@investor37.com,Approved,No,Domestic,M. Patel
+INV-0038,Temasek Investment Authority,Sovereign Wealth Fund,Australia,Foreign Government,725035.0,9.8,Contact Person 38,contact38@investor38.com,Approved,No,Offshore,M. Patel
+INV-0039,Minnesota Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,188371.0,12.3,Contact Person 39,contact39@investor39.com,Approved,No,Domestic,T. Osei
+INV-0040,Austin Teachers' Pension Fund (40),Public Pension Fund,USA,US Tax-Exempt,132668.0,6.6,Contact Person 40,contact40@investor40.com,Pending,No,Domestic,J. Williams
+INV-0041,Boston Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,128423.0,8.3,Contact Person 41,contact41@investor41.com,Approved,No,Domestic,A. Mensah
+INV-0042,Wisconsin Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,170699.0,12.8,Contact Person 42,contact42@investor42.com,Pending,No,Domestic,R. Chen
+INV-0043,Colorado State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,172786.0,16.7,Contact Person 43,contact43@investor43.com,Pending,Yes,Domestic,M. Patel
+INV-0044,Michigan State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,31001.0,16.9,Contact Person 44,contact44@investor44.com,Pending,No,Domestic,S. Park
+INV-0045,Allstate Annuity and Life,Insurance Company,France,Taxable,85166.0,7.1,Contact Person 45,contact45@investor45.com,Pending,No,Offshore,A. Mensah
+INV-0046,AIG Assurance plc,Insurance Company,UK,Taxable,107396.0,6.9,Contact Person 46,contact46@investor46.com,Approved,No,Offshore,J. Williams
+INV-0047,Florida Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,69522.0,17.2,Contact Person 47,contact47@investor47.com,Pending,Yes,Domestic,M. Patel
+INV-0048,Saudi Arabia Investment Authority,Sovereign Wealth Fund,Brunei,Foreign Government,273959.0,6.7,Contact Person 48,contact48@investor48.com,Pending,No,Offshore,R. Chen
+INV-0049,Boston Fire & Police Pension Fund,Public Pension Fund,USA,US Tax-Exempt,137433.0,19.7,Contact Person 49,contact49@investor49.com,Approved,No,Domestic,M. Patel
+INV-0050,Walton Family Office,Family Office,Singapore,Taxable,13034.0,7.4,Contact Person 50,contact50@investor50.com,Approved,No,Offshore,S. Park
+INV-0051,Johns Hopkins College Investment Office,Endowment,USA,US Tax-Exempt,44102.0,11.0,Contact Person 51,contact51@investor51.com,Approved,No,Domestic,T. Osei
+INV-0052,Colorado State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,191671.0,17.3,Contact Person 52,contact52@investor52.com,Approved,No,Domestic,S. Park
+INV-0053,Cornell University Endowment,Endowment,USA,US Tax-Exempt,47440.0,13.3,Contact Person 53,contact53@investor53.com,Approved,No,Domestic,S. Park
+INV-0054,Aflac Corporation Pension Plan,Corporate Pension,USA,US Tax-Exempt,3233.0,6.4,Contact Person 54,contact54@investor54.com,Approved,Yes,Domestic,J. Williams
+INV-0055,Aflac Asset Management,Asset Manager / Bank,USA,Taxable,395665.0,11.6,Contact Person 55,contact55@investor55.com,Approved,No,Domestic,A. Mensah
+INV-0056,BlackRock Multi-Strategy Fund,Asset Manager / Bank,UK,Taxable,228091.0,6.0,Contact Person 56,contact56@investor56.com,Approved,No,Offshore,M. Patel
+INV-0057,Allstate Multi-Strategy Fund,Asset Manager / Bank,USA,Taxable,229076.0,17.1,Contact Person 57,contact57@investor57.com,Approved,No,Domestic,T. Osei
+INV-0058,Soros Charitable Foundation,Foundation,USA,US Tax-Exempt,7238.0,11.4,Contact Person 58,contact58@investor58.com,Approved,No,Domestic,S. Park
+INV-0059,Johns Hopkins College Investment Office,Endowment,USA,US Tax-Exempt,13659.0,19.1,Contact Person 59,contact59@investor59.com,Approved,No,Domestic,S. Park
+INV-0060,Unum Annuity and Life (60),Insurance Company,France,Taxable,229868.0,16.5,Contact Person 60,contact60@investor60.com,Approved,No,Offshore,T. Osei
+INV-0061,Pennsylvania Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,134472.0,19.9,Contact Person 61,contact61@investor61.com,Approved,No,Domestic,J. Williams
+INV-0062,MIT College Investment Office,Endowment,USA,US Tax-Exempt,12296.0,15.6,Contact Person 62,contact62@investor62.com,Approved,No,Domestic,S. Park
+INV-0063,Pennsylvania Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,146294.0,8.0,Contact Person 63,contact63@investor63.com,Approved,No,Domestic,T. Osei
+INV-0064,Chicago Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,58491.0,17.8,Contact Person 64,contact64@investor64.com,Pending,Yes,Domestic,A. Mensah
+INV-0065,Rockefeller Private Wealth Management,Family Office,USA,Taxable,9089.0,4.9,Contact Person 65,contact65@investor65.com,Approved,No,Domestic,R. Chen
+INV-0066,Penn Foundation Investment Fund,Endowment,USA,US Tax-Exempt,34636.0,19.9,Contact Person 66,contact66@investor66.com,Approved,No,Domestic,M. Patel
+INV-0067,Cigna Assurance plc,Insurance Company,France,Taxable,120310.0,12.7,Contact Person 67,contact67@investor67.com,Approved,No,Offshore,M. Patel
+INV-0068,Prudential Corporation Pension Plan,Corporate Pension,USA,US Tax-Exempt,32025.0,6.0,Contact Person 68,contact68@investor68.com,Approved,No,Domestic,A. Mensah
+INV-0069,Cornell Foundation Investment Fund,Endowment,USA,US Tax-Exempt,24026.0,7.8,Contact Person 69,contact69@investor69.com,Pending,No,Domestic,A. Mensah
+INV-0070,Aflac Re Investment Portfolio,Insurance Company,USA,Taxable,201743.0,6.8,Contact Person 70,contact70@investor70.com,Approved,No,Domestic,T. Osei
+INV-0071,Goldman Asset Management,Asset Manager / Bank,USA,Taxable,99643.0,11.0,Contact Person 71,contact71@investor71.com,Approved,No,Domestic,J. Williams
+INV-0072,Dartmouth College Investment Office,Endowment,USA,US Tax-Exempt,27459.0,15.5,Contact Person 72,contact72@investor72.com,Approved,No,Domestic,A. Mensah
+INV-0073,Austin Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,190403.0,11.0,Contact Person 73,contact73@investor73.com,Pending,No,Domestic,S. Park
+INV-0074,Hartford Inc. Retirement Trust,Corporate Pension,USA,US Tax-Exempt,48515.0,8.5,Contact Person 74,contact74@investor74.com,Approved,No,Domestic,T. Osei
+INV-0075,MIT College Investment Office,Endowment,USA,US Tax-Exempt,33467.0,8.3,Contact Person 75,contact75@investor75.com,Approved,No,Domestic,A. Mensah
+INV-0076,Cigna Inc. Retirement Trust,Corporate Pension,USA,US Tax-Exempt,41597.0,6.2,Contact Person 76,contact76@investor76.com,Approved,No,Domestic,J. Williams
+INV-0077,Stanford University Endowment,Endowment,USA,US Tax-Exempt,14086.0,11.2,Contact Person 77,contact77@investor77.com,Approved,No,Domestic,J. Williams
+INV-0078,Gates Capital Partners,Family Office,USA,Taxable,3588.0,6.8,Contact Person 78,contact78@investor78.com,Approved,No,Domestic,R. Chen
+INV-0079,Griffin Endowed Foundation,Foundation,USA,US Tax-Exempt,2733.0,17.2,Contact Person 79,contact79@investor79.com,Pending,No,Domestic,S. Park
+INV-0080,Columbia University Endowment (80),Endowment,USA,US Tax-Exempt,10340.0,16.1,Contact Person 80,contact80@investor80.com,Pending,No,Domestic,T. Osei
+INV-0081,Koch Endowed Foundation,Foundation,USA,US Tax-Exempt,12398.0,10.6,Contact Person 81,contact81@investor81.com,Pending,No,Domestic,T. Osei
+INV-0082,Brunei Reserve Investment Corporation,Sovereign Wealth Fund,Saudi Arabia,Foreign Government,391508.0,9.5,Contact Person 82,contact82@investor82.com,Pending,No,Offshore,A. Mensah
+INV-0083,Government Pension Fund — Temasek,Sovereign Wealth Fund,Brunei,Foreign Government,735073.0,19.4,Contact Person 83,contact83@investor83.com,Approved,No,Offshore,M. Patel
+INV-0084,BlackRock Inc. Retirement Trust,Corporate Pension,USA,US Tax-Exempt,43961.0,15.3,Contact Person 84,contact84@investor84.com,Pending,No,Domestic,A. Mensah
+INV-0085,Chicago College Investment Office,Endowment,USA,US Tax-Exempt,31540.0,17.6,Contact Person 85,contact85@investor85.com,Pending,No,Domestic,T. Osei
+INV-0086,Griffin Private Wealth Management,Family Office,USA,Taxable,11050.0,14.6,Contact Person 86,contact86@investor86.com,Approved,No,Domestic,S. Park
+INV-0087,BlackRock Annuity and Life,Insurance Company,France,Taxable,230507.0,14.8,Contact Person 87,contact87@investor87.com,Approved,No,Offshore,A. Mensah
+INV-0088,Singapore Investment Authority,Sovereign Wealth Fund,Brunei,Foreign Government,318848.0,10.0,Contact Person 88,contact88@investor88.com,Approved,No,Offshore,S. Park
+INV-0089,Atlanta Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,79596.0,5.4,Contact Person 89,contact89@investor89.com,Pending,No,Domestic,R. Chen
+INV-0090,South Korea Investment Authority,Sovereign Wealth Fund,Singapore,Foreign Government,398940.0,19.1,Contact Person 90,contact90@investor90.com,Approved,No,Offshore,J. Williams
+INV-0091,AIG Employee Benefit Fund,Corporate Pension,USA,US Tax-Exempt,23928.0,4.8,Contact Person 91,contact91@investor91.com,Pending,No,Domestic,M. Patel
+INV-0092,Abu Dhabi Future Generations Fund,Sovereign Wealth Fund,Malaysia,Foreign Government,783458.0,12.6,Contact Person 92,contact92@investor92.com,Approved,No,Offshore,M. Patel
+INV-0093,MetLife Re Investment Portfolio,Insurance Company,UK,Taxable,186049.0,7.3,Contact Person 93,contact93@investor93.com,Approved,No,Offshore,J. Williams
+INV-0094,Pennsylvania State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,158779.0,18.5,Contact Person 94,contact94@investor94.com,Approved,No,Domestic,S. Park
+INV-0095,Phoenix Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,108516.0,19.4,Contact Person 95,contact95@investor95.com,Approved,No,Domestic,A. Mensah
+INV-0096,Princeton University Endowment,Endowment,USA,US Tax-Exempt,37953.0,16.4,Contact Person 96,contact96@investor96.com,Approved,No,Domestic,T. Osei
+INV-0097,Pritzker Private Wealth Management,Family Office,Luxembourg,Taxable,13620.0,19.0,Contact Person 97,contact97@investor97.com,Approved,No,Offshore,J. Williams
+INV-0098,Wisconsin State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,177426.0,4.1,Contact Person 98,contact98@investor98.com,Pending,No,Domestic,J. Williams
+INV-0099,Harvard University Endowment,Endowment,USA,US Tax-Exempt,47367.0,7.0,Contact Person 99,contact99@investor99.com,Approved,No,Domestic,R. Chen
+INV-0100,Northwestern Foundation Investment Fund (100),Endowment,USA,US Tax-Exempt,35128.0,14.1,Contact Person 100,contact100@investor100.com,Pending,No,Domestic,M. Patel
+INV-0101,Harvard College Investment Office,Endowment,USA,US Tax-Exempt,34824.0,17.5,Contact Person 101,contact101@investor101.com,Approved,No,Domestic,J. Williams
+INV-0102,Abu Dhabi Future Generations Fund,Sovereign Wealth Fund,Norway,Foreign Government,348605.0,14.3,Contact Person 102,contact102@investor102.com,Approved,No,Offshore,A. Mensah
+INV-0103,Vanguard Investments,Asset Manager / Bank,Luxembourg,Taxable,397749.0,6.7,Contact Person 103,contact103@investor103.com,Approved,No,Offshore,T. Osei
+INV-0104,AIG Asset Management,Asset Manager / Bank,USA,Taxable,432035.0,4.9,Contact Person 104,contact104@investor104.com,Approved,No,Domestic,S. Park
+INV-0105,Wisconsin Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,68135.0,15.6,Contact Person 105,contact105@investor105.com,Approved,Yes,Domestic,R. Chen
+INV-0106,Dartmouth College Investment Office,Endowment,USA,US Tax-Exempt,30090.0,16.3,Contact Person 106,contact106@investor106.com,Approved,No,Domestic,R. Chen
+INV-0107,Blackstone Family Office,Family Office,Singapore,Taxable,19972.0,4.8,Contact Person 107,contact107@investor107.com,Pending,No,Offshore,A. Mensah
+INV-0108,Carnegie Philanthropic Trust,Foundation,USA,US Tax-Exempt,2651.0,19.9,Contact Person 108,contact108@investor108.com,Approved,No,Domestic,R. Chen
+INV-0109,Yale College Investment Office,Endowment,USA,US Tax-Exempt,39862.0,18.1,Contact Person 109,contact109@investor109.com,Pending,No,Domestic,T. Osei
+INV-0110,Nationwide Multi-Strategy Fund,Asset Manager / Bank,Luxembourg,Taxable,370214.0,7.3,Contact Person 110,contact110@investor110.com,Approved,No,Offshore,J. Williams
+INV-0111,Walton Charitable Foundation,Foundation,USA,US Tax-Exempt,12561.0,15.6,Contact Person 111,contact111@investor111.com,Approved,No,Domestic,M. Patel
+INV-0112,Dallas Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,69281.0,19.0,Contact Person 112,contact112@investor112.com,Pending,Yes,Domestic,T. Osei
+INV-0113,Walton Investments Ltd,Family Office,Cayman Islands,Taxable,11769.0,17.4,Contact Person 113,contact113@investor113.com,Approved,No,Offshore,M. Patel
+INV-0114,Canada Future Generations Fund,Sovereign Wealth Fund,Brunei,Foreign Government,219619.0,6.1,Contact Person 114,contact114@investor114.com,Approved,No,Offshore,T. Osei
+INV-0115,Japan National Wealth Fund,Sovereign Wealth Fund,Malaysia,Foreign Government,157439.0,15.6,Contact Person 115,contact115@investor115.com,Approved,No,Offshore,A. Mensah
+INV-0116,Principal Assurance plc,Insurance Company,Germany,Taxable,131751.0,15.3,Contact Person 116,contact116@investor116.com,Approved,No,Offshore,A. Mensah
+INV-0117,Los Angeles Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,136424.0,13.3,Contact Person 117,contact117@investor117.com,Pending,No,Domestic,S. Park
+INV-0118,Lincoln Life Insurance Company,Insurance Company,Germany,Taxable,134675.0,6.7,Contact Person 118,contact118@investor118.com,Approved,No,Offshore,A. Mensah
+INV-0119,Colorado Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,31761.0,3.1,Contact Person 119,contact119@investor119.com,Pending,No,Domestic,S. Park
+INV-0120,Australia National Wealth Fund (120),Sovereign Wealth Fund,Malaysia,Foreign Government,469043.0,17.6,Contact Person 120,contact120@investor120.com,Approved,No,Offshore,R. Chen
+INV-0121,Virginia State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,66047.0,5.0,Contact Person 121,contact121@investor121.com,Approved,No,Domestic,S. Park
+INV-0122,Lincoln Multi-Strategy Fund,Asset Manager / Bank,UK,Taxable,62302.0,13.0,Contact Person 122,contact122@investor122.com,Approved,No,Offshore,R. Chen
+INV-0123,Pritzker Endowed Foundation,Foundation,USA,US Tax-Exempt,3713.0,13.8,Contact Person 123,contact123@investor123.com,Approved,No,Domestic,T. Osei
+INV-0124,Norway National Wealth Fund,Sovereign Wealth Fund,Singapore,Foreign Government,127103.0,5.6,Contact Person 124,contact124@investor124.com,Approved,No,Offshore,S. Park
+INV-0125,Hartford Employee Benefit Fund,Corporate Pension,USA,US Tax-Exempt,24270.0,8.4,Contact Person 125,contact125@investor125.com,Pending,Yes,Domestic,R. Chen
+INV-0126,Johns Hopkins College Investment Office,Endowment,USA,US Tax-Exempt,14459.0,10.8,Contact Person 126,contact126@investor126.com,Approved,No,Domestic,A. Mensah
+INV-0127,Qatar Future Generations Fund,Sovereign Wealth Fund,Japan,Foreign Government,533500.0,12.9,Contact Person 127,contact127@investor127.com,Approved,No,Offshore,R. Chen
+INV-0128,Bloomberg Endowed Foundation,Foundation,USA,US Tax-Exempt,3229.0,10.7,Contact Person 128,contact128@investor128.com,Approved,No,Domestic,J. Williams
+INV-0129,California Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,53310.0,9.3,Contact Person 129,contact129@investor129.com,Approved,No,Domestic,R. Chen
+INV-0130,Aetna Asset Management,Asset Manager / Bank,UK,Taxable,51638.0,15.3,Contact Person 130,contact130@investor130.com,Approved,No,Offshore,T. Osei
+INV-0131,Ohio Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,65495.0,15.1,Contact Person 131,contact131@investor131.com,Approved,No,Domestic,M. Patel
+INV-0132,Japan Future Generations Fund,Sovereign Wealth Fund,Temasek,Foreign Government,145845.0,9.2,Contact Person 132,contact132@investor132.com,Approved,No,Offshore,T. Osei
+INV-0133,Ohio Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,189795.0,5.6,Contact Person 133,contact133@investor133.com,Approved,Yes,Domestic,M. Patel
+INV-0134,Aetna Asset Management,Asset Manager / Bank,USA,Taxable,440669.0,5.8,Contact Person 134,contact134@investor134.com,Approved,No,Domestic,J. Williams
+INV-0135,Chicago College Investment Office,Endowment,USA,US Tax-Exempt,34142.0,16.3,Contact Person 135,contact135@investor135.com,Approved,No,Domestic,M. Patel
+INV-0136,Virginia Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,42833.0,16.2,Contact Person 136,contact136@investor136.com,Pending,No,Domestic,S. Park
+INV-0137,AIG Investments,Asset Manager / Bank,Luxembourg,Taxable,45046.0,17.4,Contact Person 137,contact137@investor137.com,Approved,No,Offshore,T. Osei
+INV-0138,Pennsylvania Public Employees' Retirement System,Public Pension Fund,USA,US Tax-Exempt,92617.0,19.1,Contact Person 138,contact138@investor138.com,Approved,No,Domestic,T. Osei
+INV-0139,Blackstone Philanthropic Trust,Foundation,USA,US Tax-Exempt,6249.0,9.4,Contact Person 139,contact139@investor139.com,Approved,No,Domestic,T. Osei
+INV-0140,Bloomberg Endowed Foundation (140),Foundation,USA,US Tax-Exempt,5362.0,18.6,Contact Person 140,contact140@investor140.com,Pending,No,Domestic,J. Williams
+INV-0141,Allstate Multi-Strategy Fund,Asset Manager / Bank,USA,Taxable,315367.0,17.2,Contact Person 141,contact141@investor141.com,Pending,No,Domestic,A. Mensah
+INV-0142,Berkshire Investments,Asset Manager / Bank,USA,Taxable,78487.0,4.9,Contact Person 142,contact142@investor142.com,Pending,No,Domestic,M. Patel
+INV-0143,Gates Capital Partners,Family Office,USA,Taxable,3300.0,12.7,Contact Person 143,contact143@investor143.com,Approved,No,Domestic,J. Williams
+INV-0144,Walton Investments Ltd,Family Office,USA,Taxable,19091.0,3.7,Contact Person 144,contact144@investor144.com,Pending,No,Domestic,T. Osei
+INV-0145,Saudi Arabia Investment Authority,Sovereign Wealth Fund,Saudi Arabia,Foreign Government,641390.0,15.5,Contact Person 145,contact145@investor145.com,Approved,No,Offshore,S. Park
+INV-0146,Phoenix Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,163634.0,6.1,Contact Person 146,contact146@investor146.com,Approved,Yes,Domestic,J. Williams
+INV-0147,Goldman Multi-Strategy Fund,Asset Manager / Bank,UK,Taxable,160852.0,18.9,Contact Person 147,contact147@investor147.com,Pending,No,Offshore,M. Patel
+INV-0148,Johns Hopkins University Endowment,Endowment,USA,US Tax-Exempt,32698.0,8.6,Contact Person 148,contact148@investor148.com,Approved,No,Domestic,T. Osei
+INV-0149,Northwestern College Investment Office,Endowment,USA,US Tax-Exempt,22547.0,14.8,Contact Person 149,contact149@investor149.com,Approved,No,Domestic,M. Patel
+INV-0150,Temasek Investment Authority,Sovereign Wealth Fund,Brunei,Foreign Government,368375.0,4.7,Contact Person 150,contact150@investor150.com,Approved,No,Offshore,J. Williams
+INV-0151,Government Pension Fund — Canada,Sovereign Wealth Fund,Kuwait,Foreign Government,588247.0,3.7,Contact Person 151,contact151@investor151.com,Approved,No,Offshore,M. Patel
+INV-0152,Goldman Inc. Retirement Trust,Corporate Pension,USA,US Tax-Exempt,5602.0,16.6,Contact Person 152,contact152@investor152.com,Approved,Yes,Domestic,S. Park
+INV-0153,Goldman Multi-Strategy Fund,Asset Manager / Bank,UK,Taxable,80590.0,19.1,Contact Person 153,contact153@investor153.com,Approved,No,Offshore,M. Patel
+INV-0154,Ohio Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,77543.0,9.2,Contact Person 154,contact154@investor154.com,Approved,No,Domestic,S. Park
+INV-0155,Fidelity Corporation Pension Plan,Corporate Pension,USA,US Tax-Exempt,25954.0,15.0,Contact Person 155,contact155@investor155.com,Approved,No,Domestic,J. Williams
+INV-0156,Mars Philanthropic Trust,Foundation,USA,US Tax-Exempt,2278.0,18.3,Contact Person 156,contact156@investor156.com,Pending,No,Domestic,A. Mensah
+INV-0157,Lincoln Alternative Investment Fund,Asset Manager / Bank,USA,Taxable,360579.0,15.1,Contact Person 157,contact157@investor157.com,Approved,No,Domestic,T. Osei
+INV-0158,Stanford University Endowment,Endowment,USA,US Tax-Exempt,39811.0,12.4,Contact Person 158,contact158@investor158.com,Approved,No,Domestic,R. Chen
+INV-0159,Transamerica Investments,Asset Manager / Bank,Luxembourg,Taxable,444438.0,15.2,Contact Person 159,contact159@investor159.com,Pending,No,Offshore,R. Chen
+INV-0160,Vanguard Asset Management (160),Asset Manager / Bank,UK,Taxable,486742.0,14.6,Contact Person 160,contact160@investor160.com,Approved,No,Offshore,S. Park
+INV-0161,Bloomberg Endowed Foundation,Foundation,USA,US Tax-Exempt,9023.0,18.5,Contact Person 161,contact161@investor161.com,Approved,No,Domestic,A. Mensah
+INV-0162,Princeton College Investment Office,Endowment,USA,US Tax-Exempt,8936.0,18.2,Contact Person 162,contact162@investor162.com,Approved,No,Domestic,T. Osei
+INV-0163,Philadelphia Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,29408.0,19.0,Contact Person 163,contact163@investor163.com,Approved,No,Domestic,J. Williams
+INV-0164,Griffin Investments Ltd,Family Office,USA,Taxable,18517.0,19.1,Contact Person 164,contact164@investor164.com,Approved,No,Domestic,J. Williams
+INV-0165,San Antonio Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,125531.0,19.3,Contact Person 165,contact165@investor165.com,Pending,No,Domestic,J. Williams
+INV-0166,Yale College Investment Office,Endowment,USA,US Tax-Exempt,34742.0,10.9,Contact Person 166,contact166@investor166.com,Approved,No,Domestic,M. Patel
+INV-0167,Seattle Fire & Police Pension Fund,Public Pension Fund,USA,US Tax-Exempt,197665.0,11.8,Contact Person 167,contact167@investor167.com,Approved,No,Domestic,S. Park
+INV-0168,Duke College Investment Office,Endowment,USA,US Tax-Exempt,13148.0,17.7,Contact Person 168,contact168@investor168.com,Pending,No,Domestic,S. Park
+INV-0169,Aetna Corporation Pension Plan,Corporate Pension,USA,US Tax-Exempt,46820.0,11.5,Contact Person 169,contact169@investor169.com,Pending,No,Domestic,T. Osei
+INV-0170,Columbia University Endowment,Endowment,USA,US Tax-Exempt,25767.0,3.9,Contact Person 170,contact170@investor170.com,Pending,No,Domestic,M. Patel
+INV-0171,Bloomberg Endowed Foundation,Foundation,USA,US Tax-Exempt,7324.0,5.3,Contact Person 171,contact171@investor171.com,Approved,No,Domestic,J. Williams
+INV-0172,Government Pension Fund — Saudi Arabia,Sovereign Wealth Fund,Abu Dhabi,Foreign Government,83932.0,7.9,Contact Person 172,contact172@investor172.com,Pending,No,Offshore,M. Patel
+INV-0173,MIT Foundation Investment Fund,Endowment,USA,US Tax-Exempt,41440.0,9.7,Contact Person 173,contact173@investor173.com,Approved,No,Domestic,M. Patel
+INV-0174,Mars Charitable Foundation,Foundation,USA,US Tax-Exempt,9236.0,5.3,Contact Person 174,contact174@investor174.com,Approved,No,Domestic,R. Chen
+INV-0175,Cornell University Endowment,Endowment,USA,US Tax-Exempt,44763.0,9.7,Contact Person 175,contact175@investor175.com,Approved,No,Domestic,M. Patel
+INV-0176,Australia Reserve Investment Corporation,Sovereign Wealth Fund,Canada,Foreign Government,417385.0,9.3,Contact Person 176,contact176@investor176.com,Approved,No,Offshore,R. Chen
+INV-0177,Carnegie Family Office,Family Office,Cayman Islands,Taxable,9755.0,11.2,Contact Person 177,contact177@investor177.com,Pending,No,Offshore,S. Park
+INV-0178,Goldman Investments,Asset Manager / Bank,USA,Taxable,294834.0,10.5,Contact Person 178,contact178@investor178.com,Pending,No,Domestic,S. Park
+INV-0179,Columbia University Endowment,Endowment,USA,US Tax-Exempt,25589.0,5.3,Contact Person 179,contact179@investor179.com,Approved,No,Domestic,M. Patel
+INV-0180,Government Pension Fund — Australia (180),Sovereign Wealth Fund,Kuwait,Foreign Government,332619.0,9.0,Contact Person 180,contact180@investor180.com,Approved,No,Offshore,M. Patel
+INV-0181,MIT University Endowment,Endowment,USA,US Tax-Exempt,28346.0,6.5,Contact Person 181,contact181@investor181.com,Pending,No,Domestic,T. Osei
+INV-0182,Johns Hopkins Foundation Investment Fund,Endowment,USA,US Tax-Exempt,36362.0,16.9,Contact Person 182,contact182@investor182.com,Approved,No,Domestic,T. Osei
+INV-0183,Ohio State Teachers' Retirement System,Public Pension Fund,USA,US Tax-Exempt,185182.0,6.4,Contact Person 183,contact183@investor183.com,Approved,No,Domestic,S. Park
+INV-0184,Houston Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,52279.0,4.7,Contact Person 184,contact184@investor184.com,Approved,No,Domestic,A. Mensah
+INV-0185,JPMorgan Assurance plc,Insurance Company,France,Taxable,289710.0,14.1,Contact Person 185,contact185@investor185.com,Approved,No,Offshore,T. Osei
+INV-0186,South Korea Investment Authority,Sovereign Wealth Fund,Canada,Foreign Government,117096.0,10.1,Contact Person 186,contact186@investor186.com,Approved,No,Offshore,A. Mensah
+INV-0187,Hartford Inc. Retirement Trust,Corporate Pension,USA,US Tax-Exempt,10943.0,8.1,Contact Person 187,contact187@investor187.com,Approved,No,Domestic,T. Osei
+INV-0188,Dartmouth Foundation Investment Fund,Endowment,USA,US Tax-Exempt,26692.0,16.7,Contact Person 188,contact188@investor188.com,Approved,No,Domestic,S. Park
+INV-0189,Fidelity Re Investment Portfolio,Insurance Company,UK,Taxable,14084.0,13.4,Contact Person 189,contact189@investor189.com,Pending,No,Offshore,R. Chen
+INV-0190,Columbia University Endowment,Endowment,USA,US Tax-Exempt,33794.0,18.9,Contact Person 190,contact190@investor190.com,Approved,No,Domestic,T. Osei
+INV-0191,Government Pension Fund — South Korea,Sovereign Wealth Fund,Saudi Arabia,Foreign Government,250246.0,14.1,Contact Person 191,contact191@investor191.com,Approved,No,Offshore,A. Mensah
+INV-0192,Koch Private Wealth Management,Family Office,Luxembourg,Taxable,3614.0,18.6,Contact Person 192,contact192@investor192.com,Approved,No,Offshore,T. Osei
+INV-0193,Johnson Capital Partners,Family Office,Luxembourg,Taxable,9825.0,12.3,Contact Person 193,contact193@investor193.com,Pending,No,Offshore,M. Patel
+INV-0194,MetLife Investments,Asset Manager / Bank,Luxembourg,Taxable,346564.0,15.0,Contact Person 194,contact194@investor194.com,Approved,No,Offshore,M. Patel
+INV-0195,Dallas Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,44421.0,17.5,Contact Person 195,contact195@investor195.com,Pending,Yes,Domestic,J. Williams
+INV-0196,San Diego Teachers' Pension Fund,Public Pension Fund,USA,US Tax-Exempt,22734.0,5.2,Contact Person 196,contact196@investor196.com,Pending,No,Domestic,M. Patel
+INV-0197,Minnesota Municipal Employees Pension Fund,Public Pension Fund,USA,US Tax-Exempt,162348.0,16.9,Contact Person 197,contact197@investor197.com,Approved,Yes,Domestic,A. Mensah
+INV-0198,Yale Foundation Investment Fund,Endowment,USA,US Tax-Exempt,27517.0,7.9,Contact Person 198,contact198@investor198.com,Approved,No,Domestic,S. Park
+INV-0199,Lincoln Annuity and Life,Insurance Company,France,Taxable,297928.0,4.4,Contact Person 199,contact199@investor199.com,Approved,No,Offshore,J. Williams
+INV-0200,Fidelity Asset Management (200),Asset Manager / Bank,USA,Taxable,496566.0,15.9,Contact Person 200,contact200@investor200.com,Approved,No,Domestic,R. Chen

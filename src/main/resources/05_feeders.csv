@@ -1,0 +1,21 @@
+feeder_id,feeder_name,fund_id,main_vehicle_id,feeder_type,investor_eligibility,minimum_commitment_usdm,management_fee_pct,formation_date,bank_account,custodian
+FUND-ABF-IX-DOM,Apollo Buyout Fund IX — Domestic Feeder,FUND-ABF-IX,FUND-ABF-IX-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.5,2021-01-15,JPMC-786579303,JPMorgan Chase Bank NA
+FUND-ABF-IX-OFF,Apollo Buyout Fund IX — Offshore Feeder,FUND-ABF-IX,FUND-ABF-IX-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.5,2021-01-15,CITI-219540831,Citibank NA
+FUND-ABF-X-DOM,Apollo Buyout Fund X — Domestic Feeder,FUND-ABF-X,FUND-ABF-X-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.5,2023-01-15,JPMC-126855092,JPMorgan Chase Bank NA
+FUND-ABF-X-OFF,Apollo Buyout Fund X — Offshore Feeder,FUND-ABF-X,FUND-ABF-X-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.5,2023-01-15,CITI-896233790,Citibank NA
+FUND-ACO-IV-DOM,Apollo Credit Opps IV — Domestic Feeder,FUND-ACO-IV,FUND-ACO-IV-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.0,2021-01-15,JPMC-395310485,JPMorgan Chase Bank NA
+FUND-ACO-IV-OFF,Apollo Credit Opps IV — Offshore Feeder,FUND-ACO-IV,FUND-ACO-IV-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.0,2021-01-15,CITI-362950628,Citibank NA
+FUND-ACO-V-DOM,Apollo Credit Opps V — Domestic Feeder,FUND-ACO-V,FUND-ACO-V-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.0,2023-01-15,JPMC-339670711,JPMorgan Chase Bank NA
+FUND-ACO-V-OFF,Apollo Credit Opps V — Offshore Feeder,FUND-ACO-V,FUND-ACO-V-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.0,2023-01-15,CITI-249827706,Citibank NA
+FUND-ARA-III-DOM,Apollo Real Assets III — Domestic Feeder,FUND-ARA-III,FUND-ARA-III-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.25,2020-01-15,JPMC-890779946,JPMorgan Chase Bank NA
+FUND-ARA-III-OFF,Apollo Real Assets III — Offshore Feeder,FUND-ARA-III,FUND-ARA-III-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.25,2020-01-15,CITI-210053353,Citibank NA
+FUND-ARA-IV-DOM,Apollo Real Assets IV — Domestic Feeder,FUND-ARA-IV,FUND-ARA-IV-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.25,2022-01-15,JPMC-826600539,JPMorgan Chase Bank NA
+FUND-ARA-IV-OFF,Apollo Real Assets IV — Offshore Feeder,FUND-ARA-IV,FUND-ARA-IV-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.25,2022-01-15,CITI-895285932,Citibank NA
+FUND-AIP-II-DOM,Apollo Infra Partners II — Domestic Feeder,FUND-AIP-II,FUND-AIP-II-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.0,2021-01-15,JPMC-685582861,JPMorgan Chase Bank NA
+FUND-AIP-II-OFF,Apollo Infra Partners II — Offshore Feeder,FUND-AIP-II,FUND-AIP-II-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.0,2021-01-15,CITI-193349856,Citibank NA
+FUND-AIP-III-DOM,Apollo Infra Partners III — Domestic Feeder,FUND-AIP-III,FUND-AIP-III-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,1.0,2023-01-15,JPMC-734036506,JPMorgan Chase Bank NA
+FUND-AIP-III-OFF,Apollo Infra Partners III — Offshore Feeder,FUND-AIP-III,FUND-AIP-III-MAIN,Offshore,Non-US / Tax-Exempt,10.0,1.0,2023-01-15,CITI-553035110,Citibank NA
+FUND-AGE-II-DOM,Apollo Growth Equity II — Domestic Feeder,FUND-AGE-II,FUND-AGE-II-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,2.0,2022-01-15,JPMC-134126396,JPMorgan Chase Bank NA
+FUND-AGE-II-OFF,Apollo Growth Equity II — Offshore Feeder,FUND-AGE-II,FUND-AGE-II-MAIN,Offshore,Non-US / Tax-Exempt,10.0,2.0,2022-01-15,CITI-131994523,Citibank NA
+FUND-AGE-III-DOM,Apollo Growth Equity III — Domestic Feeder,FUND-AGE-III,FUND-AGE-III-MAIN,Domestic,US Tax-Exempt / ERISA,5.0,2.0,2024-01-15,JPMC-200604502,JPMorgan Chase Bank NA
+FUND-AGE-III-OFF,Apollo Growth Equity III — Offshore Feeder,FUND-AGE-III,FUND-AGE-III-MAIN,Offshore,Non-US / Tax-Exempt,10.0,2.0,2024-01-15,CITI-334760738,Citibank NA

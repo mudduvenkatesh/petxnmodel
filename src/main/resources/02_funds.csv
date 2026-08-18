@@ -1,0 +1,11 @@
+fund_id,fund_name,product_id,vintage_year,fund_status,target_size_usdm,hard_cap_usdm,management_fee_pct,carried_interest_pct,preferred_return_pct,term_years,commitment_period_end,fund_end_date,currency,domicile,gp_commitment_pct
+FUND-ABF-IX,Apollo Buyout Fund IX,PROD-001,2021,Investing,20000,25000,1.5,20,8.0,10,2026-12-31,2031-12-31,USD,Cayman Islands,1.0
+FUND-ABF-X,Apollo Buyout Fund X,PROD-001,2023,Active,25000,31250,1.5,20,8.0,10,2028-12-31,2033-12-31,USD,Cayman Islands,1.0
+FUND-ACO-IV,Apollo Credit Opps IV,PROD-002,2021,Investing,10000,12500,1.0,15,8.0,8,2026-12-31,2029-12-31,USD,Cayman Islands,1.0
+FUND-ACO-V,Apollo Credit Opps V,PROD-002,2023,Active,12000,15000,1.0,15,8.0,8,2028-12-31,2031-12-31,USD,Cayman Islands,1.0
+FUND-ARA-III,Apollo Real Assets III,PROD-003,2020,Investing,8000,10000,1.25,20,8.0,10,2025-12-31,2030-12-31,USD,Cayman Islands,1.0
+FUND-ARA-IV,Apollo Real Assets IV,PROD-003,2022,Active,9500,11875,1.25,20,8.0,10,2027-12-31,2032-12-31,USD,Cayman Islands,1.0
+FUND-AIP-II,Apollo Infra Partners II,PROD-004,2021,Investing,15000,18750,1.0,15,8.0,12,2026-12-31,2033-12-31,USD,Cayman Islands,1.0
+FUND-AIP-III,Apollo Infra Partners III,PROD-004,2023,Active,18000,22500,1.0,15,8.0,12,2028-12-31,2035-12-31,USD,Cayman Islands,1.0
+FUND-AGE-II,Apollo Growth Equity II,PROD-005,2022,Active,5000,6250,2.0,20,8.0,8,2027-12-31,2030-12-31,USD,Cayman Islands,1.0
+FUND-AGE-III,Apollo Growth Equity III,PROD-005,2024,Active,7000,8750,2.0,20,8.0,8,2029-12-31,2032-12-31,USD,Cayman Islands,1.0
