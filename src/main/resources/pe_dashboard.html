@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Apollo PE — Fund Management Dashboards</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--navy:#1F3864;--gold:#B8860B;--slate:#404040;--light:#F4F6FA;--green:#375623;--red:#C00000;--blue:#2F5496;--mgrey:#D9D9D9;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#EAECF2;color:var(--slate);font-size:13px;}
+.topbar{background:var(--navy);color:white;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.topbar .logo{font-size:18px;font-weight:700;letter-spacing:.5px;}.topbar .logo span{color:var(--gold);}
+.topbar .meta{font-size:11px;opacity:.7;}
+.tabs{display:flex;background:#162c52;padding:0 24px;border-bottom:2px solid var(--gold);overflow-x:auto;}
+.tab{padding:11px 20px;cursor:pointer;color:#aac;font-size:12px;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent;transition:.2s;}
+.tab:hover{color:white;}.tab.active{color:white;border-bottom:3px solid var(--gold);}
+.page{display:none;padding:20px 24px;}.page.active{display:block;}
+.kpi-row{display:grid;gap:14px;margin-bottom:20px;}
+.kpi-4{grid-template-columns:repeat(4,1fr);}.kpi-5{grid-template-columns:repeat(5,1fr);}.kpi-3{grid-template-columns:repeat(3,1fr);}
+.kpi{background:white;border-radius:8px;padding:16px 18px;border-left:4px solid var(--navy);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.kpi.gold{border-left-color:var(--gold);}.kpi.green{border-left-color:#375623;}.kpi.red{border-left-color:var(--red);}.kpi.blue{border-left-color:var(--blue);}
+.kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:#888;margin-bottom:6px;}
+.kpi-val{font-size:26px;font-weight:700;color:var(--navy);line-height:1;}
+.kpi-sub{font-size:11px;color:#666;margin-top:4px;}.kpi-delta{font-size:11px;margin-top:4px;font-weight:600;}
+.kpi-delta.up{color:#375623;}.kpi-delta.down{color:var(--red);}
+.row{display:grid;gap:16px;margin-bottom:16px;}
+.col2{grid-template-columns:1fr 1fr;}.col3{grid-template-columns:1fr 1fr 1fr;}.col21{grid-template-columns:2fr 1fr;}.col12{grid-template-columns:1fr 2fr;}
+.panel{background:white;border-radius:8px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.panel-title{font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;}
+.badge{background:var(--navy);color:white;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;}
+.badge.gold{background:var(--gold);}.badge.green{background:#375623;}.badge.red{background:var(--red);}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{background:var(--navy);color:white;padding:7px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+.tbl td{padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:middle;}
+.tbl tr:hover td{background:#f8f9fc;}.tbl tr:last-child td{border-bottom:none;}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums;}.tbl .bold{font-weight:700;color:var(--navy);}
+.chip{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;}
+.chip.won{background:#e6f0ea;color:#375623;}.chip.active{background:#e8edf7;color:#2F5496;}
+.chip.prospect{background:#fdf3e7;color:#B8860B;}.chip.docs{background:#f3e8f7;color:#7030A0;}
+.chip.soft{background:#e7f3fd;color:#1F6CA8;}.chip.declined{background:#fde8e8;color:#C00000;}
+.chip.indicated{background:#fff3cd;color:#856404;}.chip.settled{background:#e6f0ea;color:#375623;}
+.chip.pending{background:#fdf3e7;color:#B8860B;}.chip.overdue{background:#fde8e8;color:#C00000;}
+.funnel{padding:6px 0;}
+.funnel-stage{display:flex;align-items:center;margin-bottom:8px;gap:10px;}
+.funnel-label{width:90px;font-size:11px;font-weight:600;color:var(--slate);}
+.funnel-bar-wrap{flex:1;background:#eee;border-radius:3px;height:22px;position:relative;overflow:hidden;}
+.funnel-bar{height:22px;border-radius:3px;display:flex;align-items:center;padding-left:8px;font-size:11px;color:white;font-weight:700;}
+.funnel-count{width:70px;text-align:right;font-size:11px;font-weight:700;color:var(--slate);}
+.scroll-x{overflow-x:auto;}
+.footer{text-align:center;font-size:10px;color:#aaa;padding:14px;}
+canvas{max-width:100%;}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">Apollo <span>PE</span> &mdash; Fund Management Intelligence</div>
+  <div class="meta">Q2 2026 &nbsp;|&nbsp; All figures USD &nbsp;|&nbsp; Internal Use Only</div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="showPage('clevel',this)">&#128202; C-Level Executive</div>
+  <div class="tab" onclick="showPage('pipeline',this)">&#127919; Opportunity Pipeline</div>
+  <div class="tab" onclick="showPage('fundperf',this)">&#128200; Fund Performance</div>
+  <div class="tab" onclick="showPage('capcall',this)">&#128176; Capital Calls</div>
+  <div class="tab" onclick="showPage('lpcapacct',this)">&#128203; LP Capital Accounts</div>
+  <div class="tab" onclick="showPage('regulatory',this)">&#9878; Regulatory Calendar</div>
+</div>
+
+<!-- C-LEVEL -->
+<div id="clevel" class="page active">
+  <div class="kpi-row kpi-5">
+    <div class="kpi gold"><div class="kpi-label">Total AUM</div><div class="kpi-val">$84.0B</div><div class="kpi-sub">5 strategies, 10 funds</div><div class="kpi-delta up">&#9650; 12% YoY</div></div>
+    <div class="kpi green"><div class="kpi-label">Committed Capital</div><div class="kpi-val">$91.5B</div><div class="kpi-sub">500 LP commitments</div><div class="kpi-delta up">&#9650; 8% vs. target</div></div>
+    <div class="kpi"><div class="kpi-label">Dry Powder</div><div class="kpi-val">$38.2B</div><div class="kpi-sub">Unfunded remaining</div><div class="kpi-delta">41.8% of committed</div></div>
+    <div class="kpi blue"><div class="kpi-label">Active Pipeline</div><div class="kpi-val">$14.3B</div><div class="kpi-sub">245 opportunities</div><div class="kpi-delta up">62 Won YTD</div></div>
+    <div class="kpi red"><div class="kpi-label">Capital Called YTD</div><div class="kpi-val">$25.1B</div><div class="kpi-sub">CC1 + CC2, 10 funds</div><div class="kpi-delta">55% deployed</div></div>
+  </div>
+  <div class="row col3">
+    <div class="panel"><div class="panel-title">AUM by Strategy</div><canvas id="aumChart" height="200"></canvas></div>
+    <div class="panel"><div class="panel-title">Fundraising vs. Target <span class="badge gold">10 Funds</span></div><canvas id="fundraisingChart" height="200"></canvas></div>
+    <div class="panel"><div class="panel-title">Deployment Pacing by Vintage</div><canvas id="deployChart" height="200"></canvas></div>
+  </div>
+  <div class="row col21">
+    <div class="panel">
+      <div class="panel-title">Fund Scoreboard <span class="badge">vs. 8% Hurdle</span></div>
+      <div class="scroll-x">
+      <table class="tbl"><thead><tr><th>Fund</th><th>Vintage</th><th>Strategy</th><th class="num">Committed $M</th><th class="num">Called%</th><th class="num">Net IRR</th><th class="num">TVPI</th><th class="num">DPI</th><th>vs. Hurdle</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">ABF-IX</td><td>2021</td><td>Buyout</td><td class="num">20,450</td><td class="num">55%</td><td class="num">18.4%</td><td class="num">1.52x</td><td class="num">0.31x</td><td><span class="chip won">+1040bps</span></td></tr>
+        <tr><td class="bold">ABF-X</td><td>2023</td><td>Buyout</td><td class="num">24,800</td><td class="num">30%</td><td class="num">14.1%</td><td class="num">1.22x</td><td class="num">0.00x</td><td><span class="chip active">+610bps</span></td></tr>
+        <tr><td class="bold">ACO-IV</td><td>2021</td><td>Credit</td><td class="num">10,200</td><td class="num">55%</td><td class="num">12.8%</td><td class="num">1.38x</td><td class="num">0.45x</td><td><span class="chip active">+480bps</span></td></tr>
+        <tr><td class="bold">ARA-III</td><td>2020</td><td>Real Assets</td><td class="num">8,050</td><td class="num">55%</td><td class="num">15.6%</td><td class="num">1.68x</td><td class="num">0.62x</td><td><span class="chip won">+760bps</span></td></tr>
+        <tr><td class="bold">AIP-II</td><td>2021</td><td>Infra</td><td class="num">15,100</td><td class="num">55%</td><td class="num">13.5%</td><td class="num">1.44x</td><td class="num">0.28x</td><td><span class="chip active">+550bps</span></td></tr>
+        <tr><td class="bold">AGE-II</td><td>2022</td><td>Growth Eq.</td><td class="num">5,050</td><td class="num">55%</td><td class="num">22.1%</td><td class="num">1.74x</td><td class="num">0.20x</td><td><span class="chip won">+1410bps</span></td></tr>
+        <tr><td class="bold">AGE-III</td><td>2024</td><td>Growth Eq.</td><td class="num">6,700</td><td class="num">30%</td><td class="num">16.3%</td><td class="num">1.18x</td><td class="num">0.00x</td><td><span class="chip won">+830bps</span></td></tr>
+        <tr style="background:#f4f6fa;font-weight:700;"><td colspan="3" class="bold">WEIGHTED AVG</td><td class="num">129,500</td><td class="num">46%</td><td class="num bold">14.8%</td><td class="num bold">1.37x</td><td class="num bold">0.22x</td><td><span class="chip won">+680bps</span></td></tr>
+      </tbody></table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">New Opportunities YTD <span class="badge gold">245 Total</span></div>
+      <div class="funnel">
+        <div class="funnel-stage"><div class="funnel-label">Prospect</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%;background:#B8860B;">58</div></div><div class="funnel-count">$3.2B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Soft Circle</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:72%;background:#4472C4;">42</div></div><div class="funnel-count">$2.8B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Indicated</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:60%;background:#2F5496;">35</div></div><div class="funnel-count">$2.1B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Docs Out</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:38%;background:#7030A0;">22</div></div><div class="funnel-count">$1.4B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Signed</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:31%;background:#375623;">18</div></div><div class="funnel-count">$1.1B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Won</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%;background:#1F3864;">62</div></div><div class="funnel-count">$4.8B</div></div>
+        <div class="funnel-stage"><div class="funnel-label">Lost/WD</div><div class="funnel-bar-wrap"><div class="funnel-bar" style="width:14%;background:#C00000;">8</div></div><div class="funnel-count">$0.5B</div></div>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:#f4f6fa;border-radius:6px;display:flex;justify-content:space-around;text-align:center;">
+        <div><div style="font-size:20px;font-weight:700;color:#375623;">25.3%</div><div style="font-size:10px;color:#888;">Win Rate</div></div>
+        <div><div style="font-size:20px;font-weight:700;color:#1F3864;">87d</div><div style="font-size:10px;color:#888;">Avg Cycle</div></div>
+        <div><div style="font-size:20px;font-weight:700;color:#B8860B;">3.3%</div><div style="font-size:10px;color:#888;">Decline Rate</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="row col3">
+    <div class="panel"><div class="panel-title">Called vs. Distributed ($B)</div><canvas id="cashflowChart" height="180"></canvas></div>
+    <div class="panel"><div class="panel-title">Investor Type Mix</div><canvas id="invTypeChart" height="180"></canvas></div>
+    <div class="panel">
+      <div class="panel-title">Regulatory Status <span class="badge gold">Next 90 Days</span></div>
+      <table class="tbl" style="font-size:11px;"><thead><tr><th>Filing</th><th>Due</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Form ADV Annual</td><td>31 Mar</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td>Form PF Annual</td><td>30 Apr</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td>Form 13F (Q2)</td><td>15 Aug</td><td><span class="chip active">Due Soon</span></td></tr>
+        <tr><td>Form 1065 + K-1s</td><td>15 Sep</td><td><span class="chip active">In Progress</span></td></tr>
+        <tr><td>AIFMD Annex IV H1</td><td>31 Jul</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td>FATCA/CRS Return</td><td>31 Jul</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td>CIMA Annual Return</td><td>30 Jun</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td>Economic Substance</td><td>31 Dec</td><td><span class="chip prospect">On Track</span></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<div id="pipeline" class="page">
+  <div class="kpi-row kpi-4">
+    <div class="kpi gold"><div class="kpi-label">Total Opportunities</div><div class="kpi-val">245</div></div>
+    <div class="kpi green"><div class="kpi-label">Won YTD</div><div class="kpi-val">62</div><div class="kpi-sub">$4.8B indicative AUM</div><div class="kpi-delta up">&#9650; 18% YoY</div></div>
+    <div class="kpi blue"><div class="kpi-label">Active (Prospect-Signed)</div><div class="kpi-val">175</div></div>
+    <div class="kpi red"><div class="kpi-label">Declined / Withdrawn</div><div class="kpi-val">8</div><div class="kpi-sub">$0.5B lost</div></div>
+  </div>
+  <div class="row col2">
+    <div class="panel"><div class="panel-title">Opportunities by Stage</div><canvas id="pipeFunnel" height="220"></canvas></div>
+    <div class="panel"><div class="panel-title">Pipeline Value by Stage ($B)</div><canvas id="pipeValue" height="220"></canvas></div>
+  </div>
+  <div class="row col2">
+    <div class="panel">
+      <div class="panel-title">Stage Conversion Rates</div>
+      <table class="tbl"><thead><tr><th>From</th><th>To</th><th class="num">In</th><th class="num">Advanced</th><th class="num">Conv.%</th><th class="num">Avg Days</th></tr></thead>
+      <tbody>
+        <tr><td>Prospect</td><td>Soft Circle</td><td class="num">58</td><td class="num">42</td><td class="num bold">72%</td><td class="num">18d</td></tr>
+        <tr><td>Soft Circle</td><td>Indicated</td><td class="num">42</td><td class="num">35</td><td class="num bold">83%</td><td class="num">24d</td></tr>
+        <tr><td>Indicated</td><td>Docs Out</td><td class="num">35</td><td class="num">22</td><td class="num bold">63%</td><td class="num">31d</td></tr>
+        <tr><td>Docs Out</td><td>Signed</td><td class="num">22</td><td class="num">18</td><td class="num bold">82%</td><td class="num">14d</td></tr>
+        <tr><td>Signed</td><td>Won</td><td class="num">18</td><td class="num">62</td><td class="num bold">97%</td><td class="num">7d</td></tr>
+        <tr style="background:#f4f6fa;"><td colspan="2" class="bold">Overall</td><td class="num">245</td><td class="num">62</td><td class="num bold">25.3%</td><td class="num bold">87d</td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Win/Loss by Strategy</div>
+      <table class="tbl"><thead><tr><th>Strategy</th><th class="num">Total</th><th class="num">Won</th><th class="num">Lost</th><th class="num">Win Rate</th></tr></thead>
+      <tbody>
+        <tr><td>Buyout</td><td class="num">72</td><td class="num">22</td><td class="num">3</td><td class="num bold">30.6%</td></tr>
+        <tr><td>Credit</td><td class="num">48</td><td class="num">11</td><td class="num">1</td><td class="num bold">22.9%</td></tr>
+        <tr><td>Real Assets</td><td class="num">41</td><td class="num">9</td><td class="num">2</td><td class="num bold">22.0%</td></tr>
+        <tr><td>Infrastructure</td><td class="num">52</td><td class="num">14</td><td class="num">1</td><td class="num bold">26.9%</td></tr>
+        <tr><td>Growth Equity</td><td class="num">32</td><td class="num">6</td><td class="num">1</td><td class="num bold">18.8%</td></tr>
+        <tr style="background:#f4f6fa;"><td class="bold">Total</td><td class="num bold">245</td><td class="num bold">62</td><td class="num bold">8</td><td class="num bold">25.3%</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- FUND PERFORMANCE -->
+<div id="fundperf" class="page">
+  <div class="kpi-row kpi-4">
+    <div class="kpi gold"><div class="kpi-label">Portfolio Net IRR (WtAvg)</div><div class="kpi-val">14.8%</div><div class="kpi-sub">vs. 8% hurdle</div><div class="kpi-delta up">+680 bps alpha</div></div>
+    <div class="kpi green"><div class="kpi-label">TVPI (Avg)</div><div class="kpi-val">1.37x</div></div>
+    <div class="kpi blue"><div class="kpi-label">DPI (Avg)</div><div class="kpi-val">0.22x</div></div>
+    <div class="kpi"><div class="kpi-label">RVPI (Avg)</div><div class="kpi-val">1.15x</div></div>
+  </div>
+  <div class="row col2">
+    <div class="panel"><div class="panel-title">Net IRR by Fund vs. 8% Hurdle</div><canvas id="irrChart" height="240"></canvas></div>
+    <div class="panel"><div class="panel-title">TVPI / DPI / RVPI by Fund</div><canvas id="multiplesChart" height="240"></canvas></div>
+  </div>
+  <div class="row col2">
+    <div class="panel"><div class="panel-title">NAV Progression by Vintage (Indexed to 100)</div><canvas id="navChart" height="200"></canvas></div>
+    <div class="panel">
+      <div class="panel-title">Top Portfolio Company Holdings <span class="badge gold">FMV vs. Cost</span></div>
+      <table class="tbl"><thead><tr><th>Company</th><th>Fund</th><th>Sector</th><th class="num">Cost $M</th><th class="num">FMV $M</th><th class="num">MOIC</th><th class="num">G/L $M</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">TechCo Alpha</td><td>ABF-IX</td><td>Technology</td><td class="num">850</td><td class="num">1,615</td><td class="num bold">1.90x</td><td class="num" style="color:#375623;">+765</td></tr>
+        <tr><td class="bold">InfraCo Beta</td><td>AIP-II</td><td>Infrastructure</td><td class="num">1,200</td><td class="num">1,740</td><td class="num bold">1.45x</td><td class="num" style="color:#375623;">+540</td></tr>
+        <tr><td class="bold">MedTech Gamma</td><td>AGE-II</td><td>Healthcare</td><td class="num">420</td><td class="num">924</td><td class="num bold">2.20x</td><td class="num" style="color:#375623;">+504</td></tr>
+        <tr><td class="bold">RealEstate Delta</td><td>ARA-III</td><td>Real Estate</td><td class="num">680</td><td class="num">952</td><td class="num bold">1.40x</td><td class="num" style="color:#375623;">+272</td></tr>
+        <tr><td class="bold">RetailCo Eta</td><td>ABF-IX</td><td>Consumer</td><td class="num">490</td><td class="num">441</td><td class="num bold">0.90x</td><td class="num" style="color:#C00000;">-49</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- CAPITAL CALLS -->
+<div id="capcall" class="page">
+  <div class="kpi-row kpi-4">
+    <div class="kpi gold"><div class="kpi-label">Total Called</div><div class="kpi-val">$25.1B</div><div class="kpi-sub">CC1 + CC2, 10 funds</div></div>
+    <div class="kpi green"><div class="kpi-label">Settled Notices</div><div class="kpi-val">948</div><div class="kpi-sub">of 1,000 total</div><div class="kpi-delta up">94.8% rate</div></div>
+    <div class="kpi red"><div class="kpi-label">Pending / Overdue</div><div class="kpi-val">52</div><div class="kpi-sub">$412M at risk</div></div>
+    <div class="kpi blue"><div class="kpi-label">Next Call</div><div class="kpi-val">15 Sep</div><div class="kpi-sub">AIP-III CC2 — $4.5B</div></div>
+  </div>
+  <div class="row col2">
+    <div class="panel">
+      <div class="panel-title">Capital Call Schedule</div>
+      <table class="tbl"><thead><tr><th>Fund</th><th>Call</th><th>Call Date</th><th class="num">Call%</th><th class="num">Total $M</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>ABF-IX</td><td>CC1</td><td>15 Sep 2021</td><td class="num">30%</td><td class="num">6,135</td><td><span class="chip settled">Settled</span></td></tr>
+        <tr><td>ABF-IX</td><td>CC2</td><td>15 Mar 2022</td><td class="num">25%</td><td class="num">5,113</td><td><span class="chip settled">Settled</span></td></tr>
+        <tr><td>ABF-X</td><td>CC1</td><td>15 Sep 2023</td><td class="num">30%</td><td class="num">7,440</td><td><span class="chip settled">Settled</span></td></tr>
+        <tr><td>AIP-III</td><td>CC2</td><td>15 Mar 2024</td><td class="num">25%</td><td class="num">4,450</td><td><span class="chip pending">Pending</span></td></tr>
+        <tr><td>AGE-III</td><td>CC2</td><td>15 Mar 2025</td><td class="num">25%</td><td class="num">1,675</td><td><span class="chip pending">Pending</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel"><div class="panel-title">Called vs. Unfunded by Fund</div><canvas id="callStackChart" height="240"></canvas></div>
+  </div>
+  <div class="row col2">
+    <div class="panel"><div class="panel-title">Notice Settlement Status</div><canvas id="settlementChart" height="180"></canvas></div>
+    <div class="panel">
+      <div class="panel-title">GL Transaction Flow <span class="badge">4,740 Entries</span></div>
+      <table class="tbl"><thead><tr><th>Type</th><th>Entity</th><th class="num">Count</th><th>DR Account</th><th>CR Account</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Cap. Call Receivable</td><td>Feeder</td><td class="num">948</td><td>CC Receivable</td><td>Contributions Payable</td></tr>
+        <tr><td class="bold">Cash Receipt</td><td>Feeder</td><td class="num">948</td><td>Cash</td><td>CC Receivable</td></tr>
+        <tr><td class="bold">Investment in Main Fund</td><td>Feeder</td><td class="num">948</td><td>Investment in MF</td><td>Cash</td></tr>
+        <tr><td class="bold">Capital from Feeder</td><td>Main Fund</td><td class="num">948</td><td>Cash</td><td>LP Capital Account</td></tr>
+        <tr><td class="bold">Portfolio Deployment</td><td>Main Fund</td><td class="num">948</td><td>Portfolio Inv.</td><td>Cash</td></tr>
+        <tr style="background:#f4f6fa;"><td colspan="2" class="bold">Total</td><td class="num bold">4,740</td><td colspan="2"></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- LP CAPITAL ACCOUNTS -->
+<div id="lpcapacct" class="page">
+  <div class="kpi-row kpi-4">
+    <div class="kpi gold"><div class="kpi-label">LP Commitments</div><div class="kpi-val">500</div><div class="kpi-sub">200 investors, 10 funds</div></div>
+    <div class="kpi green"><div class="kpi-label">Total Committed</div><div class="kpi-val">$91.5B</div></div>
+    <div class="kpi blue"><div class="kpi-label">Cumulative Called</div><div class="kpi-val">$50.4B</div><div class="kpi-sub">CC1 30% + CC2 25%</div></div>
+    <div class="kpi"><div class="kpi-label">Unfunded Remaining</div><div class="kpi-val">$41.1B</div></div>
+  </div>
+  <div class="row col21">
+    <div class="panel">
+      <div class="panel-title">LP Capital Account Statements — Sample</div>
+      <div class="scroll-x">
+      <table class="tbl"><thead><tr><th>Investor</th><th>Fund</th><th class="num">Commitment $M</th><th class="num">CC1</th><th class="num">CC2</th><th class="num">Total Called</th><th class="num">Unfunded</th><th class="num">Distributions</th><th class="num">NAV $M</th><th class="num">MOIC</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Norway Future Gen.</td><td>ABF-IX</td><td class="num">485</td><td class="num">145.5</td><td class="num">121.3</td><td class="num bold">266.8</td><td class="num">218.3</td><td class="num">42.2</td><td class="num bold">385.4</td><td class="num bold">1.61x</td></tr>
+        <tr><td class="bold">Qatar Inv. Auth.</td><td>AIP-II</td><td class="num">420</td><td class="num">126.0</td><td class="num">105.0</td><td class="num bold">231.0</td><td class="num">189.0</td><td class="num">29.1</td><td class="num bold">316.5</td><td class="num bold">1.50x</td></tr>
+        <tr><td class="bold">Harvard Endowment</td><td>AGE-II</td><td class="num">320</td><td class="num">96.0</td><td class="num">80.0</td><td class="num bold">176.0</td><td class="num">144.0</td><td class="num">18.4</td><td class="num bold">287.6</td><td class="num bold">1.74x</td></tr>
+        <tr><td class="bold">California PERS</td><td>ABF-X</td><td class="num">380</td><td class="num">114.0</td><td class="num">95.0</td><td class="num bold">209.0</td><td class="num">171.0</td><td class="num">0</td><td class="num bold">245.6</td><td class="num bold">1.18x</td></tr>
+        <tr><td class="bold">Texas TRS</td><td>ARA-III</td><td class="num">275</td><td class="num">82.5</td><td class="num">68.8</td><td class="num bold">151.3</td><td class="num">123.8</td><td class="num">49.6</td><td class="num bold">206.5</td><td class="num bold">1.68x</td></tr>
+        <tr><td class="bold">Yale Endowment</td><td>AGE-III</td><td class="num">210</td><td class="num">63.0</td><td class="num">52.5</td><td class="num bold">115.5</td><td class="num">94.5</td><td class="num">0</td><td class="num bold">136.3</td><td class="num bold">1.18x</td></tr>
+      </tbody></table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">By Feeder Type</div><canvas id="feederChart" height="140"></canvas>
+      <div style="margin-top:14px;"><div class="panel-title" style="margin-bottom:8px;">ERISA Plan Asset Utilization</div>
+      <table class="tbl" style="font-size:11px;"><thead><tr><th>Fund</th><th class="num">ERISA $M</th><th class="num">% Fund</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>ABF-IX</td><td class="num">2,180</td><td class="num">10.7%</td><td><span class="chip settled">Safe</span></td></tr>
+        <tr><td>AIP-II</td><td class="num">4,650</td><td class="num">20.8%</td><td><span class="chip prospect">Monitor</span></td></tr>
+        <tr><td>ABF-X</td><td class="num">3,420</td><td class="num">13.8%</td><td><span class="chip settled">Safe</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- REGULATORY -->
+<div id="regulatory" class="page">
+  <div class="kpi-row kpi-4">
+    <div class="kpi green"><div class="kpi-label">Filed YTD</div><div class="kpi-val">14</div></div>
+    <div class="kpi gold"><div class="kpi-label">Due Next 90 Days</div><div class="kpi-val">6</div></div>
+    <div class="kpi red"><div class="kpi-label">Overdue</div><div class="kpi-val">0</div></div>
+    <div class="kpi blue"><div class="kpi-label">Jurisdictions</div><div class="kpi-val">5</div><div class="kpi-sub">US, EU, UK, Cayman, Global</div></div>
+  </div>
+  <div class="row col2">
+    <div class="panel">
+      <div class="panel-title">Filing Status 2026 <span class="badge">All Jurisdictions</span></div>
+      <table class="tbl"><thead><tr><th>Filing</th><th>Jurisdiction</th><th>Deadline</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="bold">Form ADV Annual</td><td>US / SEC</td><td>31 Mar 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">Form PF Annual</td><td>US / SEC</td><td>30 Apr 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">Form 1065 + K-1s</td><td>US / IRS</td><td>15 Mar 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">AIFMD Annex IV H2</td><td>EU / NCAs</td><td>31 Jan 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">UK AIFMD Annex IV H2</td><td>UK / FCA</td><td>31 Jan 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">SFDR Art.3/4 PAI</td><td>EU</td><td>30 Jun 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">CIMA Annual Return</td><td>Cayman / CIMA</td><td>30 Jun 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">FATCA / CRS</td><td>Cayman / DITC</td><td>31 Jul 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">AIFMD Annex IV H1</td><td>EU / NCAs</td><td>31 Jul 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">UK AIFMD Annex IV H1</td><td>UK / FCA</td><td>31 Jul 2026</td><td><span class="chip settled">Filed</span></td></tr>
+        <tr><td class="bold">Form 13F Q2</td><td>US / SEC</td><td>15 Aug 2026</td><td><span class="chip active">Due Soon</span></td></tr>
+        <tr><td class="bold">FCA Capital Adequacy Q2</td><td>UK / FCA</td><td>20 Aug 2026</td><td><span class="chip active">Due Soon</span></td></tr>
+        <tr><td class="bold">Form PF Q2 (Large)</td><td>US / SEC</td><td>30 Aug 2026</td><td><span class="chip prospect">Prep</span></td></tr>
+        <tr><td class="bold">Form 1065 Extended</td><td>US / IRS</td><td>15 Sep 2026</td><td><span class="chip prospect">On Track</span></td></tr>
+        <tr><td class="bold">Economic Substance</td><td>Cayman / DITC</td><td>31 Dec 2026</td><td><span class="chip prospect">On Track</span></td></tr>
+      </tbody></table>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="panel"><div class="panel-title">Filings Due by Month (Aug-Jan)</div><canvas id="calTimeline" height="160"></canvas></div>
+      <div class="panel"><div class="panel-title">Filings by Jurisdiction</div><canvas id="jurisChart" height="160"></canvas></div>
+      <div class="panel">
+        <div class="panel-title">KYC / AML Status <span class="badge green">200 Investors</span></div>
+        <table class="tbl" style="font-size:11px;"><thead><tr><th>Status</th><th class="num">Count</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip settled">KYC Approved</span></td><td class="num">168</td><td>Periodic refresh per risk schedule</td></tr>
+          <tr><td><span class="chip pending">KYC Pending</span></td><td class="num">22</td><td>Outstanding documentation</td></tr>
+          <tr><td><span class="chip indicated">Refresh Due</span></td><td class="num">10</td><td>W-8 renewal / CDD update</td></tr>
+          <tr><td><span class="chip declined">PEP Flag</span></td><td class="num">4</td><td>Enhanced DD; senior approval req'd</td></tr>
+          <tr><td><span class="chip settled">OFAC Clear</span></td><td class="num">200</td><td>Last screened: 1 Aug 2026</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Apollo PE Fund Management Intelligence &nbsp;&middot;&nbsp; Internal Use Only &nbsp;&middot;&nbsp; Q2 2026 &nbsp;&middot;&nbsp; Not for Distribution</div>
+
+<script>
+const NAV='#1F3864',GOLD='#B8860B',BLUE='#2F5496',GREEN='#375623',RED='#C00000',GREY='#D9D9D9';
+const P=['#1F3864','#2F5496','#375623','#B8860B','#7030A0','#C55A11','#C00000','#4472C4','#70AD47','#ED7D31'];
+Chart.defaults.font.family="'Segoe UI',Arial,sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.plugins.legend.labels.boxWidth=12;
+
+function showPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+new Chart(document.getElementById('aumChart'),{type:'doughnut',data:{labels:['Buyout','Credit','Real Assets','Infrastructure','Growth Equity'],datasets:[{data:[31.2,15.8,12.4,19.8,4.8],backgroundColor:P,borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom'}},cutout:'55%'}});
+new Chart(document.getElementById('fundraisingChart'),{type:'bar',data:{labels:['ABF-IX','ABF-X','ACO-IV','ARA-III','AIP-II','AGE-II','AGE-III'],datasets:[{label:'Committed $B',data:[20.45,24.8,10.2,8.05,15.1,5.05,6.7],backgroundColor:NAV},{label:'Target $B',data:[20,25,10,8,15,5,7],backgroundColor:GOLD}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+v+'B'}}}}});
+new Chart(document.getElementById('deployChart'),{type:'line',data:{labels:['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8'],datasets:[{label:'Vintage 2020',data:[5,15,28,38,48,55,60,62],borderColor:P[0],tension:.3,fill:false},{label:'Vintage 2021',data:[8,20,30,42,52,56,null,null],borderColor:P[1],tension:.3,fill:false},{label:'Vintage 2022',data:[6,18,32,44,null,null,null,null],borderColor:GOLD,tension:.3,fill:false},{label:'Vintage 2023',data:[10,25,36,null,null,null,null,null],borderColor:GREEN,tension:.3,fill:false},{label:'Vintage 2024',data:[12,22,null,null,null,null,null,null],borderColor:RED,tension:.3,fill:false}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{min:0,max:70,ticks:{callback:v=>v+'%'}}}}});
+new Chart(document.getElementById('cashflowChart'),{type:'bar',data:{labels:['2020','2021','2022','2023','2024','2025','2026 YTD'],datasets:[{label:'Called $B',data:[2.4,8.2,12.1,14.8,18.3,22.6,25.1],backgroundColor:NAV},{label:'Distributions $B',data:[0,0.2,0.8,2.1,4.3,7.8,9.2],backgroundColor:GOLD}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>'$'+v+'B'}}}}});
+new Chart(document.getElementById('invTypeChart'),{type:'doughnut',data:{labels:['Public Pension','SWF','Endowment','Family Office','Insurance','Asset Mgr','Foundation','Corp Pension'],datasets:[{data:[28,18,14,12,10,8,6,4],backgroundColor:P,borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom'}},cutout:'50%'}});
+new Chart(document.getElementById('pipeFunnel'),{type:'bar',data:{labels:['Prospect','Soft Circle','Indicated','Docs Out','Signed','Won','Lost/WD'],datasets:[{label:'Count',data:[58,42,35,22,18,62,8],backgroundColor:['#B8860B','#4472C4','#2F5496','#7030A0','#375623','#1F3864','#C00000']}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+new Chart(document.getElementById('pipeValue'),{type:'bar',data:{labels:['Prospect','Soft Circle','Indicated','Docs Out','Signed','Won','Lost/WD'],datasets:[{label:'$B',data:[3.2,2.8,2.1,1.4,1.1,4.8,0.5],backgroundColor:['#B8860B','#4472C4','#2F5496','#7030A0','#375623','#1F3864','#C00000']}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>'$'+v+'B'}}}}});
+new Chart(document.getElementById('irrChart'),{type:'bar',data:{labels:['ABF-IX','ABF-X','ACO-IV','ACO-V','ARA-III','ARA-IV','AIP-II','AIP-III','AGE-II','AGE-III'],datasets:[{label:'Net IRR',data:[18.4,14.1,12.8,10.2,15.6,11.3,13.5,9.8,22.1,16.3],backgroundColor:P},{label:'Hurdle 8%',data:[8,8,8,8,8,8,8,8,8,8],type:'line',borderColor:RED,borderDash:[5,3],pointRadius:0,fill:false}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{ticks:{callback:v=>v+'%'}}}}});
+new Chart(document.getElementById('multiplesChart'),{type:'bar',data:{labels:['ABF-IX','ABF-X','ACO-IV','ACO-V','ARA-III','ARA-IV','AIP-II','AIP-III','AGE-II','AGE-III'],datasets:[{label:'TVPI',data:[1.52,1.22,1.38,1.14,1.68,1.29,1.44,1.12,1.74,1.18],backgroundColor:NAV},{label:'DPI',data:[0.31,0,0.45,0,0.62,0.10,0.28,0,0.20,0],backgroundColor:GOLD},{label:'RVPI',data:[1.21,1.22,0.93,1.14,1.06,1.19,1.16,1.12,1.54,1.18],backgroundColor:GREEN}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,ticks:{callback:v=>v+'x'}}}}});
+new Chart(document.getElementById('navChart'),{type:'line',data:{labels:['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10'],datasets:[{label:'Buyout',data:[100,105,108,115,121,130,138,145,152,158],borderColor:P[0],tension:.3,fill:false},{label:'Credit',data:[100,103,106,110,115,119,124,128,132,136],borderColor:P[1],tension:.3,fill:false},{label:'Growth Eq.',data:[100,108,118,130,145,158,170,182,195,210],borderColor:GOLD,tension:.3,fill:false},{label:'Infra',data:[100,104,107,112,118,123,128,134,138,142],borderColor:GREEN,tension:.3,fill:false}]},options:{plugins:{legend:{position:'bottom'}},scales:{y:{}}}});
+new Chart(document.getElementById('callStackChart'),{type:'bar',data:{labels:['ABF-IX','ABF-X','ACO-IV','ACO-V','ARA-III','ARA-IV','AIP-II','AIP-III','AGE-II','AGE-III'],datasets:[{label:'CC1 Called',data:[6.1,7.4,3.1,3.6,2.4,2.8,4.5,5.3,1.5,2.0],backgroundColor:NAV},{label:'CC2 Called',data:[5.1,6.2,2.6,3.0,2.0,2.4,3.8,4.5,1.3,1.7],backgroundColor:BLUE},{label:'Unfunded',data:[9.3,11.2,4.5,5.3,3.7,4.4,6.8,8.0,2.3,3.0],backgroundColor:GREY}]},options:{plugins:{legend:{position:'bottom'}},scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>'$'+v+'B'}}}}});
+new Chart(document.getElementById('settlementChart'),{type:'doughnut',data:{labels:['Settled (948)','Pending (52)'],datasets:[{data:[948,52],backgroundColor:[GREEN,GOLD],borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom'}},cutout:'60%'}});
+new Chart(document.getElementById('feederChart'),{type:'bar',data:{labels:['Domestic Feeder','Offshore Feeder'],datasets:[{label:'Committed $B',data:[52.4,39.1],backgroundColor:[NAV,GOLD]}]},options:{plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'$'+v+'B'}}},indexAxis:'y'}});
+new Chart(document.getElementById('calTimeline'),{type:'bar',data:{labels:['Aug','Sep','Oct','Nov','Dec','Jan'],datasets:[{label:'Filings Due',data:[3,2,0,1,2,3],backgroundColor:[RED,GOLD,GREY,GREY,BLUE,NAV]}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+new Chart(document.getElementById('jurisChart'),{type:'doughnut',data:{labels:['US (SEC/IRS)','EU (AIFMD/SFDR)','UK (FCA)','Cayman (CIMA)','Global (FATCA/CRS)'],datasets:[{data:[38,24,16,12,10],backgroundColor:P,borderWidth:2,borderColor:'#fff'}]},options:{plugins:{legend:{position:'bottom'}},cutout:'50%'}});
+</script>
+</body>
+</html>
