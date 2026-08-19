@@ -1,0 +1,55 @@
+
+GOLDEN RECORD TEST DATASET — SUMMARY STATISTICS
+================================================
+Generated: 5,000 golden teams | 20,283 golden members
+
+TEAM COVERAGE
+  Source A (Broadridge):    4,489 records  (89.8% of golden)
+  Source B (Discovery):     3,876 records  (77.5% of golden)
+  Source C (Bloomberg):     2,537 records  (50.7% of golden)
+  Total source records:    10,902
+
+TEAM OVERLAP (golden teams present in N sources)
+  All 3 sources:            1,750  (35.0%)
+  Exactly 2 sources:        2,452  (49.0%)
+  Exactly 1 source:           748  (15.0%)
+  No source (dark):            50  (1.0%)
+
+MEMBER RECORDS
+  Source A members:        16,564
+  Source B members:        13,251
+  Source C members:         7,829
+  Ghost/phantom members:      507  (no golden match, injected errors)
+  Members in all 3 srcs:   4,007
+
+DELIBERATE VARIATIONS INTRODUCED
+  Name aliases (Bill/Bob/Mike…)    per source style (informal / mixed / formal)
+  Team name abbreviations          Grp / Mgmt / Adv / Priv / Fin
+  Suffix randomization             "LLC", "& Associates" (Source C)
+  Character-level noise            ~3-5% OCR/typo corruption rate
+  Phone formats                    5 formats (dashes, dots, parens, +1, raw)
+  Email format variants            4 patterns per member
+  Address formatting               Ste vs Suite, St vs Street (by source)
+  ZIP variations                   +4 extension (15%), truncated (5%)
+  AUM jitter                       ±8% per source
+  CRD null rate                    A:8%  B:40%  C:25%
+  Email null rate                  A:5%  B:12%  C:8%
+  Phone null rate                  A:8%  B:15%  C:10%
+  Address null rate                A:10% B:18%  C:5%
+
+FILES
+  golden_teams.csv                 Canonical team records (5,000)
+  golden_members.csv               Canonical member records
+  source_a_broadridge.csv          Raw vendor file, no golden IDs
+  source_b_discovery.csv           Raw vendor file, no golden IDs
+  source_c_bloomberg.csv           Raw vendor file, no golden IDs
+  source_a/b/c_members.csv         Raw member files per source
+  ground_truth_team_links.csv      Answer key: golden_team_id → src IDs
+  ground_truth_member_links.csv    Answer key: golden_member_id → src member IDs
+
+EVALUATION HINTS
+  Precision = correctly linked pairs / all linked pairs
+  Recall    = correctly linked pairs / all true pairs in ground truth
+  F1        = 2 * P * R / (P + R)
+  Expect ~1750 triple-match pairs for strong positive test cases.
+  Ghost members test false-positive suppression.

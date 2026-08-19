@@ -1,0 +1,21 @@
+capital_call_id,fund_id,fund_name,call_number,call_name,call_date,due_date,call_percentage_of_commitment,total_committed_usd,total_called_usd,call_purpose,cumulative_called_pct,status,settlement_date
+FUND-ABF-IX-CC1,FUND-ABF-IX,Apollo Buyout Fund IX,1,Capital Call 1,2021-09-15,2021-09-25,30.0,9118073070.0,2735421921.0,Initial Portfolio Investment + Expenses,30.0,Settled,2021-09-25
+FUND-ABF-IX-CC2,FUND-ABF-IX,Apollo Buyout Fund IX,2,Capital Call 2,2022-03-15,2022-03-25,25.0,9118073070.0,2279518268.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2022-03-25
+FUND-ABF-X-CC1,FUND-ABF-X,Apollo Buyout Fund X,1,Capital Call 1,2023-09-15,2023-09-25,30.0,9227035853.0,2768110756.0,Initial Portfolio Investment + Expenses,30.0,Settled,2023-09-25
+FUND-ABF-X-CC2,FUND-ABF-X,Apollo Buyout Fund X,2,Capital Call 2,2024-03-15,2024-03-25,25.0,9227035853.0,2306758963.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2024-03-25
+FUND-ACO-IV-CC1,FUND-ACO-IV,Apollo Credit Opps IV,1,Capital Call 1,2021-09-15,2021-09-25,30.0,7932250041.0,2379675012.0,Initial Portfolio Investment + Expenses,30.0,Settled,2021-09-25
+FUND-ACO-IV-CC2,FUND-ACO-IV,Apollo Credit Opps IV,2,Capital Call 2,2022-03-15,2022-03-25,25.0,7932250041.0,1983062510.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2022-03-25
+FUND-ACO-V-CC1,FUND-ACO-V,Apollo Credit Opps V,1,Capital Call 1,2023-09-15,2023-09-25,30.0,7231485573.0,2169445672.0,Initial Portfolio Investment + Expenses,30.0,Settled,2023-09-25
+FUND-ACO-V-CC2,FUND-ACO-V,Apollo Credit Opps V,2,Capital Call 2,2024-03-15,2024-03-25,25.0,7231485573.0,1807871393.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2024-03-25
+FUND-ARA-III-CC1,FUND-ARA-III,Apollo Real Assets III,1,Capital Call 1,2020-09-15,2020-09-25,30.0,7468025523.0,2240407657.0,Initial Portfolio Investment + Expenses,30.0,Settled,2020-09-25
+FUND-ARA-III-CC2,FUND-ARA-III,Apollo Real Assets III,2,Capital Call 2,2021-03-15,2021-03-25,25.0,7468025523.0,1867006381.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2021-03-25
+FUND-ARA-IV-CC1,FUND-ARA-IV,Apollo Real Assets IV,1,Capital Call 1,2022-09-15,2022-09-25,30.0,6502239109.0,1950671733.0,Initial Portfolio Investment + Expenses,30.0,Settled,2022-09-25
+FUND-ARA-IV-CC2,FUND-ARA-IV,Apollo Real Assets IV,2,Capital Call 2,2023-03-15,2023-03-25,25.0,6502239109.0,1625559777.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2023-03-25
+FUND-AIP-II-CC1,FUND-AIP-II,Apollo Infra Partners II,1,Capital Call 1,2021-09-15,2021-09-25,30.0,8203453596.0,2461036079.0,Initial Portfolio Investment + Expenses,30.0,Settled,2021-09-25
+FUND-AIP-II-CC2,FUND-AIP-II,Apollo Infra Partners II,2,Capital Call 2,2022-03-15,2022-03-25,25.0,8203453596.0,2050863399.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2022-03-25
+FUND-AIP-III-CC1,FUND-AIP-III,Apollo Infra Partners III,1,Capital Call 1,2023-09-15,2023-09-25,30.0,8260063098.0,2478018929.0,Initial Portfolio Investment + Expenses,30.0,Settled,2023-09-25
+FUND-AIP-III-CC2,FUND-AIP-III,Apollo Infra Partners III,2,Capital Call 2,2024-03-15,2024-03-25,25.0,8260063098.0,2065015774.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2024-03-25
+FUND-AGE-II-CC1,FUND-AGE-II,Apollo Growth Equity II,1,Capital Call 1,2022-09-15,2022-09-25,30.0,11113611062.0,3334083319.0,Initial Portfolio Investment + Expenses,30.0,Settled,2022-09-25
+FUND-AGE-II-CC2,FUND-AGE-II,Apollo Growth Equity II,2,Capital Call 2,2023-03-15,2023-03-25,25.0,11113611062.0,2778402766.0,Follow-On Investment + Management Fee,55.00000000000001,Settled,2023-03-25
+FUND-AGE-III-CC1,FUND-AGE-III,Apollo Growth Equity III,1,Capital Call 1,2024-09-15,2024-09-25,30.0,8904230115.0,2671269034.0,Initial Portfolio Investment + Expenses,30.0,Settled,2024-09-25
+FUND-AGE-III-CC2,FUND-AGE-III,Apollo Growth Equity III,2,Capital Call 2,2025-03-15,2025-03-25,25.0,8904230115.0,2226057529.0,Follow-On Investment + Management Fee,55.00000000000001,Pending,

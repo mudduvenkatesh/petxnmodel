@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PE Transaction Flow Diagrams</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f8; color: #1a1a2e; }
+  header { background: #1a1a2e; color: white; padding: 20px 32px; }
+  header h1 { font-size: 22px; font-weight: 700; }
+  header p { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+  .tab-bar { display: flex; background: #1e293b; padding: 0 32px; gap: 4px; }
+  .tab-btn { padding: 12px 20px; font-size: 13px; font-weight: 600; color: #94a3b8;
+    cursor: pointer; border: none; background: transparent; border-bottom: 3px solid transparent; }
+  .tab-btn.active { color: white; border-bottom-color: #3b82f6; }
+  .tab-btn:hover { color: #cbd5e1; }
+  .diagram-bar { display: flex; background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+    padding: 8px 32px; gap: 8px; }
+  .diag-btn { padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 4px;
+    cursor: pointer; border: 1px solid #cbd5e1; background: white; color: #475569; }
+  .diag-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+  .content { padding: 24px 32px; }
+  .diagram-section { display: none; }
+  .diagram-section.active { display: block; }
+
+  /* Swimlane table */
+  .swimlane-wrap { overflow-x: auto; }
+  table.swimlane { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.swimlane th { padding: 10px 8px; text-align: center; font-weight: 700; font-size: 11px;
+    letter-spacing: 0.5px; text-transform: uppercase; color: white; }
+  table.swimlane td { padding: 8px; vertical-align: top; border: 1px solid #d1d5db; }
+  table.swimlane .lane-label { font-weight: 700; font-size: 11px; background: #1e293b;
+    color: white; text-align: center; writing-mode: horizontal-tb; min-width: 110px; padding: 10px 6px; }
+  .cell-item { background: white; border-radius: 4px; padding: 5px 7px; margin: 3px 0;
+    font-size: 11px; border-left: 3px solid #3b82f6; line-height: 1.4; }
+  .cell-item.orange { border-left-color: #f97316; }
+  .cell-item.green { border-left-color: #22c55e; }
+  .cell-item.purple { border-left-color: #a855f7; }
+  .cell-item.red { border-left-color: #ef4444; }
+  .cell-item.teal { border-left-color: #14b8a6; }
+  .cell-empty { color: #9ca3af; font-size: 10px; text-align: center; padding: 8px 0; }
+
+  /* Phase headers */
+  .ph-commit  { background: #1d4ed8; }
+  .ph-call    { background: #7c3aed; }
+  .ph-invest  { background: #0f766e; }
+  .ph-monitor { background: #b45309; }
+  .ph-exit    { background: #be123c; }
+  .ph-sub     { background: #1d4ed8; }
+  .ph-deploy  { background: #0f766e; }
+  .ph-ops     { background: #7c3aed; }
+  .ph-redeem  { background: #be123c; }
+
+  /* Sequence diagram */
+  .mermaid { background: white; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .seq-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .seq-table th { background: #1e293b; color: white; padding: 8px 10px; text-align: left; }
+  .seq-table td { padding: 7px 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+  .seq-table tr:nth-child(even) td { background: #f8fafc; }
+  .seq-table .step { font-weight: 700; color: #3b82f6; text-align: center; }
+  .seq-table .actor { font-weight: 600; font-size: 11px; }
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 10px;
+    font-weight: 700; color: white; margin-right: 4px; }
+  .bg-blue { background: #3b82f6; } .bg-purple { background: #8b5cf6; }
+  .bg-green { background: #22c55e; } .bg-orange { background: #f97316; }
+  .bg-red { background: #ef4444; } .bg-teal { background: #14b8a6; }
+  h2 { font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 16px; }
+  h3 { font-size: 13px; font-weight: 700; color: #374151; margin: 20px 0 10px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>PE Transaction Flow Diagrams</h1>
+  <p>End-to-end transaction flows for Drawdown and Evergreen PE Funds — including Transfer Agency, Fund Admin, Regulatory, and Audit touchpoints</p>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchFund('drawdown')">Drawdown Fund</button>
+  <button class="tab-btn" onclick="switchFund('evergreen')">Evergreen Fund</button>
+</div>
+
+<!-- ═══════ DRAWDOWN ═══════ -->
+<div id="fund-drawdown" class="fund-panel">
+  <div class="diagram-bar">
+    <button class="diag-btn active" onclick="switchDiagram('drawdown','swimlane')">Swimlane</button>
+    <button class="diag-btn" onclick="switchDiagram('drawdown','sequence')">Sequence Steps</button>
+  </div>
+  <div class="content">
+
+    <!-- DRAWDOWN SWIMLANE -->
+    <div id="drawdown-swimlane" class="diagram-section active">
+      <h2>Drawdown Fund — Swimlane Flow</h2>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1d4ed8"></div> Commitment</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Capital Call</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0f766e"></div> Investment</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#b45309"></div> Monitor &amp; Report</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#be123c"></div> Exit &amp; Distribute</div>
+      </div>
+      <div class="swimlane-wrap">
+      <table class="swimlane">
+        <thead>
+          <tr>
+            <th style="min-width:110px;background:#0f172a"></th>
+            <th class="ph-commit">Phase 1<br>Commitment</th>
+            <th class="ph-call">Phase 2<br>Capital Call</th>
+            <th class="ph-invest">Phase 3<br>Investment</th>
+            <th class="ph-monitor">Phase 4<br>Monitor &amp; Report</th>
+            <th class="ph-exit">Phase 5<br>Exit &amp; Distribute</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lane-label">LP / Investor</td>
+            <td>
+              <div class="cell-item">Sign subscription docs &amp; LPA</div>
+              <div class="cell-item">Complete KYC/AML package</div>
+              <div class="cell-item">Commit capital amount</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Receive capital call notice</div>
+              <div class="cell-item orange">Wire funds by due date</div>
+              <div class="cell-item orange">Acknowledge call default (if applicable)</div>
+            </td>
+            <td>
+              <div class="cell-item green">Receive investment memo (optional)</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Review quarterly reports</div>
+              <div class="cell-item purple">Review audited financials</div>
+              <div class="cell-item purple">Confirm capital account statement</div>
+            </td>
+            <td>
+              <div class="cell-item red">Receive distribution notice</div>
+              <div class="cell-item red">Receive wire / in-kind proceeds</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Transfer Agent</td>
+            <td>
+              <div class="cell-item">Run KYC / AML screening</div>
+              <div class="cell-item">Maintain LP register</div>
+              <div class="cell-item">Record commitment &amp; allocate units</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Issue capital call notices to LPs</div>
+              <div class="cell-item orange">Track LP funding confirmations</div>
+              <div class="cell-item orange">Flag defaults; update LP register</div>
+            </td>
+            <td>
+              <div class="cell-item green">Record investment allocation per LP</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Distribute capital account statements</div>
+              <div class="cell-item purple">Produce K-1 / tax packs</div>
+            </td>
+            <td>
+              <div class="cell-item red">Calculate LP distribution amounts</div>
+              <div class="cell-item red">Record return of capital &amp; carried interest</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Fund Admin</td>
+            <td>
+              <div class="cell-item">Set up fund entity &amp; GL</div>
+              <div class="cell-item">Record committed capital</div>
+              <div class="cell-item">Establish capital accounts</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Calculate pro-rata call amounts</div>
+              <div class="cell-item orange">Post capital contributions to GL</div>
+              <div class="cell-item orange">Reconcile bank vs LP funding</div>
+            </td>
+            <td>
+              <div class="cell-item green">Post investment cost basis</div>
+              <div class="cell-item green">Track funded vs unfunded commitments</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Prepare NAV &amp; valuation reports</div>
+              <div class="cell-item purple">Produce quarterly financial statements</div>
+              <div class="cell-item purple">Calculate management fees &amp; carry</div>
+            </td>
+            <td>
+              <div class="cell-item red">Calculate realised gain/loss</div>
+              <div class="cell-item red">Post distribution journal entries</div>
+              <div class="cell-item red">Produce final capital account statements</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">GP / Manager</td>
+            <td>
+              <div class="cell-item">Close fund &amp; finalise LPA</div>
+              <div class="cell-item">Approve LP subscriptions</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Approve capital call (IC sign-off)</div>
+              <div class="cell-item orange">Initiate call notices</div>
+            </td>
+            <td>
+              <div class="cell-item green">IC approval of investment</div>
+              <div class="cell-item green">Execute deal &amp; wire purchase price</div>
+              <div class="cell-item green">Sign definitive agreements</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Monitor portfolio company performance</div>
+              <div class="cell-item purple">Approve valuation marks</div>
+              <div class="cell-item purple">Review board reporting</div>
+            </td>
+            <td>
+              <div class="cell-item red">Approve exit (IC sign-off)</div>
+              <div class="cell-item red">Negotiate sale terms</div>
+              <div class="cell-item red">Approve distribution waterfall</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Custodian</td>
+            <td>
+              <div class="cell-item">Open fund bank / custody account</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Receive LP wire transfers</div>
+              <div class="cell-item orange">Confirm settlement; notify Fund Admin</div>
+            </td>
+            <td>
+              <div class="cell-item green">Wire purchase consideration to seller</div>
+              <div class="cell-item green">Settle trade; confirm receipt of assets</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Provide cash &amp; asset statements</div>
+            </td>
+            <td>
+              <div class="cell-item red">Receive exit proceeds</div>
+              <div class="cell-item red">Wire distributions to LP accounts</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Regulatory</td>
+            <td>
+              <div class="cell-item teal">File Form D / PPM registration</div>
+              <div class="cell-item teal">FATCA / CRS LP classification</div>
+            </td>
+            <td>
+              <div class="cell-item teal">FATCA withholding checks on LP wires</div>
+            </td>
+            <td>
+              <div class="cell-item teal">Report large investments (CFIUS if applicable)</div>
+            </td>
+            <td>
+              <div class="cell-item teal">File Form PF (quarterly/annual)</div>
+              <div class="cell-item teal">AIFMD Annex IV reporting (EU LPs)</div>
+              <div class="cell-item teal">FATCA / CRS annual filing</div>
+            </td>
+            <td>
+              <div class="cell-item teal">Withholding tax on distributions</div>
+              <div class="cell-item teal">Report realised gains (Form PF update)</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">External Audit</td>
+            <td>
+              <div class="cell-item">Review fund formation documents</div>
+              <div class="cell-item">Agree engagement terms</div>
+            </td>
+            <td>
+              <div class="cell-item orange">Review capital call procedures (SOC 1)</div>
+            </td>
+            <td>
+              <div class="cell-item green">Review investment valuation basis</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Annual audit (ASC 946 / IFRS 10)</div>
+              <div class="cell-item purple">SOC 1 / ISAE 3402 report on Fund Admin</div>
+              <div class="cell-item purple">Review fair value Level 3 estimates</div>
+            </td>
+            <td>
+              <div class="cell-item red">Audit realised gain/loss on exit</div>
+              <div class="cell-item red">Final fund audit on wind-down</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- DRAWDOWN SEQUENCE -->
+    <div id="drawdown-sequence" class="diagram-section">
+      <h2>Drawdown Fund — Sequence Steps</h2>
+      <table class="seq-table">
+        <thead>
+          <tr><th style="width:44px">#</th><th style="width:140px">From</th><th style="width:155px">To</th><th>Action / Message</th><th style="width:110px">Phase</th></tr>
+        </thead>
+        <tbody id="dd-seq-body"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ EVERGREEN ═══════ -->
+<div id="fund-evergreen" class="fund-panel" style="display:none">
+  <div class="diagram-bar">
+    <button class="diag-btn active" onclick="switchDiagram('evergreen','swimlane')">Swimlane</button>
+    <button class="diag-btn" onclick="switchDiagram('evergreen','sequence')">Sequence Steps</button>
+  </div>
+  <div class="content">
+
+    <!-- EVERGREEN SWIMLANE -->
+    <div id="evergreen-swimlane" class="diagram-section active">
+      <h2>Evergreen Fund — Swimlane Flow</h2>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#1d4ed8"></div> Subscription</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#0f766e"></div> Deployment</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Ongoing Operations</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#be123c"></div> Redemption</div>
+      </div>
+      <div class="swimlane-wrap">
+      <table class="swimlane">
+        <thead>
+          <tr>
+            <th style="min-width:110px;background:#0f172a"></th>
+            <th class="ph-sub">Phase 1<br>Subscription</th>
+            <th class="ph-deploy">Phase 2<br>Deployment</th>
+            <th class="ph-ops">Phase 3<br>Ongoing Operations</th>
+            <th class="ph-redeem">Phase 4<br>Redemption</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lane-label">LP / Investor</td>
+            <td>
+              <div class="cell-item">Submit subscription application &amp; KYC</div>
+              <div class="cell-item">Wire subscription amount at NAV</div>
+              <div class="cell-item">Receive unit / share confirmation</div>
+            </td>
+            <td>
+              <div class="cell-item green">Review investment updates (optional)</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Review monthly / quarterly NAV statements</div>
+              <div class="cell-item purple">Receive dividend / income distributions</div>
+            </td>
+            <td>
+              <div class="cell-item red">Submit redemption request</div>
+              <div class="cell-item red">Observe lock-up / gate period</div>
+              <div class="cell-item red">Receive redemption proceeds at NAV</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Transfer Agent</td>
+            <td>
+              <div class="cell-item">Run KYC / AML screening</div>
+              <div class="cell-item">Calculate units at current NAV</div>
+              <div class="cell-item">Issue unit confirmation; update register</div>
+            </td>
+            <td>
+              <div class="cell-item green">Maintain unit registry during deployment</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Update unit register post-NAV calculation</div>
+              <div class="cell-item purple">Process DRIP / reinvestment elections</div>
+            </td>
+            <td>
+              <div class="cell-item red">Validate redemption request vs lock-up</div>
+              <div class="cell-item red">Apply gate (if redemption &gt; gate threshold)</div>
+              <div class="cell-item red">Cancel units; update register</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Fund Admin</td>
+            <td>
+              <div class="cell-item">Post subscription to GL</div>
+              <div class="cell-item">Confirm NAV per unit at subscription date</div>
+            </td>
+            <td>
+              <div class="cell-item green">Post investment cost basis to GL</div>
+              <div class="cell-item green">Track deployment pipeline vs dry powder</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Calculate NAV (monthly or quarterly)</div>
+              <div class="cell-item purple">Accrue management fees &amp; carry</div>
+              <div class="cell-item purple">Prepare financial statements</div>
+              <div class="cell-item purple">Distribute income to LP accounts</div>
+            </td>
+            <td>
+              <div class="cell-item red">Calculate redemption NAV per unit</div>
+              <div class="cell-item red">Post redemption &amp; reduce LP capital account</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">GP / Manager</td>
+            <td>
+              <div class="cell-item">Approve new LP subscriptions</div>
+              <div class="cell-item">Set NAV pricing date</div>
+            </td>
+            <td>
+              <div class="cell-item green">IC approval of investments</div>
+              <div class="cell-item green">Execute deals using available capital</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Approve NAV marks &amp; valuation policy</div>
+              <div class="cell-item purple">Declare income distributions</div>
+              <div class="cell-item purple">Monitor portfolio companies</div>
+            </td>
+            <td>
+              <div class="cell-item red">Approve redemption queue</div>
+              <div class="cell-item red">Apply gate if liquidity constrained</div>
+              <div class="cell-item red">Fund redemptions from exits or dry powder</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Custodian</td>
+            <td>
+              <div class="cell-item">Receive subscription wire</div>
+              <div class="cell-item">Confirm receipt; notify Fund Admin</div>
+            </td>
+            <td>
+              <div class="cell-item green">Wire investment purchase consideration</div>
+              <div class="cell-item green">Safekeep assets / securities</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Provide custody &amp; cash statements</div>
+              <div class="cell-item purple">Receive dividend / coupon payments</div>
+            </td>
+            <td>
+              <div class="cell-item red">Receive exit/sale proceeds</div>
+              <div class="cell-item red">Wire redemption amounts to LPs</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">Regulatory</td>
+            <td>
+              <div class="cell-item teal">FATCA / CRS LP classification</div>
+              <div class="cell-item teal">AML checks on subscription funds</div>
+            </td>
+            <td>
+              <div class="cell-item teal">CFIUS / merger control if applicable</div>
+            </td>
+            <td>
+              <div class="cell-item teal">Form PF filing (quarterly/annual)</div>
+              <div class="cell-item teal">AIFMD Annex IV (EU investors)</div>
+              <div class="cell-item teal">FATCA / CRS annual reporting</div>
+              <div class="cell-item teal">SEC reporting (if registered)</div>
+            </td>
+            <td>
+              <div class="cell-item teal">Withholding on redemption proceeds</div>
+              <div class="cell-item teal">FATCA / CRS reporting on distributions</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="lane-label">External Audit</td>
+            <td>
+              <div class="cell-item">Review subscription procedures</div>
+            </td>
+            <td>
+              <div class="cell-item green">Review valuation methodology for new investments</div>
+            </td>
+            <td>
+              <div class="cell-item purple">Annual / semi-annual audit (IFRS / US GAAP)</div>
+              <div class="cell-item purple">SOC 1 / ISAE 3402 on Fund Admin controls</div>
+              <div class="cell-item purple">NAV calculation review / agreed-upon procedures</div>
+            </td>
+            <td>
+              <div class="cell-item red">Review redemption pricing &amp; gate application</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- EVERGREEN SEQUENCE -->
+    <div id="evergreen-sequence" class="diagram-section">
+      <h2>Evergreen Fund — Sequence Steps</h2>
+      <table class="seq-table">
+        <thead>
+          <tr><th style="width:44px">#</th><th style="width:140px">From</th><th style="width:155px">To</th><th>Action / Message</th><th style="width:110px">Phase</th></tr>
+        </thead>
+        <tbody id="eg-seq-body"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'base' });
+
+// ─── Tab / diagram switching ───────────────────────────────────────────────
+function switchFund(fund) {
+  document.querySelectorAll('.fund-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('fund-' + fund).style.display = 'block';
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (fund === 'drawdown' ? 0 : 1) === i));
+}
+
+function switchDiagram(fund, diag) {
+  const panel = document.getElementById('fund-' + fund);
+  panel.querySelectorAll('.diagram-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(fund + '-' + diag).classList.add('active');
+  panel.querySelectorAll('.diag-btn').forEach(b => b.classList.remove('active'));
+  panel.querySelectorAll('.diag-btn')[diag === 'swimlane' ? 0 : 1].classList.add('active');
+}
+
+// ─── Sequence data ─────────────────────────────────────────────────────────
+const BADGE = {
+  'Commitment':       ['bg-blue',   'Commitment'],
+  'Capital Call':     ['bg-purple', 'Capital Call'],
+  'Investment':       ['bg-green',  'Investment'],
+  'Monitor':         ['bg-orange', 'Monitor'],
+  'Exit':            ['bg-red',    'Exit'],
+  'Subscription':    ['bg-blue',   'Subscription'],
+  'Deployment':      ['bg-green',  'Deployment'],
+  'Operations':      ['bg-purple', 'Operations'],
+  'Redemption':      ['bg-red',    'Redemption'],
+};
+
+function badge(phase) {
+  const [cls, label] = BADGE[phase] || ['bg-blue', phase];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+const ddSteps = [
+  // Commitment
+  [1,'LP / Investor','Transfer Agent','Submit subscription docs, LPA, and KYC/AML package','Commitment'],
+  [2,'Transfer Agent','GP / Manager','Pass KYC screening result and LP commitment details','Commitment'],
+  [3,'GP / Manager','Transfer Agent','Approve LP subscription; confirm commitment amount','Commitment'],
+  [4,'Transfer Agent','Fund Admin','Notify of new LP commitment; record in capital ledger','Commitment'],
+  [5,'Fund Admin','Transfer Agent','Set up LP capital account; confirm opening balance','Commitment'],
+  [6,'Regulatory','GP / Manager','Confirm Form D / PPM registration filed','Commitment'],
+  // Capital Call
+  [7,'GP / Manager','Fund Admin','Instruct capital call — amount, due date, purpose','Capital Call'],
+  [8,'Fund Admin','Transfer Agent','Calculate pro-rata LP amounts; generate call schedule','Capital Call'],
+  [9,'Transfer Agent','LP / Investor','Issue capital call notice with wire instructions','Capital Call'],
+  [10,'LP / Investor','Custodian','Wire capital call amount by due date','Capital Call'],
+  [11,'Custodian','Fund Admin','Confirm LP wire receipt; provide bank statement','Capital Call'],
+  [12,'Fund Admin','Transfer Agent','Reconcile LP funding vs call schedule; flag defaults','Capital Call'],
+  [13,'Transfer Agent','GP / Manager','Report funded vs defaulted LPs; update register','Capital Call'],
+  [14,'Regulatory','Transfer Agent','Confirm FATCA withholding check on LP wires','Capital Call'],
+  // Investment
+  [15,'GP / Manager','Fund Admin','Submit IC-approved investment for deal processing','Investment'],
+  [16,'Fund Admin','GP / Manager','Confirm available capital (net of fees & reserves)','Investment'],
+  [17,'GP / Manager','Custodian','Instruct wire of purchase consideration to seller','Investment'],
+  [18,'Custodian','GP / Manager','Confirm settlement and asset receipt','Investment'],
+  [19,'Fund Admin','Transfer Agent','Post investment cost basis; update LP allocation','Investment'],
+  [20,'External Audit','Fund Admin','Review valuation basis for new investment','Investment'],
+  // Monitor & Report
+  [21,'Fund Admin','GP / Manager','Produce quarterly financial statements and NAV report','Monitor'],
+  [22,'GP / Manager','Fund Admin','Approve portfolio company valuation marks','Monitor'],
+  [23,'Fund Admin','Transfer Agent','Distribute capital account statements to LP register','Monitor'],
+  [24,'Transfer Agent','LP / Investor','Send quarterly statements and K-1 / tax packs','Monitor'],
+  [25,'Fund Admin','Regulatory','Submit Form PF quarterly / annual filing','Monitor'],
+  [26,'Fund Admin','Regulatory','File FATCA / CRS annual reports','Monitor'],
+  [27,'External Audit','Fund Admin','Conduct annual audit (ASC 946 / IFRS 10)','Monitor'],
+  [28,'External Audit','GP / Manager','Issue SOC 1 / ISAE 3402 report on Fund Admin controls','Monitor'],
+  [29,'Custodian','Fund Admin','Provide monthly cash and asset statements for reconciliation','Monitor'],
+  // Exit & Distribute
+  [30,'GP / Manager','Fund Admin','Notify exit — confirm sale proceeds and closing date','Exit'],
+  [31,'Custodian','Fund Admin','Receive exit proceeds; confirm bank receipt','Exit'],
+  [32,'Fund Admin','GP / Manager','Calculate realised gain/loss and distribution waterfall','Exit'],
+  [33,'GP / Manager','Fund Admin','Approve distribution amount and timing','Exit'],
+  [34,'Fund Admin','Transfer Agent','Calculate LP distribution amounts (return of capital + carry)','Exit'],
+  [35,'Transfer Agent','LP / Investor','Issue distribution notice','Exit'],
+  [36,'Custodian','LP / Investor','Wire distribution proceeds to LP bank accounts','Exit'],
+  [37,'Fund Admin','Transfer Agent','Update capital accounts post-distribution','Exit'],
+  [38,'Regulatory','Fund Admin','Apply withholding tax on distributions; update Form PF','Exit'],
+  [39,'External Audit','Fund Admin','Audit realised gain/loss; issue final fund audit opinion','Exit'],
+];
+
+const egSteps = [
+  // Subscription
+  [1,'LP / Investor','Transfer Agent','Submit subscription application, KYC/AML docs, and wire','Subscription'],
+  [2,'Transfer Agent','GP / Manager','Pass KYC result; present subscription for approval','Subscription'],
+  [3,'GP / Manager','Transfer Agent','Approve subscription at current NAV pricing date','Subscription'],
+  [4,'LP / Investor','Custodian','Wire subscription amount to fund account','Subscription'],
+  [5,'Custodian','Fund Admin','Confirm subscription wire receipt','Subscription'],
+  [6,'Fund Admin','Transfer Agent','Calculate units at NAV; instruct unit issuance','Subscription'],
+  [7,'Transfer Agent','LP / Investor','Issue unit / share confirmation; update register','Subscription'],
+  [8,'Regulatory','Transfer Agent','FATCA / CRS LP classification completed','Subscription'],
+  // Deployment
+  [9,'GP / Manager','Fund Admin','IC-approved investment — initiate deployment','Deployment'],
+  [10,'Fund Admin','GP / Manager','Confirm available dry powder for deployment','Deployment'],
+  [11,'GP / Manager','Custodian','Instruct wire of purchase price to seller','Deployment'],
+  [12,'Custodian','GP / Manager','Confirm settlement and asset safekeeping','Deployment'],
+  [13,'Fund Admin','Transfer Agent','Post investment basis; update LP unit allocations','Deployment'],
+  [14,'External Audit','Fund Admin','Review valuation methodology for new investment','Deployment'],
+  // Ongoing Operations
+  [15,'Fund Admin','GP / Manager','Complete NAV calculation (monthly/quarterly)','Operations'],
+  [16,'GP / Manager','Fund Admin','Approve NAV marks and sign off valuation policy','Operations'],
+  [17,'Fund Admin','Transfer Agent','Update unit register at new NAV per unit','Operations'],
+  [18,'Transfer Agent','LP / Investor','Distribute NAV statements to all unitholders','Operations'],
+  [19,'Fund Admin','Custodian','Reconcile cash and asset balances to GL','Operations'],
+  [20,'GP / Manager','Fund Admin','Declare income distribution; instruct payment','Operations'],
+  [21,'Custodian','LP / Investor','Wire income distribution to LP accounts','Operations'],
+  [22,'Fund Admin','Regulatory','File Form PF quarterly / annual','Operations'],
+  [23,'Fund Admin','Regulatory','File AIFMD Annex IV for EU investors','Operations'],
+  [24,'External Audit','Fund Admin','Conduct annual audit (IFRS / US GAAP)','Operations'],
+  [25,'External Audit','GP / Manager','Issue SOC 1 / NAV agreed-upon procedures report','Operations'],
+  // Redemption
+  [26,'LP / Investor','Transfer Agent','Submit redemption request (unit quantity or $ amount)','Redemption'],
+  [27,'Transfer Agent','GP / Manager','Validate request vs lock-up and gate threshold','Redemption'],
+  [28,'GP / Manager','Transfer Agent','Approve redemption queue; apply gate if required','Redemption'],
+  [29,'Fund Admin','GP / Manager','Calculate redemption NAV per unit on valuation date','Redemption'],
+  [30,'Fund Admin','Transfer Agent','Instruct unit cancellation and capital account reduction','Redemption'],
+  [31,'Transfer Agent','LP / Investor','Confirm redemption; advise settlement date','Redemption'],
+  [32,'Custodian','LP / Investor','Wire redemption proceeds to LP bank account','Redemption'],
+  [33,'Regulatory','Fund Admin','Apply withholding tax on redemption proceeds','Redemption'],
+  [34,'External Audit','Fund Admin','Review redemption pricing and gate application','Redemption'],
+];
+
+function buildTable(steps, tbodyId) {
+  const tbody = document.getElementById(tbodyId);
+  steps.forEach(([n, from, to, action, phase]) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="step">${n}</td>
+      <td class="actor">${from}</td>
+      <td class="actor">${to}</td>
+      <td>${action}</td>
+      <td>${badge(phase)}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+buildTable(ddSteps, 'dd-seq-body');
+buildTable(egSteps, 'eg-seq-body');
+</script>
+</body>
+</html>
