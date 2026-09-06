@@ -1,0 +1,966 @@
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix peib:   <https://ontology.example.com/peib#> .
+@prefix peibsh: <https://ontology.example.com/peib/shapes#> .
+
+# ═══════════════════════════════════════════════
+# PRE-FUNNEL SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:LeadShape a sh:NodeShape ;
+    sh:targetClass peib:Lead ;
+    sh:closed false ;
+    rdfs:label "Lead shape" ;
+    rdfs:comment "Validates lightweight first-touch lead records." ;
+
+    sh:property [
+        sh:path peib:leadId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "lead ID" ;
+        sh:message "Lead must have exactly one leadId." ;
+    ] ;
+    sh:property [
+        sh:path peib:orgName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "organisation name" ;
+        sh:message "Lead must have an organisation name." ;
+    ] ;
+    sh:property [
+        sh:path peib:createdDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "created date" ;
+    ] ;
+    sh:property [
+        sh:path peib:leadScore ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "lead score" ;
+        sh:message "Lead score must be an integer between 0 and 100." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasLeadStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:lead_new peib:lead_working peib:lead_converted peib:lead_disqualified ) ;
+        sh:name "lead status" ;
+        sh:message "Lead status must be one of: New, Working, Converted, Disqualified." ;
+    ] ;
+    sh:property [
+        sh:path peib:email ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
+        sh:name "email" ;
+        sh:message "Email must be a valid email address format." ;
+    ] ;
+    sh:property [
+        sh:path peib:assignedTo ;
+        sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "assigned to" ;
+    ] ;
+    sh:property [
+        sh:path peib:convertedFlag ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "converted flag" ;
+    ] ;
+    sh:property [
+        sh:path peib:convertedToProspect ;
+        sh:maxCount 1 ;
+        sh:class peib:Prospect ;
+        sh:name "converted to prospect" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasLeadSource ;
+        sh:maxCount 1 ;
+        sh:class peib:LeadSource ;
+        sh:name "has lead source" ;
+    ] .
+
+
+peibsh:ProspectShape a sh:NodeShape ;
+    sh:targetClass peib:Prospect ;
+    sh:closed false ;
+    rdfs:label "Prospect shape" ;
+    rdfs:comment "Validates enriched pre-account qualification records." ;
+
+    sh:property [
+        sh:path peib:prospectId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "prospect ID" ;
+        sh:message "Prospect must have exactly one prospectId." ;
+    ] ;
+    sh:property [
+        sh:path peib:orgName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "organisation name" ;
+        sh:message "Prospect must have an organisation name." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasProspectStage ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:prospect_new peib:prospect_working peib:prospect_ready peib:prospect_disqualified ) ;
+        sh:name "prospect stage" ;
+        sh:message "Prospect stage must be one of: New, Working, Ready to Convert, Disqualified." ;
+    ] ;
+    sh:property [
+        sh:path peib:qualificationScore ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "qualification score" ;
+        sh:message "Qualification score must be between 0 and 100." ;
+    ] ;
+    sh:property [
+        sh:path peib:estimatedAUM ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "estimated AUM" ;
+        sh:message "Estimated AUM must be a non-negative decimal." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasInvestorType ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:inv_swf peib:inv_pension peib:inv_endowment peib:inv_family_office peib:inv_pe_fund peib:inv_corporate ) ;
+        sh:name "investor type" ;
+    ] ;
+    sh:property [
+        sh:path peib:originatesFromLead ;
+        sh:maxCount 1 ;
+        sh:class peib:Lead ;
+        sh:name "originates from lead" ;
+    ] ;
+    sh:property [
+        sh:path peib:assignedTo ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "assigned to" ;
+        sh:message "Prospect must be assigned to a coverage rep." ;
+    ] ;
+    sh:property [
+        sh:path peib:convertedToAccount ;
+        sh:maxCount 1 ;
+        sh:class peib:Account ;
+        sh:name "converted to account" ;
+    ] .
+
+# ═══════════════════════════════════════════════
+# CRM CORE SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:AccountShape a sh:NodeShape ;
+    sh:targetClass peib:Account ;
+    sh:closed false ;
+    rdfs:label "Account shape" ;
+    rdfs:comment "Validates established institutional client accounts." ;
+
+    sh:property [
+        sh:path peib:accountId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "account ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:orgName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:name "account name" ;
+        sh:message "Account must have a name of at least 2 characters." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasAccountType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:acct_lp peib:acct_swf peib:acct_corporate peib:acct_pe_fund peib:acct_family_office ) ;
+        sh:name "account type" ;
+        sh:message "Account type must be one of: LP, SWF, Corporate, PE Fund, Family Office." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasAccountTier ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:tier_1 peib:tier_2 peib:tier_3 ) ;
+        sh:name "account tier" ;
+    ] ;
+    sh:property [
+        sh:path peib:primaryCoverageBy ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "primary coverage rep" ;
+        sh:message "Account must have a primary coverage representative." ;
+    ] ;
+    sh:property [
+        sh:path peib:hqCountry ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "HQ country" ;
+    ] ;
+    sh:property [
+        sh:path peib:relationshipSince ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "relationship since" ;
+    ] ;
+    sh:property [
+        sh:path peib:originatesFromProspect ;
+        sh:maxCount 1 ;
+        sh:class peib:Prospect ;
+        sh:name "originates from prospect" ;
+    ] .
+
+
+peibsh:ContactShape a sh:NodeShape ;
+    sh:targetClass peib:Contact ;
+    sh:closed false ;
+    rdfs:label "Contact shape" ;
+
+    sh:property [
+        sh:path peib:contactId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "contact ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:fullName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:name "full name" ;
+        sh:message "Contact must have a full name." ;
+    ] ;
+    sh:property [
+        sh:path peib:belongsToAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Account ;
+        sh:name "belongs to account" ;
+        sh:message "Contact must be associated with exactly one Account." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasBuyingRole ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:role_economic_buyer peib:role_user_buyer peib:role_tech_buyer peib:role_coach peib:role_influencer ) ;
+        sh:name "buying role" ;
+    ] ;
+    sh:property [
+        sh:path peib:email ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
+        sh:name "email" ;
+    ] ;
+    sh:property [
+        sh:path peib:title ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "job title" ;
+    ] ;
+    sh:property [
+        sh:path peib:linkedinURL ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:anyURI ;
+        sh:name "LinkedIn URL" ;
+    ] .
+
+
+peibsh:UserShape a sh:NodeShape ;
+    sh:targetClass peib:User ;
+    sh:closed false ;
+    rdfs:label "User / Coverage Rep shape" ;
+
+    sh:property [
+        sh:path peib:userId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "user ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:fullName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:name "full name" ;
+    ] ;
+    sh:property [
+        sh:path peib:email ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" ;
+        sh:name "email" ;
+        sh:message "User must have a valid email address." ;
+    ] ;
+    sh:property [
+        sh:path peib:team ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "team" ;
+    ] ;
+    sh:property [
+        sh:path peib:activeFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "active flag" ;
+    ] .
+
+
+peibsh:ActivityShape a sh:NodeShape ;
+    sh:targetClass peib:Activity ;
+    sh:closed false ;
+    rdfs:label "Activity shape" ;
+    rdfs:comment "At least one of account, prospect, or opportunity context must be present." ;
+
+    sh:property [
+        sh:path peib:activityId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "activity ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasActivityType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:activity_call peib:activity_meeting peib:activity_email peib:activity_roadshow peib:activity_conference peib:activity_luncheon ) ;
+        sh:name "activity type" ;
+        sh:message "Activity type must be one of: Call, Meeting, Email, Roadshow, Conference, Luncheon." ;
+    ] ;
+    sh:property [
+        sh:path peib:activityDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "activity date" ;
+        sh:message "Activity must have a date." ;
+    ] ;
+    sh:property [
+        sh:path peib:activityOwner ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "activity owner" ;
+        sh:message "Activity must be owned by a User." ;
+    ] ;
+    sh:property [
+        sh:path peib:durationMinutes ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:name "duration in minutes" ;
+        sh:message "Duration must be a positive integer." ;
+    ] ;
+    sh:property [
+        sh:path peib:loggedAgainstAccount ;
+        sh:maxCount 1 ;
+        sh:class peib:Account ;
+        sh:name "logged against account" ;
+    ] ;
+    sh:property [
+        sh:path peib:loggedAgainstProspect ;
+        sh:maxCount 1 ;
+        sh:class peib:Prospect ;
+        sh:name "logged against prospect" ;
+    ] ;
+    sh:property [
+        sh:path peib:loggedAgainstOpportunity ;
+        sh:maxCount 1 ;
+        sh:class peib:Opportunity ;
+        sh:name "logged against opportunity" ;
+    ] ;
+    sh:or (
+        [ sh:property [ sh:path peib:loggedAgainstAccount ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path peib:loggedAgainstProspect ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path peib:loggedAgainstOpportunity ; sh:minCount 1 ] ]
+    ) ;
+    sh:message "Activity must be linked to at least one of: Account, Prospect, or Opportunity." .
+
+# ═══════════════════════════════════════════════
+# MILLER HEIMAN SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:OpportunityShape a sh:NodeShape ;
+    sh:targetClass peib:Opportunity ;
+    sh:closed false ;
+    rdfs:label "Opportunity shape" ;
+
+    sh:property [
+        sh:path peib:opportunityId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "opportunity ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:opportunityForAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Account ;
+        sh:name "opportunity for account" ;
+        sh:message "Opportunity must be linked to exactly one Account." ;
+    ] ;
+    sh:property [
+        sh:path peib:opportunityOwner ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "opportunity owner" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasOpportunityStage ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:name "opportunity stage" ;
+    ] ;
+    sh:property [
+        sh:path peib:probability ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "win probability" ;
+        sh:message "Win probability must be between 0 and 100." ;
+    ] ;
+    sh:property [
+        sh:path peib:dealSize ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "deal size" ;
+    ] ;
+    sh:property [
+        sh:path peib:closeDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "close date" ;
+        sh:message "Opportunity must have a close date." ;
+    ] ;
+    sh:property [
+        sh:path peib:economicBuyer ;
+        sh:maxCount 1 ;
+        sh:class peib:Contact ;
+        sh:name "economic buyer [MH]" ;
+    ] ;
+    sh:property [
+        sh:path peib:coach ;
+        sh:maxCount 1 ;
+        sh:class peib:Contact ;
+        sh:name "coach [MH]" ;
+    ] ;
+    sh:property [
+        sh:path peib:convertsTooDeal ;
+        sh:maxCount 1 ;
+        sh:class peib:Deal ;
+        sh:name "converts to deal" ;
+    ] .
+
+
+peibsh:BuyingCommitteeShape a sh:NodeShape ;
+    sh:targetClass peib:BuyingCommittee ;
+    sh:closed false ;
+    rdfs:label "Buying Committee shape" ;
+
+    sh:property [
+        sh:path peib:committeeId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "committee member ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:committeeOpportunity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Opportunity ;
+        sh:name "for opportunity" ;
+        sh:message "Buying committee entry must reference an Opportunity." ;
+    ] ;
+    sh:property [
+        sh:path peib:committeeContact ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Contact ;
+        sh:name "committee contact" ;
+        sh:message "Buying committee entry must reference a Contact." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasMHRole ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:role_economic_buyer peib:role_user_buyer peib:role_tech_buyer peib:role_coach peib:role_influencer ) ;
+        sh:name "Miller Heiman role" ;
+        sh:message "Buying committee role must be a valid Miller Heiman role." ;
+    ] .
+
+
+peibsh:RelationshipPlanShape a sh:NodeShape ;
+    sh:targetClass peib:RelationshipPlan ;
+    sh:closed false ;
+    rdfs:label "Relationship Plan shape" ;
+
+    sh:property [
+        sh:path peib:planId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "plan ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasRelationshipPlan ;
+        sh:maxCount 1 ;
+        sh:name "parent account" ;
+    ] ;
+    sh:property [
+        sh:path peib:planOwner ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "plan owner" ;
+    ] ;
+    sh:property [
+        sh:path peib:strategicObjective ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 10 ;
+        sh:name "strategic objective" ;
+        sh:message "Relationship plan must have a strategic objective of at least 10 characters." ;
+    ] ;
+    sh:property [
+        sh:path peib:strengthOfPosition ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 5 ;
+        sh:name "strength of position" ;
+        sh:message "Strength of position must be an integer between 1 and 5." ;
+    ] ;
+    sh:property [
+        sh:path peib:nextReviewDate ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "next review date" ;
+    ] .
+
+# ═══════════════════════════════════════════════
+# PE/IB SPECIFIC SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:DealShape a sh:NodeShape ;
+    sh:targetClass peib:Deal ;
+    sh:closed false ;
+    rdfs:label "Deal / Mandate shape" ;
+
+    sh:property [
+        sh:path peib:dealId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "deal ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:dealFromOpportunity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Opportunity ;
+        sh:name "deal from opportunity" ;
+        sh:message "Deal must reference the originating Opportunity." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasDealType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:deal_ma peib:deal_financing peib:deal_advisory peib:deal_capital_raise ) ;
+        sh:name "deal type" ;
+        sh:message "Deal type must be one of: M&A, Financing, Advisory, Capital Raise." ;
+    ] ;
+    sh:property [
+        sh:path peib:dealValue ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "deal value" ;
+    ] ;
+    sh:property [
+        sh:path peib:currency ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 3 ;
+        sh:maxLength 3 ;
+        sh:name "currency" ;
+        sh:message "Currency must be a 3-character ISO code (e.g. USD, GBP, EUR)." ;
+    ] ;
+    sh:property [
+        sh:path peib:sector ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "sector" ;
+    ] ;
+    sh:property [
+        sh:path peib:closingDate ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "closing date" ;
+    ] ;
+    sh:property [
+        sh:path peib:tombstoneFlag ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "tombstone flag" ;
+    ] .
+
+
+peibsh:ProductShape a sh:NodeShape ;
+    sh:targetClass peib:Product ;
+    sh:closed false ;
+    rdfs:label "Product / Service shape" ;
+
+    sh:property [
+        sh:path peib:productId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "product ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:productName ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:name "product name" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasProductType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:prod_fund peib:prod_lp peib:prod_advisory peib:prod_credit peib:prod_real_estate ) ;
+        sh:name "product type" ;
+        sh:message "Product type must be one of: Fund, LP, Advisory, Credit, Real Estate." ;
+    ] ;
+    sh:property [
+        sh:path peib:minCommitment ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "minimum commitment" ;
+    ] ;
+    sh:property [
+        sh:path peib:vintage ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:gYear ;
+        sh:name "vintage year" ;
+    ] ;
+    sh:property [
+        sh:path peib:activeFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "active flag" ;
+    ] .
+
+
+peibsh:CommitmentShape a sh:NodeShape ;
+    sh:targetClass peib:Commitment ;
+    sh:closed false ;
+    rdfs:label "Commitment / AUM Track shape" ;
+
+    sh:property [
+        sh:path peib:commitmentId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "commitment ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasCommitment ;
+        sh:maxCount 1 ;
+        sh:name "for account" ;
+    ] ;
+    sh:property [
+        sh:path peib:commitmentForProduct ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Product ;
+        sh:name "commitment for product" ;
+        sh:message "Commitment must reference a Product." ;
+    ] ;
+    sh:property [
+        sh:path peib:committedAmount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "committed amount" ;
+        sh:message "Committed amount must be a non-negative decimal." ;
+    ] ;
+    sh:property [
+        sh:path peib:fundedAmount ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "funded amount" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasCommitmentStatus ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:name "commitment status" ;
+    ] ;
+    sh:property [
+        sh:path peib:reUpLikelihood ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 5 ;
+        sh:name "re-up likelihood" ;
+        sh:message "Re-up likelihood must be between 1 and 5." ;
+    ] ;
+    sh:property [
+        sh:path peib:moic ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:minInclusive 0 ;
+        sh:name "MOIC" ;
+    ] ;
+    sh:property [
+        sh:path peib:irrRealized ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal ;
+        sh:name "realized IRR" ;
+    ] .
+
+# ═══════════════════════════════════════════════
+# CUSTOMER SUCCESS / NPS SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:ClientHealthScoreShape a sh:NodeShape ;
+    sh:targetClass peib:ClientHealthScore ;
+    sh:closed false ;
+    rdfs:label "Client Health Score shape" ;
+
+    sh:property [
+        sh:path peib:healthId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "health score ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasHealthScore ;
+        sh:maxCount 1 ;
+        sh:name "for account" ;
+    ] ;
+    sh:property [
+        sh:path peib:scoreDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "score date" ;
+        sh:message "Health score must have a score date." ;
+    ] ;
+    sh:property [
+        sh:path peib:engagementScore ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "engagement score" ;
+        sh:message "Engagement score must be between 0 and 100." ;
+    ] ;
+    sh:property [
+        sh:path peib:walletShareScore ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "wallet share score" ;
+        sh:message "Wallet share score must be between 0 and 100." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasSentiment ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:name "sentiment" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasChurnRisk ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:name "churn risk" ;
+    ] ;
+    sh:property [
+        sh:path peib:redFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "red flag" ;
+    ] .
+
+
+peibsh:NPSSurveyShape a sh:NodeShape ;
+    sh:targetClass peib:NPSSurvey ;
+    sh:closed false ;
+    rdfs:label "NPS Survey shape" ;
+
+    sh:property [
+        sh:path peib:surveyId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "survey ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:hasNPSSurvey ;
+        sh:maxCount 1 ;
+        sh:name "for account" ;
+    ] ;
+    sh:property [
+        sh:path peib:surveyRespondent ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Contact ;
+        sh:name "survey respondent" ;
+        sh:message "NPS survey must have exactly one respondent Contact." ;
+    ] ;
+    sh:property [
+        sh:path peib:surveyDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "survey date" ;
+    ] ;
+    sh:property [
+        sh:path peib:npsScore ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 10 ;
+        sh:name "NPS score" ;
+        sh:message "NPS score must be an integer between 0 and 10." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasNPSSegment ;
+        sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:nps_promoter peib:nps_passive peib:nps_detractor ) ;
+        sh:name "NPS segment" ;
+        sh:message "NPS segment must be one of: Promoter, Passive, Detractor." ;
+    ] ;
+    sh:property [
+        sh:path peib:followUpFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "follow-up flag" ;
+    ] .
+
+
+peibsh:AlertShape a sh:NodeShape ;
+    sh:targetClass peib:Alert ;
+    sh:closed false ;
+    rdfs:label "Alert / Flag shape" ;
+
+    sh:property [
+        sh:path peib:alertId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "alert ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:alertForAccount ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:Account ;
+        sh:name "alert for account" ;
+        sh:message "Alert must be associated with an Account." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasAlertType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:alert_health peib:alert_nps peib:alert_reup_risk peib:alert_inactivity ) ;
+        sh:name "alert type" ;
+        sh:message "Alert type must be one of: Health, NPS, Re-up Risk, Inactivity." ;
+    ] ;
+    sh:property [
+        sh:path peib:hasSeverity ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class skos:Concept ;
+        sh:in ( peib:sev_low peib:sev_medium peib:sev_high peib:sev_critical ) ;
+        sh:name "severity" ;
+        sh:message "Alert severity must be one of: Low, Medium, High, Critical." ;
+    ] ;
+    sh:property [
+        sh:path peib:triggeredDate ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:name "triggered date" ;
+    ] ;
+    sh:property [
+        sh:path peib:resolvedFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "resolved flag" ;
+    ] .
+
+# ═══════════════════════════════════════════════
+# REFERENCE / LOOKUP SHAPES
+# ═══════════════════════════════════════════════
+
+peibsh:AuditLogShape a sh:NodeShape ;
+    sh:targetClass peib:AuditLog ;
+    sh:closed false ;
+    rdfs:label "Audit Log shape" ;
+    rdfs:comment "All fields mandatory. Audit log is append-only — no updates or deletes permitted." ;
+
+    sh:property [
+        sh:path peib:logId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "log ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:entityType ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:name "entity type" ;
+    ] ;
+    sh:property [
+        sh:path peib:entityId ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "entity ID" ;
+    ] ;
+    sh:property [
+        sh:path peib:action ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:in ( "CREATE" "UPDATE" "DELETE" ) ;
+        sh:name "action" ;
+        sh:message "Audit log action must be CREATE, UPDATE, or DELETE." ;
+    ] ;
+    sh:property [
+        sh:path peib:timestamp ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:dateTimeStamp ;
+        sh:name "timestamp" ;
+    ] ;
+    sh:property [
+        sh:path peib:assignedTo ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class peib:User ;
+        sh:name "performed by user" ;
+        sh:message "Audit log entry must record the performing user." ;
+    ] .
+
+
+peibsh:LeadSourceShape a sh:NodeShape ;
+    sh:targetClass peib:LeadSource ;
+    sh:closed false ;
+    rdfs:label "Lead Source shape" ;
+
+    sh:property [
+        sh:path rdfs:label ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:name "source name" ;
+    ] ;
+    sh:property [
+        sh:path peib:activeFlag ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype xsd:boolean ;
+        sh:name "active flag" ;
+    ] .

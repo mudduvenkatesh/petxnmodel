@@ -1,0 +1,448 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix peib:   <https://ontology.example.com/peib#> .
+
+# ─────────────────────────────────────────────
+# Ontology declaration
+# ─────────────────────────────────────────────
+
+peib: a owl:Ontology ;
+    dcterms:title "PE/IB Client & Sales Interaction Ontology" ;
+    dcterms:description "Logical data model for Private Equity and Investment Banking client relationship management, incorporating CRM core entities, Miller Heiman Strategic Selling, Customer Success / NPS lifecycle, and PE/IB-specific deal tracking." ;
+    dcterms:version "2.0" ;
+    owl:versionInfo "2.0" .
+
+# ─────────────────────────────────────────────
+# ENUMERATIONS (as SKOS concept schemes)
+# ─────────────────────────────────────────────
+
+peib:LeadSourceType a skos:ConceptScheme ;
+    skos:prefLabel "Lead Source Type" .
+
+peib:LeadStatus a skos:ConceptScheme ;
+    skos:prefLabel "Lead Status" .
+
+peib:ProspectStage a skos:ConceptScheme ;
+    skos:prefLabel "Prospect Stage" .
+
+peib:AccountType a skos:ConceptScheme ;
+    skos:prefLabel "Account Type" .
+
+peib:AccountTier a skos:ConceptScheme ;
+    skos:prefLabel "Account Tier" .
+
+peib:AccountStatus a skos:ConceptScheme ;
+    skos:prefLabel "Account Status" .
+
+peib:BuyingRole a skos:ConceptScheme ;
+    skos:prefLabel "Buying Role" .
+
+peib:InfluenceLevel a skos:ConceptScheme ;
+    skos:prefLabel "Influence Level" .
+
+peib:DecisionAuthority a skos:ConceptScheme ;
+    skos:prefLabel "Decision Authority" .
+
+peib:ActivityType a skos:ConceptScheme ;
+    skos:prefLabel "Activity Type" .
+
+peib:OpportunityStage a skos:ConceptScheme ;
+    skos:prefLabel "Opportunity Stage" .
+
+peib:MHRole a skos:ConceptScheme ;
+    skos:prefLabel "Miller Heiman Buying Role" .
+
+peib:WinLoss a skos:ConceptScheme ;
+    skos:prefLabel "Win/Loss Status" .
+
+peib:DealType a skos:ConceptScheme ;
+    skos:prefLabel "Deal Type" .
+
+peib:ProductType a skos:ConceptScheme ;
+    skos:prefLabel "Product Type" .
+
+peib:CommitmentStatus a skos:ConceptScheme ;
+    skos:prefLabel "Commitment Status" .
+
+peib:SentimentLevel a skos:ConceptScheme ;
+    skos:prefLabel "Sentiment Level" .
+
+peib:ChurnRisk a skos:ConceptScheme ;
+    skos:prefLabel "Churn Risk Level" .
+
+peib:NPSSegment a skos:ConceptScheme ;
+    skos:prefLabel "NPS Segment" .
+
+peib:AlertType a skos:ConceptScheme ;
+    skos:prefLabel "Alert Type" .
+
+peib:SeverityLevel a skos:ConceptScheme ;
+    skos:prefLabel "Severity Level" .
+
+peib:InvestorType a skos:ConceptScheme ;
+    skos:prefLabel "Investor Type" .
+
+# ─────────────────────────────────────────────
+# Concept members
+# ─────────────────────────────────────────────
+
+peib:source_conference     a skos:Concept ; skos:inScheme peib:LeadSourceType ; skos:prefLabel "Conference" .
+peib:source_referral       a skos:Concept ; skos:inScheme peib:LeadSourceType ; skos:prefLabel "Referral" .
+peib:source_inbound        a skos:Concept ; skos:inScheme peib:LeadSourceType ; skos:prefLabel "Inbound" .
+peib:source_research       a skos:Concept ; skos:inScheme peib:LeadSourceType ; skos:prefLabel "Research" .
+peib:source_event          a skos:Concept ; skos:inScheme peib:LeadSourceType ; skos:prefLabel "Event" .
+
+peib:lead_new              a skos:Concept ; skos:inScheme peib:LeadStatus ; skos:prefLabel "New" .
+peib:lead_working          a skos:Concept ; skos:inScheme peib:LeadStatus ; skos:prefLabel "Working" .
+peib:lead_converted        a skos:Concept ; skos:inScheme peib:LeadStatus ; skos:prefLabel "Converted" .
+peib:lead_disqualified     a skos:Concept ; skos:inScheme peib:LeadStatus ; skos:prefLabel "Disqualified" .
+
+peib:prospect_new          a skos:Concept ; skos:inScheme peib:ProspectStage ; skos:prefLabel "New" .
+peib:prospect_working      a skos:Concept ; skos:inScheme peib:ProspectStage ; skos:prefLabel "Working" .
+peib:prospect_ready        a skos:Concept ; skos:inScheme peib:ProspectStage ; skos:prefLabel "Ready to Convert" .
+peib:prospect_disqualified a skos:Concept ; skos:inScheme peib:ProspectStage ; skos:prefLabel "Disqualified" .
+
+peib:acct_lp               a skos:Concept ; skos:inScheme peib:AccountType ; skos:prefLabel "LP" .
+peib:acct_swf              a skos:Concept ; skos:inScheme peib:AccountType ; skos:prefLabel "SWF" .
+peib:acct_corporate        a skos:Concept ; skos:inScheme peib:AccountType ; skos:prefLabel "Corporate" .
+peib:acct_pe_fund          a skos:Concept ; skos:inScheme peib:AccountType ; skos:prefLabel "PE Fund" .
+peib:acct_family_office    a skos:Concept ; skos:inScheme peib:AccountType ; skos:prefLabel "Family Office" .
+
+peib:tier_1                a skos:Concept ; skos:inScheme peib:AccountTier ; skos:prefLabel "Tier 1" .
+peib:tier_2                a skos:Concept ; skos:inScheme peib:AccountTier ; skos:prefLabel "Tier 2" .
+peib:tier_3                a skos:Concept ; skos:inScheme peib:AccountTier ; skos:prefLabel "Tier 3" .
+
+peib:role_economic_buyer   a skos:Concept ; skos:inScheme peib:BuyingRole , peib:MHRole ; skos:prefLabel "Economic Buyer" .
+peib:role_user_buyer       a skos:Concept ; skos:inScheme peib:BuyingRole , peib:MHRole ; skos:prefLabel "User Buyer" .
+peib:role_tech_buyer       a skos:Concept ; skos:inScheme peib:BuyingRole , peib:MHRole ; skos:prefLabel "Technical Buyer" .
+peib:role_coach            a skos:Concept ; skos:inScheme peib:BuyingRole , peib:MHRole ; skos:prefLabel "Coach" .
+peib:role_influencer       a skos:Concept ; skos:inScheme peib:BuyingRole , peib:MHRole ; skos:prefLabel "Influencer" .
+
+peib:activity_call         a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Call" .
+peib:activity_meeting      a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Meeting" .
+peib:activity_email        a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Email" .
+peib:activity_roadshow     a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Roadshow" .
+peib:activity_conference   a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Conference" .
+peib:activity_luncheon     a skos:Concept ; skos:inScheme peib:ActivityType ; skos:prefLabel "Luncheon" .
+
+peib:deal_ma               a skos:Concept ; skos:inScheme peib:DealType ; skos:prefLabel "M&A" .
+peib:deal_financing        a skos:Concept ; skos:inScheme peib:DealType ; skos:prefLabel "Financing" .
+peib:deal_advisory         a skos:Concept ; skos:inScheme peib:DealType ; skos:prefLabel "Advisory" .
+peib:deal_capital_raise    a skos:Concept ; skos:inScheme peib:DealType ; skos:prefLabel "Capital Raise" .
+
+peib:prod_fund             a skos:Concept ; skos:inScheme peib:ProductType ; skos:prefLabel "Fund" .
+peib:prod_lp               a skos:Concept ; skos:inScheme peib:ProductType ; skos:prefLabel "LP" .
+peib:prod_advisory         a skos:Concept ; skos:inScheme peib:ProductType ; skos:prefLabel "Advisory" .
+peib:prod_credit           a skos:Concept ; skos:inScheme peib:ProductType ; skos:prefLabel "Credit" .
+peib:prod_real_estate      a skos:Concept ; skos:inScheme peib:ProductType ; skos:prefLabel "Real Estate" .
+
+peib:nps_promoter          a skos:Concept ; skos:inScheme peib:NPSSegment ; skos:prefLabel "Promoter" .
+peib:nps_passive           a skos:Concept ; skos:inScheme peib:NPSSegment ; skos:prefLabel "Passive" .
+peib:nps_detractor         a skos:Concept ; skos:inScheme peib:NPSSegment ; skos:prefLabel "Detractor" .
+
+peib:alert_health          a skos:Concept ; skos:inScheme peib:AlertType ; skos:prefLabel "Health" .
+peib:alert_nps             a skos:Concept ; skos:inScheme peib:AlertType ; skos:prefLabel "NPS" .
+peib:alert_reup_risk       a skos:Concept ; skos:inScheme peib:AlertType ; skos:prefLabel "Re-up Risk" .
+peib:alert_inactivity      a skos:Concept ; skos:inScheme peib:AlertType ; skos:prefLabel "Inactivity" .
+
+peib:sev_low               a skos:Concept ; skos:inScheme peib:SeverityLevel ; skos:prefLabel "Low" .
+peib:sev_medium            a skos:Concept ; skos:inScheme peib:SeverityLevel ; skos:prefLabel "Medium" .
+peib:sev_high              a skos:Concept ; skos:inScheme peib:SeverityLevel ; skos:prefLabel "High" .
+peib:sev_critical          a skos:Concept ; skos:inScheme peib:SeverityLevel ; skos:prefLabel "Critical" .
+
+peib:inv_swf               a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "SWF" .
+peib:inv_pension           a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "Pension" .
+peib:inv_endowment         a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "Endowment" .
+peib:inv_family_office     a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "Family Office" .
+peib:inv_pe_fund           a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "PE Fund" .
+peib:inv_corporate         a skos:Concept ; skos:inScheme peib:InvestorType ; skos:prefLabel "Corporate" .
+
+# ─────────────────────────────────────────────
+# CLASSES
+# ─────────────────────────────────────────────
+
+# --- Pre-funnel ---
+
+peib:Lead a owl:Class ;
+    rdfs:label "Lead" ;
+    rdfs:comment "Lightweight first-touch record capturing a potential relationship signal before research investment." ;
+    skos:note "Pre-funnel entity. Converts to Prospect on qualification." .
+
+peib:Prospect a owl:Class ;
+    rdfs:label "Prospect" ;
+    rdfs:comment "Enriched pre-account record profiling AUM, investor type, and product fit. Activities can be logged before Account creation." ;
+    skos:note "Pre-funnel entity. Converts to Account on approval." .
+
+peib:LeadSource a owl:Class ;
+    rdfs:label "Lead Source" ;
+    rdfs:comment "Reference entity capturing the channel and campaign that generated a Lead." .
+
+# --- CRM Core ---
+
+peib:Account a owl:Class ;
+    rdfs:label "Account" ;
+    rdfs:comment "Primary entity for an established institutional client relationship." .
+
+peib:Contact a owl:Class ;
+    rdfs:label "Contact" ;
+    rdfs:comment "Individual person within an Account. Buying role and influence level map to Miller Heiman concepts." .
+
+peib:Activity a owl:Class ;
+    rdfs:label "Activity" ;
+    rdfs:comment "Client-facing interaction. Accepts account, prospect, or opportunity context via nullable foreign keys." .
+
+peib:User a owl:Class ;
+    rdfs:label "User" ;
+    rdfs:comment "Internal coverage representative — banker, relationship manager, or analyst." .
+
+# --- Miller Heiman ---
+
+peib:Opportunity a owl:Class ;
+    rdfs:label "Opportunity" ;
+    rdfs:comment "Core deal-tracking entity. Miller Heiman fields embedded directly for CRM compatibility." .
+
+peib:BuyingCommittee a owl:Class ;
+    rdfs:label "Buying Committee" ;
+    rdfs:comment "Junction entity mapping Contacts to Opportunities with Miller Heiman roles." .
+
+peib:RelationshipPlan a owl:Class ;
+    rdfs:label "Relationship Plan" ;
+    rdfs:comment "Strategic account plan reviewed on a defined cycle. Maps to Miller Heiman Account Strategy." .
+
+# --- PE/IB Specific ---
+
+peib:Deal a owl:Class ;
+    rdfs:label "Deal" ;
+    rdfs:comment "Created when an Opportunity closes. Captures deal economics, sector, and tombstone data." .
+
+peib:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:comment "Firm product catalog — funds, advisory mandates, credit products, real estate strategies." .
+
+peib:Commitment a owl:Class ;
+    rdfs:label "Commitment" ;
+    rdfs:comment "LP commitment per fund per vintage. Enables wallet share analysis and re-up scoring." .
+
+# --- Customer Success / NPS ---
+
+peib:ClientHealthScore a owl:Class ;
+    rdfs:label "Client Health Score" ;
+    rdfs:comment "Periodic snapshot of account engagement, sentiment, and churn risk. Stored as snapshots for trend analysis." .
+
+peib:NPSSurvey a owl:Class ;
+    rdfs:label "NPS Survey" ;
+    rdfs:comment "Individual NPS survey response linked to both Account and Contact for closed-loop tracking." .
+
+peib:Alert a owl:Class ;
+    rdfs:label "Alert" ;
+    rdfs:comment "Auto-generated when a ClientHealthScore triggers a red flag. Routed to coverage rep." .
+
+# --- Reference ---
+
+peib:StageConfig a owl:Class ;
+    rdfs:label "Stage Config" ;
+    rdfs:comment "Lookup table for pipeline stage definitions. Supports both Opportunity and Prospect stages." .
+
+peib:Tag a owl:Class ;
+    rdfs:label "Tag" ;
+    rdfs:comment "Flexible tagging for segmentation across entities." .
+
+peib:AuditLog a owl:Class ;
+    rdfs:label "Audit Log" ;
+    rdfs:comment "Immutable append-only record of all create/update/delete operations. Required for regulatory compliance." .
+
+# ─────────────────────────────────────────────
+# DATATYPE PROPERTIES
+# ─────────────────────────────────────────────
+
+# Lead
+peib:leadId            a owl:DatatypeProperty ; rdfs:domain peib:Lead ; rdfs:range xsd:string ; rdfs:label "lead ID" .
+peib:orgName           a owl:DatatypeProperty ; rdfs:domain [ owl:unionOf ( peib:Lead peib:Prospect peib:Account ) ] ; rdfs:range xsd:string ; rdfs:label "organisation name" .
+peib:contactName       a owl:DatatypeProperty ; rdfs:domain peib:Lead ; rdfs:range xsd:string ; rdfs:label "contact name" .
+peib:email             a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "email address" .
+peib:leadScore         a owl:DatatypeProperty ; rdfs:domain peib:Lead ; rdfs:range xsd:integer ; rdfs:label "lead score (0–100)" .
+peib:convertedFlag     a owl:DatatypeProperty ; rdfs:domain peib:Lead ; rdfs:range xsd:boolean ; rdfs:label "converted flag" .
+peib:convertedDate     a owl:DatatypeProperty ; rdfs:domain peib:Lead ; rdfs:range xsd:date ; rdfs:label "converted date" .
+peib:createdDate       a owl:DatatypeProperty ; rdfs:range xsd:date ; rdfs:label "created date" .
+
+# Prospect
+peib:prospectId        a owl:DatatypeProperty ; rdfs:domain peib:Prospect ; rdfs:range xsd:string ; rdfs:label "prospect ID" .
+peib:estimatedAUM      a owl:DatatypeProperty ; rdfs:domain peib:Prospect ; rdfs:range xsd:decimal ; rdfs:label "estimated AUM" .
+peib:aumCurrency       a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "AUM currency" .
+peib:geography         a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "geography" .
+peib:sectorFocus       a owl:DatatypeProperty ; rdfs:domain peib:Prospect ; rdfs:range xsd:string ; rdfs:label "sector focus" .
+peib:qualificationScore a owl:DatatypeProperty ; rdfs:domain peib:Prospect ; rdfs:range xsd:integer ; rdfs:label "qualification score (0–100)" .
+peib:targetProduct     a owl:DatatypeProperty ; rdfs:domain peib:Prospect ; rdfs:range xsd:string ; rdfs:label "target product" .
+peib:disqualifyReason  a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "disqualify reason" .
+
+# Account
+peib:accountId         a owl:DatatypeProperty ; rdfs:domain peib:Account ; rdfs:range xsd:string ; rdfs:label "account ID" .
+peib:hqCountry         a owl:DatatypeProperty ; rdfs:domain peib:Account ; rdfs:range xsd:string ; rdfs:label "HQ country" .
+peib:aumRange          a owl:DatatypeProperty ; rdfs:domain peib:Account ; rdfs:range xsd:string ; rdfs:label "AUM range" .
+peib:relationshipSince a owl:DatatypeProperty ; rdfs:domain peib:Account ; rdfs:range xsd:date ; rdfs:label "relationship since" .
+
+# Contact
+peib:contactId         a owl:DatatypeProperty ; rdfs:domain peib:Contact ; rdfs:range xsd:string ; rdfs:label "contact ID" .
+peib:fullName          a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "full name" .
+peib:title             a owl:DatatypeProperty ; rdfs:domain peib:Contact ; rdfs:range xsd:string ; rdfs:label "job title" .
+peib:department        a owl:DatatypeProperty ; rdfs:domain peib:Contact ; rdfs:range xsd:string ; rdfs:label "department" .
+peib:linkedinURL       a owl:DatatypeProperty ; rdfs:domain peib:Contact ; rdfs:range xsd:anyURI ; rdfs:label "LinkedIn URL" .
+
+# User
+peib:userId            a owl:DatatypeProperty ; rdfs:domain peib:User ; rdfs:range xsd:string ; rdfs:label "user ID" .
+peib:team              a owl:DatatypeProperty ; rdfs:domain peib:User ; rdfs:range xsd:string ; rdfs:label "team" .
+peib:region            a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "region" .
+peib:productCoverage   a owl:DatatypeProperty ; rdfs:domain peib:User ; rdfs:range xsd:string ; rdfs:label "product coverage" .
+peib:activeFlag        a owl:DatatypeProperty ; rdfs:range xsd:boolean ; rdfs:label "active flag" .
+
+# Activity
+peib:activityId        a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:string ; rdfs:label "activity ID" .
+peib:subject           a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:string ; rdfs:label "subject" .
+peib:outcome           a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:string ; rdfs:label "outcome" .
+peib:nextStep          a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:string ; rdfs:label "next step" .
+peib:activityDate      a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:date ; rdfs:label "activity date" .
+peib:durationMinutes   a owl:DatatypeProperty ; rdfs:domain peib:Activity ; rdfs:range xsd:integer ; rdfs:label "duration in minutes" .
+
+# Opportunity
+peib:opportunityId     a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "opportunity ID" .
+peib:probability       a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:integer ; rdfs:label "win probability (0–100)" .
+peib:dealSize          a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:decimal ; rdfs:label "deal size" .
+peib:productType       a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "product type" .
+peib:closeDate         a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:date ; rdfs:label "close date" .
+peib:decisionCriteria  a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "decision criteria [MH]" .
+peib:metrics           a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "measurable results [MH]" .
+peib:competition       a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "competition" .
+peib:winLossReason     a owl:DatatypeProperty ; rdfs:domain peib:Opportunity ; rdfs:range xsd:string ; rdfs:label "win/loss reason" .
+
+# Buying Committee
+peib:committeeId       a owl:DatatypeProperty ; rdfs:domain peib:BuyingCommittee ; rdfs:range xsd:string ; rdfs:label "committee member ID" .
+peib:winResultConcept  a owl:DatatypeProperty ; rdfs:domain peib:BuyingCommittee ; rdfs:range xsd:string ; rdfs:label "win result concept [MH]" .
+
+# Relationship Plan
+peib:planId            a owl:DatatypeProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range xsd:string ; rdfs:label "plan ID" .
+peib:strategicObjective a owl:DatatypeProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range xsd:string ; rdfs:label "strategic objective" .
+peib:strengthOfPosition a owl:DatatypeProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range xsd:integer ; rdfs:label "strength of position (1–5)" .
+peib:competitiveThreats a owl:DatatypeProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range xsd:string ; rdfs:label "competitive threats" .
+peib:nextReviewDate    a owl:DatatypeProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range xsd:date ; rdfs:label "next review date" .
+
+# Deal
+peib:dealId            a owl:DatatypeProperty ; rdfs:domain peib:Deal ; rdfs:range xsd:string ; rdfs:label "deal ID" .
+peib:dealValue         a owl:DatatypeProperty ; rdfs:domain peib:Deal ; rdfs:range xsd:decimal ; rdfs:label "deal value" .
+peib:currency          a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "currency" .
+peib:feeStructure      a owl:DatatypeProperty ; rdfs:domain peib:Deal ; rdfs:range xsd:string ; rdfs:label "fee structure" .
+peib:sector            a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "sector" .
+peib:closingDate       a owl:DatatypeProperty ; rdfs:domain peib:Deal ; rdfs:range xsd:date ; rdfs:label "closing date" .
+peib:tombstoneFlag     a owl:DatatypeProperty ; rdfs:domain peib:Deal ; rdfs:range xsd:boolean ; rdfs:label "tombstone approved flag" .
+
+# Product
+peib:productId         a owl:DatatypeProperty ; rdfs:domain peib:Product ; rdfs:range xsd:string ; rdfs:label "product ID" .
+peib:productName       a owl:DatatypeProperty ; rdfs:domain peib:Product ; rdfs:range xsd:string ; rdfs:label "product name" .
+peib:category          a owl:DatatypeProperty ; rdfs:domain peib:Product ; rdfs:range xsd:string ; rdfs:label "product category" .
+peib:minCommitment     a owl:DatatypeProperty ; rdfs:domain peib:Product ; rdfs:range xsd:decimal ; rdfs:label "minimum commitment" .
+peib:vintage           a owl:DatatypeProperty ; rdfs:range xsd:gYear ; rdfs:label "vintage year" .
+peib:targetIRR         a owl:DatatypeProperty ; rdfs:domain peib:Product ; rdfs:range xsd:decimal ; rdfs:label "target IRR" .
+
+# Commitment
+peib:commitmentId      a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:string ; rdfs:label "commitment ID" .
+peib:committedAmount   a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:decimal ; rdfs:label "committed amount" .
+peib:fundedAmount      a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:decimal ; rdfs:label "funded amount" .
+peib:irrRealized       a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:decimal ; rdfs:label "realized IRR" .
+peib:moic              a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:decimal ; rdfs:label "MOIC" .
+peib:reUpLikelihood    a owl:DatatypeProperty ; rdfs:domain peib:Commitment ; rdfs:range xsd:integer ; rdfs:label "re-up likelihood (1–5)" .
+
+# Client Health Score
+peib:healthId          a owl:DatatypeProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range xsd:string ; rdfs:label "health score ID" .
+peib:scoreDate         a owl:DatatypeProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range xsd:date ; rdfs:label "score date" .
+peib:engagementScore   a owl:DatatypeProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range xsd:integer ; rdfs:label "engagement score (0–100)" .
+peib:walletShareScore  a owl:DatatypeProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range xsd:integer ; rdfs:label "wallet share score (0–100)" .
+peib:redFlag           a owl:DatatypeProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range xsd:boolean ; rdfs:label "red flag" .
+
+# NPS Survey
+peib:surveyId          a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:string ; rdfs:label "survey ID" .
+peib:surveyDate        a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:date ; rdfs:label "survey date" .
+peib:npsScore          a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:integer ; rdfs:label "NPS score (0–10)" .
+peib:verbatim          a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:string ; rdfs:label "verbatim feedback" .
+peib:followUpFlag      a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:boolean ; rdfs:label "follow-up required flag" .
+peib:closedLoopDate    a owl:DatatypeProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range xsd:date ; rdfs:label "closed loop date" .
+
+# Alert
+peib:alertId           a owl:DatatypeProperty ; rdfs:domain peib:Alert ; rdfs:range xsd:string ; rdfs:label "alert ID" .
+peib:triggeredDate     a owl:DatatypeProperty ; rdfs:domain peib:Alert ; rdfs:range xsd:date ; rdfs:label "triggered date" .
+peib:resolvedFlag      a owl:DatatypeProperty ; rdfs:domain peib:Alert ; rdfs:range xsd:boolean ; rdfs:label "resolved flag" .
+peib:resolvedDate      a owl:DatatypeProperty ; rdfs:domain peib:Alert ; rdfs:range xsd:date ; rdfs:label "resolved date" .
+
+# Audit Log
+peib:logId             a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "log ID" .
+peib:entityType        a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "entity type (table name)" .
+peib:entityId          a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "entity ID (PK of affected record)" .
+peib:action            a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "action (CREATE/UPDATE/DELETE)" .
+peib:timestamp         a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:dateTimeStamp ; rdfs:label "timestamp (UTC)" .
+peib:oldValue          a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "old value (JSON)" .
+peib:newValue          a owl:DatatypeProperty ; rdfs:domain peib:AuditLog ; rdfs:range xsd:string ; rdfs:label "new value (JSON)" .
+
+# ─────────────────────────────────────────────
+# OBJECT PROPERTIES (relationships)
+# ─────────────────────────────────────────────
+
+peib:hasLeadSource     a owl:ObjectProperty ; rdfs:domain peib:Lead ; rdfs:range peib:LeadSource ; rdfs:label "has lead source" .
+peib:convertedToProspect a owl:ObjectProperty ; rdfs:domain peib:Lead ; rdfs:range peib:Prospect ; rdfs:label "converted to prospect" .
+peib:convertedToAccount  a owl:ObjectProperty ; rdfs:domain peib:Prospect ; rdfs:range peib:Account ; rdfs:label "converted to account" .
+peib:originatesFromLead  a owl:ObjectProperty ; rdfs:domain peib:Prospect ; rdfs:range peib:Lead ; rdfs:label "originates from lead" ; owl:inverseOf peib:convertedToProspect .
+peib:originatesFromProspect a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:Prospect ; rdfs:label "originates from prospect" ; owl:inverseOf peib:convertedToAccount .
+
+peib:assignedTo        a owl:ObjectProperty ; rdfs:range peib:User ; rdfs:label "assigned to user" .
+peib:primaryCoverageBy a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:User ; rdfs:label "primary coverage by" .
+peib:hasContact        a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:Contact ; rdfs:label "has contact" .
+peib:belongsToAccount  a owl:ObjectProperty ; rdfs:domain peib:Contact ; rdfs:range peib:Account ; rdfs:label "belongs to account" ; owl:inverseOf peib:hasContact .
+
+peib:loggedAgainstAccount   a owl:ObjectProperty ; rdfs:domain peib:Activity ; rdfs:range peib:Account ; rdfs:label "logged against account" .
+peib:loggedAgainstProspect  a owl:ObjectProperty ; rdfs:domain peib:Activity ; rdfs:range peib:Prospect ; rdfs:label "logged against prospect" .
+peib:loggedAgainstOpportunity a owl:ObjectProperty ; rdfs:domain peib:Activity ; rdfs:range peib:Opportunity ; rdfs:label "logged against opportunity" .
+peib:activityOwner     a owl:ObjectProperty ; rdfs:domain peib:Activity ; rdfs:range peib:User ; rdfs:label "activity owner" .
+
+peib:opportunityForAccount a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:Account ; rdfs:label "opportunity for account" .
+peib:opportunityOwner  a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:User ; rdfs:label "opportunity owner" .
+peib:economicBuyer     a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:Contact ; rdfs:label "economic buyer [MH]" .
+peib:coach             a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:Contact ; rdfs:label "coach [MH]" .
+peib:hasBuyingCommitteeMember a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:BuyingCommittee ; rdfs:label "has buying committee member" .
+peib:committeeContact  a owl:ObjectProperty ; rdfs:domain peib:BuyingCommittee ; rdfs:range peib:Contact ; rdfs:label "committee contact" .
+peib:committeeOpportunity a owl:ObjectProperty ; rdfs:domain peib:BuyingCommittee ; rdfs:range peib:Opportunity ; rdfs:label "committee for opportunity" .
+
+peib:convertsTooDeal   a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range peib:Deal ; rdfs:label "converts to deal" .
+peib:dealFromOpportunity a owl:ObjectProperty ; rdfs:domain peib:Deal ; rdfs:range peib:Opportunity ; rdfs:label "deal from opportunity" ; owl:inverseOf peib:convertsTooDeal .
+
+peib:hasRelationshipPlan a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:RelationshipPlan ; rdfs:label "has relationship plan" .
+peib:planOwner         a owl:ObjectProperty ; rdfs:domain peib:RelationshipPlan ; rdfs:range peib:User ; rdfs:label "plan owner" .
+
+peib:hasCommitment     a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:Commitment ; rdfs:label "has commitment" .
+peib:commitmentForProduct a owl:ObjectProperty ; rdfs:domain peib:Commitment ; rdfs:range peib:Product ; rdfs:label "commitment for product" .
+
+peib:hasHealthScore    a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:ClientHealthScore ; rdfs:label "has health score" .
+peib:hasNPSSurvey      a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range peib:NPSSurvey ; rdfs:label "has NPS survey" .
+peib:surveyRespondent  a owl:ObjectProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range peib:Contact ; rdfs:label "survey respondent" .
+peib:triggersAlert     a owl:ObjectProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range peib:Alert ; rdfs:label "triggers alert" .
+peib:alertForAccount   a owl:ObjectProperty ; rdfs:domain peib:Alert ; rdfs:range peib:Account ; rdfs:label "alert for account" .
+
+# Concept / status properties (use SKOS concepts)
+peib:hasLeadStatus     a owl:ObjectProperty ; rdfs:domain peib:Lead ; rdfs:range skos:Concept ; rdfs:label "has lead status" .
+peib:hasProspectStage  a owl:ObjectProperty ; rdfs:domain peib:Prospect ; rdfs:range skos:Concept ; rdfs:label "has prospect stage" .
+peib:hasAccountType    a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range skos:Concept ; rdfs:label "has account type" .
+peib:hasAccountTier    a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range skos:Concept ; rdfs:label "has account tier" .
+peib:hasAccountStatus  a owl:ObjectProperty ; rdfs:domain peib:Account ; rdfs:range skos:Concept ; rdfs:label "has account status" .
+peib:hasBuyingRole     a owl:ObjectProperty ; rdfs:domain peib:Contact ; rdfs:range skos:Concept ; rdfs:label "has buying role" .
+peib:hasActivityType   a owl:ObjectProperty ; rdfs:domain peib:Activity ; rdfs:range skos:Concept ; rdfs:label "has activity type" .
+peib:hasOpportunityStage a owl:ObjectProperty ; rdfs:domain peib:Opportunity ; rdfs:range skos:Concept ; rdfs:label "has opportunity stage" .
+peib:hasMHRole         a owl:ObjectProperty ; rdfs:domain peib:BuyingCommittee ; rdfs:range skos:Concept ; rdfs:label "has Miller Heiman role" .
+peib:hasDealType       a owl:ObjectProperty ; rdfs:domain peib:Deal ; rdfs:range skos:Concept ; rdfs:label "has deal type" .
+peib:hasProductType    a owl:ObjectProperty ; rdfs:domain peib:Product ; rdfs:range skos:Concept ; rdfs:label "has product type" .
+peib:hasCommitmentStatus a owl:ObjectProperty ; rdfs:domain peib:Commitment ; rdfs:range skos:Concept ; rdfs:label "has commitment status" .
+peib:hasSentiment      a owl:ObjectProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range skos:Concept ; rdfs:label "has sentiment" .
+peib:hasChurnRisk      a owl:ObjectProperty ; rdfs:domain peib:ClientHealthScore ; rdfs:range skos:Concept ; rdfs:label "has churn risk" .
+peib:hasNPSSegment     a owl:ObjectProperty ; rdfs:domain peib:NPSSurvey ; rdfs:range skos:Concept ; rdfs:label "has NPS segment" .
+peib:hasAlertType      a owl:ObjectProperty ; rdfs:domain peib:Alert ; rdfs:range skos:Concept ; rdfs:label "has alert type" .
+peib:hasSeverity       a owl:ObjectProperty ; rdfs:domain peib:Alert ; rdfs:range skos:Concept ; rdfs:label "has severity" .
+peib:hasInvestorType   a owl:ObjectProperty ; rdfs:domain peib:Prospect ; rdfs:range skos:Concept ; rdfs:label "has investor type" .
