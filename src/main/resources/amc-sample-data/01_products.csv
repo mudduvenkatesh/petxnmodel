@@ -1,0 +1,6 @@
+product_id,product_name,strategy,asset_class,geography,gp_entity
+PROD-001,AMC Buyout,Buyout,Private Equity,Global,AMC Capital Management LP
+PROD-002,AMC Credit Opportunities,Credit,Private Credit,Global,AMC Credit Management LP
+PROD-003,AMC Real Assets,Real Assets,Real Estate,North America,AMC Real Assets LP
+PROD-004,AMC Infrastructure Partners,Infrastructure,Infrastructure,Global,AMC Infrastructure LP
+PROD-005,AMC Growth Equity,Growth Equity,Private Equity,North America,AMC Growth LP

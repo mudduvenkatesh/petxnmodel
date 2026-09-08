@@ -1,0 +1,41 @@
+investor_id,investor_name,investor_type,country,bank_name,bank_account_ref,fatca_exempt,erisa_status,platform
+INV-0001,CalPERS,Endowment,USA,JPMorgan Chase Bank NA,ACC-877572,No,Exempt,
+INV-0002,Yale Endowment,Sovereign Wealth Fund,Singapore,Citibank NA,ACC-809570,Yes,Unknown,
+INV-0003,Ford Foundation,Fund of Funds,USA,JPMorgan Chase Bank NA,ACC-131244,Yes,Exempt,
+INV-0004,GIC Private Limited,Sovereign Wealth Fund,Australia,JPMorgan Chase Bank NA,ACC-688508,Yes,Unknown,
+INV-0005,Qatar Investment Authority,Fund of Funds,USA,Goldman Sachs Bank USA,ACC-571029,No,Exempt,
+INV-0006,Ontario Teachers Pension Plan,Foundation,USA,State Street Bank,ACC-456778,No,Exempt,
+INV-0007,Abu Dhabi Investment Authority,Sovereign Wealth Fund,Canada,Citibank NA,ACC-197251,No,Exempt,
+INV-0008,CPP Investments,Insurance Company,USA,HSBC Bank USA NA,ACC-733052,No,Exempt,
+INV-0009,Harvard Management Company,HNWI,USA,Deutsche Bank Trust Co,ACC-230889,No,Exempt,
+INV-0010,Stanford Management Company,Family Office,USA,HSBC Bank USA NA,ACC-705397,Yes,Unknown,
+INV-0011,MIT Investment Management,Endowment,USA,JPMorgan Chase Bank NA,ACC-793384,Yes,Non-Exempt,
+INV-0012,Wellcome Trust,Endowment,USA,Goldman Sachs Bank USA,ACC-205907,No,Non-Exempt,
+INV-0013,Church Commissioners England,HNWI,USA,HSBC Bank USA NA,ACC-270555,No,Non-Exempt,
+INV-0014,Future Fund Australia,Sovereign Wealth Fund,Canada,Citibank NA,ACC-738720,Yes,Unknown,
+INV-0015,Norges Bank Investment Management,Sovereign Wealth Fund,Singapore,BNY Mellon,ACC-497887,No,Unknown,
+INV-0016,AP4 Sweden,Sovereign Wealth Fund,Canada,JPMorgan Chase Bank NA,ACC-340174,Yes,Non-Exempt,
+INV-0017,CDPQ,Fund of Funds,USA,Wells Fargo Bank NA,ACC-169403,Yes,Unknown,
+INV-0018,New York State Common Retirement,Insurance Company,USA,Goldman Sachs Bank USA,ACC-787277,No,Non-Exempt,
+INV-0019,Washington State Investment Board,HNWI,USA,Bank of America NA,ACC-377746,Yes,Exempt,
+INV-0020,Virginia Retirement System,Family Office,USA,State Street Bank,ACC-711878,No,Non-Exempt,
+INV-0021,Blackstone Alternative Asset Management,Sovereign Wealth Fund,Singapore,Deutsche Bank Trust Co,ACC-617488,Yes,Exempt,
+INV-0022,Hamilton Lane Advisors,Endowment,USA,Bank of America NA,ACC-757924,Yes,Unknown,
+INV-0023,HarbourVest Partners,Fund of Funds,USA,Citibank NA,ACC-503457,No,Unknown,
+INV-0024,Pantheon Ventures,HNWI,USA,Deutsche Bank Trust Co,ACC-363626,Yes,Unknown,
+INV-0025,Adams Street Partners,Endowment,USA,Deutsche Bank Trust Co,ACC-887352,No,Unknown,
+INV-0026,Rockefeller Family Office,Insurance Company,USA,Citibank NA,ACC-407757,No,Exempt,
+INV-0027,Pritzker Family Office,HNWI,USA,JPMorgan Chase Bank NA,ACC-857168,No,Unknown,
+INV-0028,Koch Industries,Foundation,USA,Deutsche Bank Trust Co,ACC-211579,No,Unknown,
+INV-0029,Soros Family Office,Sovereign Wealth Fund,Singapore,HSBC Bank USA NA,ACC-899550,Yes,Unknown,
+INV-0030,Bloomberg Family Office,Pension Fund,USA,HSBC Bank USA NA,ACC-612340,Yes,Exempt,
+INV-0031,Merrill Lynch Wealth Management — Agg Acc,Wirehouse / Platform,USA,HSBC Bank USA NA,ACC-972064,No,Exempt,Merrill Lynch Wealth Management
+INV-0032,Morgan Stanley Wealth Management — Agg Acc,Wirehouse / Platform,USA,JPMorgan Chase Bank NA,ACC-352572,Yes,Exempt,Morgan Stanley Wealth Management
+INV-0033,UBS Financial Services — Agg Acc,Wirehouse / Platform,USA,BNY Mellon,ACC-955662,Yes,Unknown,UBS Financial Services
+INV-0034,Wells Fargo Advisors — Agg Acc,Wirehouse / Platform,USA,Bank of America NA,ACC-234628,No,Unknown,Wells Fargo Advisors
+INV-0035,Raymond James & Associates — Agg Acc,Wirehouse / Platform,USA,Bank of America NA,ACC-377932,No,Exempt,Raymond James & Associates
+INV-0036,Fidelity Institutional — Agg Acc,Wirehouse / Platform,USA,Deutsche Bank Trust Co,ACC-891952,Yes,Unknown,Fidelity Institutional
+INV-0037,Schwab Alternative Investments — Agg Acc,Wirehouse / Platform,USA,Wells Fargo Bank NA,ACC-518373,No,Non-Exempt,Schwab Alternative Investments
+INV-0038,iCapital Network — Agg Acc,Wirehouse / Platform,USA,Deutsche Bank Trust Co,ACC-573417,Yes,Exempt,iCapital Network
+INV-0039,CAIS Group — Agg Acc,Wirehouse / Platform,USA,Goldman Sachs Bank USA,ACC-167136,No,Exempt,CAIS Group
+INV-0040,Artivest (iCapital) — Agg Acc,Wirehouse / Platform,USA,Deutsche Bank Trust Co,ACC-341292,Yes,Exempt,Artivest (iCapital)

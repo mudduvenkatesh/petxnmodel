@@ -1,0 +1,21 @@
+capital_call_id,fund_id,fund_name,call_number,call_date,due_date,call_percentage,status,purpose
+FUND-ABF-IX-CC1,FUND-ABF-IX,AMC Buyout Fund IX,1,2021-08-08,2021-08-20,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ABF-IX-CC2,FUND-ABF-IX,AMC Buyout Fund IX,2,2021-11-28,2021-12-10,25.0,Closed,Follow-on investment — tranche 2
+FUND-ABF-X-CC1,FUND-ABF-X,AMC Buyout Fund X,1,2023-08-26,2023-09-08,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ABF-X-CC2,FUND-ABF-X,AMC Buyout Fund X,2,2024-03-26,2024-04-09,25.0,Closed,Follow-on investment — tranche 2
+FUND-ACO-IV-CC1,FUND-ACO-IV,AMC Credit Opps IV,1,2021-08-17,2021-08-31,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ACO-IV-CC2,FUND-ACO-IV,AMC Credit Opps IV,2,2022-02-19,2022-03-04,25.0,Closed,Follow-on investment — tranche 2
+FUND-ACO-V-CC1,FUND-ACO-V,AMC Credit Opps V,1,2023-08-08,2023-08-22,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ACO-V-CC2,FUND-ACO-V,AMC Credit Opps V,2,2024-01-23,2024-02-06,25.0,Closed,Follow-on investment — tranche 2
+FUND-ARA-III-CC1,FUND-ARA-III,AMC Real Assets III,1,2020-07-02,2020-07-16,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ARA-III-CC2,FUND-ARA-III,AMC Real Assets III,2,2020-11-06,2020-11-20,25.0,Closed,Follow-on investment — tranche 2
+FUND-ARA-IV-CC1,FUND-ARA-IV,AMC Real Assets IV,1,2022-07-15,2022-07-29,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-ARA-IV-CC2,FUND-ARA-IV,AMC Real Assets IV,2,2023-04-17,2023-05-01,25.0,Closed,Follow-on investment — tranche 2
+FUND-AIP-II-CC1,FUND-AIP-II,AMC Infra Partners II,1,2021-08-23,2021-09-06,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-AIP-II-CC2,FUND-AIP-II,AMC Infra Partners II,2,2022-05-01,2022-05-13,25.0,Closed,Follow-on investment — tranche 2
+FUND-AIP-III-CC1,FUND-AIP-III,AMC Infra Partners III,1,2023-08-07,2023-08-21,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-AIP-III-CC2,FUND-AIP-III,AMC Infra Partners III,2,2023-11-24,2023-12-08,25.0,Closed,Follow-on investment — tranche 2
+FUND-AGE-I-CC1,FUND-AGE-I,AMC Growth Equity I,1,2019-08-18,2019-08-30,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-AGE-I-CC2,FUND-AGE-I,AMC Growth Equity I,2,2020-05-18,2020-06-01,25.0,Closed,Follow-on investment — tranche 2
+FUND-AGE-II-CC1,FUND-AGE-II,AMC Growth Equity II,1,2022-08-22,2022-09-05,30.0,Closed,Portfolio acquisition — tranche 1
+FUND-AGE-II-CC2,FUND-AGE-II,AMC Growth Equity II,2,2023-02-10,2023-02-24,25.0,Closed,Follow-on investment — tranche 2
