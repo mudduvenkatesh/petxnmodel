@@ -1,0 +1,30 @@
+account_code,account_name,account_type,sub_type,normal_balance
+1000,Cash & Cash Equivalents,Asset,Current Asset,Debit
+1010,Capital Call Receivable,Asset,Current Asset,Debit
+1020,Management Fee Receivable,Asset,Current Asset,Debit
+1030,Distribution Receivable,Asset,Current Asset,Debit
+1100,Investment in Portfolio — Cost,Asset,Non-Current Asset,Debit
+1110,Unrealized Gain/(Loss),Asset,Non-Current Asset,Debit
+1120,Investment in Master Fund,Asset,Non-Current Asset,Debit
+1130,Accrued Income Receivable,Asset,Current Asset,Debit
+2000,Capital Contributions Payable,Liability,Current Liability,Credit
+2010,Distribution Payable,Liability,Current Liability,Credit
+2020,Management Fee Payable,Liability,Current Liability,Credit
+2030,Carried Interest Payable,Liability,Current Liability,Credit
+2040,Accrued Expenses,Liability,Current Liability,Credit
+2050,Organizational Expense Payable,Liability,Current Liability,Credit
+3000,LP Capital Account — Feeder,Equity,LP Capital,Credit
+3010,LP Capital Account — Direct,Equity,LP Capital,Credit
+3020,GP Capital Account,Equity,GP Capital,Credit
+3030,Carried Interest Reserve,Equity,GP Capital,Credit
+3040,Retained Earnings / (Loss),Equity,Retained Earnings,Credit
+4000,Realized Gain on Investment,Income,Realized Income,Credit
+4010,Dividend / Interest Income,Income,Investment Income,Credit
+4020,Unrealized Gain on Investment,Income,Unrealized Income,Credit
+4030,Other Income,Income,Other,Credit
+5000,Management Fee Expense,Expense,Operating Expense,Debit
+5010,Organizational Expense,Expense,Operating Expense,Debit
+5020,Administrative Expense,Expense,Operating Expense,Debit
+5030,Audit & Legal Expense,Expense,Operating Expense,Debit
+5040,Carried Interest Expense,Expense,Carry,Debit
+5050,Placement Fee Expense,Expense,Operating Expense,Debit

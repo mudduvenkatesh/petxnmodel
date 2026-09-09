@@ -1,0 +1,17 @@
+transaction_id,transaction_type,transaction_date,settlement_date,from_entity_id,to_entity_id,amount_usd,currency,debit_account,credit_account,fund_id,status
+PTXN-0001,PortfolioDeployment,2021-09-30,2021-09-30,FUND-ABF-IX,PC-001,850000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ABF-IX,Posted
+PTXN-0002,PortfolioDeployment,2022-03-31,2022-03-31,FUND-ABF-IX,PC-002,620000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ABF-IX,Posted
+PTXN-0003,PortfolioDeployment,2023-06-30,2023-06-30,FUND-ABF-X,PC-003,420000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ABF-X,Posted
+PTXN-0004,PortfolioDeployment,2021-10-31,2021-10-31,FUND-AIP-II,PC-004,1100000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-AIP-II,Posted
+PTXN-0005,PortfolioDeployment,2022-06-30,2022-06-30,FUND-AIP-II,PC-005,780000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-AIP-II,Posted
+PTXN-0006,PortfolioDeployment,2023-09-30,2023-09-30,FUND-AIP-III,PC-006,650000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-AIP-III,Posted
+PTXN-0007,PortfolioDeployment,2021-08-31,2021-08-31,FUND-ACO-IV,PC-007,320000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ACO-IV,Posted
+PTXN-0008,PortfolioDeployment,2020-06-30,2020-06-30,FUND-ARA-III,PC-008,280000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ARA-III,Posted
+PTXN-0009,PortfolioRealization,2023-06-30,2023-06-30,PC-008,FUND-ARA-III,510000000.0,USD,Cash & Cash Equivalents,Investment in Portfolio — Cost,FUND-ARA-III,Posted
+PTXN-0010,RealizedGain,2023-06-30,2023-06-30,PC-008,FUND-ARA-III,230000000.0,USD,Realized Gain on Investment,Realized Gain on Investment,FUND-ARA-III,Posted
+PTXN-0011,PortfolioDeployment,2021-03-31,2021-03-31,FUND-ARA-III,PC-009,195000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ARA-III,Posted
+PTXN-0012,PortfolioDeployment,2022-09-30,2022-09-30,FUND-ARA-IV,PC-010,310000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-ARA-IV,Posted
+PTXN-0013,PortfolioDeployment,2019-09-30,2019-09-30,FUND-AGE-I,PC-011,85000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-AGE-I,Posted
+PTXN-0014,PortfolioRealization,2022-12-31,2022-12-31,PC-011,FUND-AGE-I,210000000.0,USD,Cash & Cash Equivalents,Investment in Portfolio — Cost,FUND-AGE-I,Posted
+PTXN-0015,RealizedGain,2022-12-31,2022-12-31,PC-011,FUND-AGE-I,125000000.0,USD,Realized Gain on Investment,Realized Gain on Investment,FUND-AGE-I,Posted
+PTXN-0016,PortfolioDeployment,2022-06-30,2022-06-30,FUND-AGE-II,PC-012,140000000.0,USD,Investment in Portfolio — Cost,Cash & Cash Equivalents,FUND-AGE-II,Posted

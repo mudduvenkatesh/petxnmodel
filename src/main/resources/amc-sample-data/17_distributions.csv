@@ -1,0 +1,6 @@
+distribution_id,fund_id,fund_name,distribution_type,distribution_date,gross_proceeds_usd,return_of_capital_usd,realized_gain_usd,carried_interest_usd,net_to_lps_usd,currency,source_company_id,status
+DIST-0001,FUND-ARA-III,AMC Real Assets III,Return of Capital + Gain,2023-09-30,510000000.0,280000000.0,230000000.0,46000000.0,464000000.0,USD,PC-008,Paid
+DIST-0002,FUND-AGE-I,AMC Growth Equity I,Return of Capital + Gain,2023-03-31,210000000.0,85000000.0,125000000.0,25000000.0,185000000.0,USD,PC-011,Paid
+DIST-0003,FUND-ABF-IX,AMC Buyout Fund IX,Partial Realization,2024-06-30,420000000.0,350000000.0,70000000.0,14000000.0,406000000.0,USD,PC-001,Paid
+DIST-0004,FUND-ACO-IV,AMC Credit Opps IV,Income Distribution,2024-03-31,180000000.0,160000000.0,20000000.0,4000000.0,176000000.0,USD,PC-007,Paid
+DIST-0005,FUND-AIP-II,AMC Infra Partners II,Partial Realization,2024-09-30,250000000.0,220000000.0,30000000.0,6000000.0,244000000.0,USD,PC-004,Paid

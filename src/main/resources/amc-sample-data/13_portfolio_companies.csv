@@ -1,0 +1,13 @@
+company_id,company_name,fund_id,sector,sub_sector,geography,investment_year,status
+PC-001,TechVision Software Inc.,FUND-ABF-IX,Technology,SaaS / Cloud,USA,2021,Invested
+PC-002,GlobalLogistics Partners LP,FUND-ABF-IX,Industrials,Supply Chain,Germany,2022,Invested
+PC-003,HealthPath Holdings,FUND-ABF-X,Healthcare,Healthcare Services,USA,2023,Invested
+PC-004,BrightEnergy Renewables,FUND-AIP-II,Infrastructure,Renewables,UK,2021,Invested
+PC-005,MidWest Grid Operator LLC,FUND-AIP-II,Infrastructure,Utilities,USA,2022,Invested
+PC-006,Pacific Ports Authority,FUND-AIP-III,Infrastructure,Ports/Logistics,Singapore,2023,Invested
+PC-007,Alpine Credit Holdings,FUND-ACO-IV,Credit,Direct Lending,USA,2021,Invested
+PC-008,Meridian Real Estate Fund III,FUND-ARA-III,Real Estate,Multi-Family,USA,2020,Realized
+PC-009,Desert Sun Industrial REIT,FUND-ARA-III,Real Estate,Industrial,USA,2021,Invested
+PC-010,Coastal Retail Portfolio,FUND-ARA-IV,Real Estate,Retail,USA,2022,Invested
+PC-011,FastGrowth E-Commerce Ltd,FUND-AGE-I,Technology,E-Commerce,USA,2019,Realized
+PC-012,Apex Healthcare SaaS,FUND-AGE-II,Healthcare,HealthTech,USA,2022,Invested

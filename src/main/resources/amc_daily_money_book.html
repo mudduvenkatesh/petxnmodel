@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMC Capital — Daily Money Book</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a;
+    --border: #2e3350; --text: #e2e8f0; --muted: #8892aa;
+    --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
+    --amber: #f59e0b; --purple: #a855f7; --teal: #14b8a6;
+    --orange: #f97316;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; }
+  
+  /* Header */
+  .header { background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%);
+    border-bottom: 1px solid var(--border); padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between; }
+  .header-left h1 { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+  .header-left p { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .header-right { display: flex; gap: 10px; align-items: center; }
+  .badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-pe { background: #1e3a5f; color: #60a5fa; border: 1px solid #2563eb44; }
+  .badge-ev { background: #1a3a2a; color: #4ade80; border: 1px solid #16a34a44; }
+
+  /* Nav */
+  .nav { background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 0 28px; display: flex; gap: 0; }
+  .nav-tab { padding: 12px 18px; cursor: pointer; color: var(--muted); font-size: 12px;
+    font-weight: 500; border-bottom: 2px solid transparent; transition: all .2s; }
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+  /* Main layout */
+  .main { padding: 20px 28px; max-width: 1600px; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* KPI cards */
+  .kpi-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 20px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; position: relative; overflow: hidden; }
+  .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .kpi.green::before { background: var(--green); }
+  .kpi.red::before { background: var(--red); }
+  .kpi.blue::before { background: var(--blue); }
+  .kpi.amber::before { background: var(--amber); }
+  .kpi.purple::before { background: var(--purple); }
+  .kpi-label { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .kpi-value { font-size: 26px; font-weight: 700; margin: 6px 0 4px; color: #fff; }
+  .kpi-sub { color: var(--muted); font-size: 11px; }
+  .kpi.green .kpi-value { color: #4ade80; }
+  .kpi.red .kpi-value { color: #f87171; }
+  .kpi.amber .kpi-value { color: #fbbf24; }
+
+  /* Charts row */
+  .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .chart-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  .chart-wrap { position: relative; }
+
+  /* Controls */
+  .controls { display: flex; gap: 10px; margin-bottom: 14px; align-items: center; flex-wrap: wrap; }
+  .ctrl-label { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+  select, input[type=text] { background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 10px; border-radius: 6px; font-size: 12px; outline: none; }
+  select:focus, input:focus { border-color: var(--blue); }
+  .btn { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    cursor: pointer; border: none; transition: all .15s; }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: #2563eb; }
+  .btn-sm { padding: 3px 8px; font-size: 11px; border-radius: 4px; }
+
+  /* Table */
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { background: var(--surface2); color: var(--muted); font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .4px; padding: 10px 12px; text-align: left;
+    position: sticky; top: 0; z-index: 1; border-bottom: 1px solid var(--border); }
+  tbody tr { border-bottom: 1px solid #1e2235; transition: background .1s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--surface2); }
+  td { padding: 9px 12px; font-size: 12px; color: var(--text); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-family: 'Consolas', monospace; }
+  td.green { color: #4ade80; }
+  td.red { color: #f87171; }
+  td.muted { color: var(--muted); }
+  td.net-pos { color: #4ade80; font-weight: 600; }
+  td.net-neg { color: #f87171; font-weight: 600; }
+
+  /* Status pills */
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; }
+  .pill-green { background: #14532d; color: #4ade80; }
+  .pill-red { background: #450a0a; color: #fca5a5; }
+  .pill-amber { background: #451a03; color: #fcd34d; }
+  .pill-blue { background: #1e3a5f; color: #93c5fd; }
+  .pill-pe { background: #1e3a5f; color: #60a5fa; }
+  .pill-ev { background: #1a3a2a; color: #4ade80; }
+
+  /* Look-ahead */
+  .lookahead-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .la-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .la-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .la-icon { width: 8px; height: 8px; border-radius: 50%; }
+  .la-item { display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 8px 10px; border-radius: 6px; margin-bottom: 6px; background: var(--surface2); }
+  .la-item:hover { background: #2a2f4a; }
+  .la-item-left { flex: 1; }
+  .la-item-fund { font-size: 12px; font-weight: 600; color: var(--text); }
+  .la-item-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .la-item-amt { font-size: 13px; font-weight: 700; text-align: right; }
+  .la-item-date { font-size: 10px; color: var(--muted); text-align: right; margin-top: 2px; }
+  .overdue { border-left: 3px solid var(--red) !important; }
+
+  /* Bar mini */
+  .sparkbar { display: inline-block; height: 12px; border-radius: 2px; vertical-align: middle; }
+
+  /* Pagination */
+  .pagination { display: flex; gap: 6px; justify-content: flex-end; margin-top: 12px; align-items: center; }
+  .page-info { color: var(--muted); font-size: 11px; }
+
+  /* Running balance bar */
+  .balance-strip { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 20px; }
+  .balance-label { color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; }
+  .balance-value { font-size: 20px; font-weight: 700; color: #fff; }
+  .balance-sub { font-size: 11px; color: var(--muted); }
+
+  /* Source filter tabs */
+  .filter-tabs { display: flex; gap: 6px; }
+  .ftab { padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); color: var(--muted); transition: all .15s; }
+  .ftab.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .ftab.active.ev { background: var(--green); border-color: var(--green); }
+  .ftab.active.pe { background: #3b82f6; border-color: #3b82f6; }
+
+  @media (max-width: 1100px) { .kpi-grid { grid-template-columns: repeat(3,1fr); } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>AMC Capital — Daily Money Book</h1>
+    <p>Unified cash ledger · Private Equity + Evergreen Funds · 2019-08-30 – 2024-10-07</p>
+  </div>
+  <div class="header-right">
+    <span class="badge badge-pe">Closed-End PE</span>
+    <span class="badge badge-ev">Evergreen / Semi-Liquid</span>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-tab active" onclick="showTab('summary')">📊 Summary</div>
+  <div class="nav-tab" onclick="showTab('daily')">📅 Daily Ledger</div>
+  <div class="nav-tab" onclick="showTab('detail')">📋 Transaction Detail</div>
+  <div class="nav-tab" onclick="showTab('lookahead')">🔭 Look-Ahead</div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════ SUMMARY TAB ═══════════════ -->
+<div id="tab-summary" class="tab-content active">
+
+  <div class="kpi-grid">
+    <div class="kpi green">
+      <div class="kpi-label">Total Money In</div>
+      <div class="kpi-value">$12.79B</div>
+      <div class="kpi-sub">Capital calls + subscriptions</div>
+    </div>
+    <div class="kpi red">
+      <div class="kpi-label">Total Money Out</div>
+      <div class="kpi-value">$1.53B</div>
+      <div class="kpi-sub">Distributions + redemptions</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">Net Flows</div>
+      <div class="kpi-value">$11.27B</div>
+      <div class="kpi-sub">IN minus OUT</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-label">Pending Look-Ahead</div>
+      <div class="kpi-value">22</div>
+      <div class="kpi-sub">22 calls in · 0 dist out · <span style="color:var(--red)">11 overdue</span></div>
+    </div>
+    <div class="kpi purple">
+      <div class="kpi-label">Internal Sweeps</div>
+      <div class="kpi-value">$11.90B</div>
+      <div class="kpi-sub">Feeder → Master (netted)</div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Daily Cash Flows — Money In vs Money Out</div>
+      <div class="chart-wrap" style="height:280px">
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Flow Composition (by Category)</div>
+      <div class="chart-wrap" style="height:280px">
+        <canvas id="donutChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="chart-title">Running Net Balance</div>
+      <div class="chart-wrap" style="height:200px">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Look-Ahead Summary</div>
+      <div style="padding: 8px 0;">
+        <div class="la-item">
+          <div class="la-item-left">
+            <div class="la-item-fund">📥 Pending Capital Calls</div>
+            <div class="la-item-sub">22 notices awaiting payment</div>
+          </div>
+          <div><div class="la-item-amt" style="color:var(--green)">$1.61B</div></div>
+        </div>
+        <div class="la-item" style="margin-top:6px">
+          <div class="la-item-left">
+            <div class="la-item-fund">📤 Pending Distributions</div>
+            <div class="la-item-sub">0 payments scheduled</div>
+          </div>
+          <div><div class="la-item-amt" style="color:var(--red)">$0</div></div>
+        </div>
+        <div class="la-item overdue" style="margin-top:6px">
+          <div class="la-item-left">
+            <div class="la-item-fund" style="color:var(--red)">⚠ Overdue Capital Calls</div>
+            <div class="la-item-sub">Require immediate follow-up</div>
+          </div>
+          <div><div class="la-item-amt" style="color:var(--red)">11 items</div></div>
+        </div>
+        <div class="la-item" style="margin-top:6px">
+          <div class="la-item-left">
+            <div class="la-item-fund">📊 Active Trading Days</div>
+            <div class="la-item-sub">Across PE and Evergreen</div>
+          </div>
+          <div><div class="la-item-amt" style="color:var(--blue)">99</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-summary -->
+
+<!-- ═══════════════ DAILY LEDGER TAB ═══════════════ -->
+<div id="tab-daily" class="tab-content">
+
+  <div class="controls">
+    <span class="ctrl-label">Filter:</span>
+    <div class="filter-tabs">
+      <div class="ftab active" id="src-all" onclick="filterSrc('all')">All</div>
+      <div class="ftab pe" id="src-pe" onclick="filterSrc('PE')">PE Only</div>
+      <div class="ftab ev" id="src-ev" onclick="filterSrc('EV')">Evergreen Only</div>
+    </div>
+    <span class="ctrl-label" style="margin-left:10px">Date:</span>
+    <input type="text" id="dateFilter" placeholder="e.g. 2024-01" style="width:120px" oninput="renderDailyTable()">
+    <button class="btn btn-primary btn-sm" onclick="document.getElementById('dateFilter').value='';renderDailyTable()">Clear</button>
+  </div>
+
+  <div class="table-wrap" id="dailyTableWrap">
+    <table id="dailyTable">
+      <thead>
+        <tr>
+          <th onclick="sortDaily('date')" style="cursor:pointer">Date ↕</th>
+          <th class="num">Money In</th>
+          <th class="num">Money Out</th>
+          <th class="num">Net Flow</th>
+          <th class="num">Internal Sweep</th>
+          <th class="num">Running Balance</th>
+          <th># Transactions</th>
+        </tr>
+      </thead>
+      <tbody id="dailyTbody"></tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span class="page-info" id="dailyPageInfo"></span>
+    <button class="btn btn-primary btn-sm" onclick="changePage('daily',-1)">‹ Prev</button>
+    <button class="btn btn-primary btn-sm" onclick="changePage('daily',1)">Next ›</button>
+  </div>
+
+</div><!-- /tab-daily -->
+
+<!-- ═══════════════ DETAIL TAB ═══════════════ -->
+<div id="tab-detail" class="tab-content">
+
+  <div class="controls">
+    <span class="ctrl-label">Source:</span>
+    <div class="filter-tabs">
+      <div class="ftab active" id="det-all" onclick="filterDet('all')">All</div>
+      <div class="ftab pe" id="det-pe" onclick="filterDet('PE')">PE</div>
+      <div class="ftab ev" id="det-ev" onclick="filterDet('EV')">Evergreen</div>
+    </div>
+    <span class="ctrl-label">Category:</span>
+    <select id="catFilter" onchange="renderDetailTable()">
+      <option value="">All Categories</option>
+      <option>Capital Call Receipt</option>
+      <option>Distribution</option>
+      <option>Subscription</option>
+      <option>Redemption/Distribution</option>
+    </select>
+    <input type="text" id="detSearch" placeholder="Search fund..." style="width:160px" oninput="renderDetailTable()">
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Fund</th>
+          <th>Type</th>
+          <th>Sub-Type</th>
+          <th class="num">Money In</th>
+          <th class="num">Money Out</th>
+          <th>Count</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody id="detailTbody"></tbody>
+    </table>
+  </div>
+  <div class="pagination">
+    <span class="page-info" id="detPageInfo"></span>
+    <button class="btn btn-primary btn-sm" onclick="changePage('det',-1)">‹ Prev</button>
+    <button class="btn btn-primary btn-sm" onclick="changePage('det',1)">Next ›</button>
+  </div>
+
+</div><!-- /tab-detail -->
+
+<!-- ═══════════════ LOOK-AHEAD TAB ═══════════════ -->
+<div id="tab-lookahead" class="tab-content">
+
+  <div class="lookahead-grid">
+
+    <div class="la-card">
+      <div class="la-title">
+        <div class="la-icon" style="background:var(--green)"></div>
+        📥 Pending Capital Calls (Expected IN)
+      </div>
+      <div id="pendingIn"></div>
+    </div>
+
+    <div class="la-card">
+      <div class="la-title">
+        <div class="la-icon" style="background:var(--red)"></div>
+        📤 Pending Distributions (Expected OUT)
+      </div>
+      <div id="pendingOut"></div>
+    </div>
+
+  </div>
+
+  <div class="la-card" style="margin-bottom:14px">
+    <div class="la-title" style="color:var(--red)">
+      <div class="la-icon" style="background:var(--red)"></div>
+      ⚠ Overdue Items — Immediate Action Required
+    </div>
+    <div id="overdueItems"></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Look-Ahead Timeline (Pending Items by Due Date)</div>
+    <div class="chart-wrap" style="height:200px">
+      <canvas id="timelineChart"></canvas>
+    </div>
+  </div>
+
+</div><!-- /tab-lookahead -->
+
+</div><!-- /main -->
+
+<script>
+// ── Embedded Data ─────────────────────────────────────────────────────────────
+const DAILY   = [{"date": "2019-08-30", "in": 259812000.0, "out": 0, "net": 259812000.0, "internal": 0, "running": 259812000.0, "count": 3}, {"date": "2019-09-02", "in": 35280000.0, "out": 0, "net": 35280000.0, "internal": 608211000.0, "running": 295092000.0, "count": 3}, {"date": "2019-09-03", "in": 92904000.0, "out": 0, "net": 92904000.0, "internal": 0, "running": 387996000.0, "count": 1}, {"date": "2019-09-04", "in": 173244000.0, "out": 0, "net": 173244000.0, "internal": 0, "running": 561240000.0, "count": 2}, {"date": "2019-09-13", "in": 46971000.0, "out": 0, "net": 46971000.0, "internal": 0, "running": 608211000.0, "count": 1}, {"date": "2020-06-01", "in": 95452500.0, "out": 0, "net": 95452500.0, "internal": 0, "running": 703663500.0, "count": 1}, {"date": "2020-06-02", "in": 29400000.0, "out": 0, "net": 29400000.0, "internal": 506842500.0, "running": 733063500.0, "count": 3}, {"date": "2020-06-03", "in": 204235000.0, "out": 0, "net": 204235000.0, "internal": 0, "running": 937298500.0, "count": 3}, {"date": "2020-06-04", "in": 100810000.0, "out": 0, "net": 100810000.0, "internal": 0, "running": 1038108500.0, "count": 2}, {"date": "2020-06-22", "in": 76945000.0, "out": 0, "net": 76945000.0, "internal": 0, "running": 1115053500.0, "count": 1}, {"date": "2020-07-16", "in": 234204000.0, "out": 0, "net": 234204000.0, "internal": 0, "running": 1349257500.0, "count": 2}, {"date": "2020-07-17", "in": 310758000.0, "out": 0, "net": 310758000.0, "internal": 967929000.0, "running": 1660015500.0, "count": 6}, {"date": "2020-07-20", "in": 271641000.0, "out": 0, "net": 271641000.0, "internal": 0, "running": 1931656500.0, "count": 4}, {"date": "2020-07-21", "in": 43152000.0, "out": 0, "net": 43152000.0, "internal": 0, "running": 1974808500.0, "count": 2}, {"date": "2020-07-24", "in": 108174000.0, "out": 0, "net": 108174000.0, "internal": 0, "running": 2082982500.0, "count": 1}, {"date": "2020-11-20", "in": 101935000.0, "out": 0, "net": 101935000.0, "internal": 0, "running": 2184917500.0, "count": 2}, {"date": "2020-11-23", "in": 165987500.0, "out": 0, "net": 165987500.0, "internal": 721747500.0, "running": 2350905000.0, "count": 5}, {"date": "2020-11-24", "in": 242955000.0, "out": 0, "net": 242955000.0, "internal": 0, "running": 2593860000.0, "count": 3}, {"date": "2020-11-25", "in": 99682500.0, "out": 0, "net": 99682500.0, "internal": 0, "running": 2693542500.0, "count": 2}, {"date": "2020-12-10", "in": 111187500.0, "out": 0, "net": 111187500.0, "internal": 0, "running": 2804730000.0, "count": 2}, {"date": "2021-08-20", "in": 250614000.0, "out": 0, "net": 250614000.0, "internal": 0, "running": 3055344000.0, "count": 3}, {"date": "2021-08-23", "in": 374943000.0, "out": 0, "net": 374943000.0, "internal": 753309000.0, "running": 3430287000.0, "count": 7}, {"date": "2021-08-24", "in": 99735000.0, "out": 0, "net": 99735000.0, "internal": 0, "running": 3530022000.0, "count": 1}, {"date": "2021-08-25", "in": 28017000.0, "out": 0, "net": 28017000.0, "internal": 0, "running": 3558039000.0, "count": 1}, {"date": "2021-08-31", "in": 38697000.0, "out": 0, "net": 38697000.0, "internal": 0, "running": 3596736000.0, "count": 2}, {"date": "2021-09-01", "in": 0, "out": 0, "net": 0, "internal": 522870000.0, "running": 3596736000.0, "count": 2}, {"date": "2021-09-02", "in": 135165000.0, "out": 0, "net": 135165000.0, "internal": 0, "running": 3731901000.0, "count": 2}, {"date": "2021-09-03", "in": 349008000.0, "out": 0, "net": 349008000.0, "internal": 0, "running": 4080909000.0, "count": 4}, {"date": "2021-09-06", "in": 167175000.0, "out": 0, "net": 167175000.0, "internal": 0, "running": 4248084000.0, "count": 2}, {"date": "2021-09-07", "in": 2376000.0, "out": 0, "net": 2376000.0, "internal": 486069000.0, "running": 4250460000.0, "count": 3}, {"date": "2021-09-08", "in": 205374000.0, "out": 0, "net": 205374000.0, "internal": 0, "running": 4455834000.0, "count": 3}, {"date": "2021-09-16", "in": 58308000.0, "out": 0, "net": 58308000.0, "internal": 0, "running": 4514142000.0, "count": 1}, {"date": "2021-09-27", "in": 52836000.0, "out": 0, "net": 52836000.0, "internal": 0, "running": 4566978000.0, "count": 1}, {"date": "2021-12-10", "in": 249987500.0, "out": 0, "net": 249987500.0, "internal": 0, "running": 4816965500.0, "count": 3}, {"date": "2021-12-13", "in": 61712500.0, "out": 0, "net": 61712500.0, "internal": 834142500.0, "running": 4878678000.0, "count": 4}, {"date": "2021-12-14", "in": 282622500.0, "out": 0, "net": 282622500.0, "internal": 0, "running": 5161300500.0, "count": 4}, {"date": "2021-12-15", "in": 239820000.0, "out": 0, "net": 239820000.0, "internal": 0, "running": 5401120500.0, "count": 3}, {"date": "2022-03-04", "in": 295712500.0, "out": 0, "net": 295712500.0, "internal": 0, "running": 5696833000.0, "count": 4}, {"date": "2022-03-07", "in": 0, "out": 0, "net": 0, "internal": 327960000.0, "running": 5696833000.0, "count": 2}, {"date": "2022-03-08", "in": 1460000.0, "out": 0, "net": 1460000.0, "internal": 0, "running": 5698293000.0, "count": 1}, {"date": "2022-03-09", "in": 30787500.0, "out": 0, "net": 30787500.0, "internal": 0, "running": 5729080500.0, "count": 1}, {"date": "2022-05-13", "in": 147965000.0, "out": 0, "net": 147965000.0, "internal": 0, "running": 5877045500.0, "count": 2}, {"date": "2022-05-16", "in": 57665000.0, "out": 0, "net": 57665000.0, "internal": 405057500.0, "running": 5934710500.0, "count": 4}, {"date": "2022-05-17", "in": 119630000.0, "out": 0, "net": 119630000.0, "internal": 0, "running": 6054340500.0, "count": 2}, {"date": "2022-05-18", "in": 79797500.0, "out": 0, "net": 79797500.0, "internal": 0, "running": 6134138000.0, "count": 2}, {"date": "2022-07-29", "in": 111465000.0, "out": 0, "net": 111465000.0, "internal": 0, "running": 6245603000.0, "count": 2}, {"date": "2022-08-01", "in": 254370000.0, "out": 0, "net": 254370000.0, "internal": 717735000.0, "running": 6499973000.0, "count": 8}, {"date": "2022-08-02", "in": 50247000.0, "out": 0, "net": 50247000.0, "internal": 0, "running": 6550220000.0, "count": 1}, {"date": "2022-08-03", "in": 301653000.0, "out": 0, "net": 301653000.0, "internal": 0, "running": 6851873000.0, "count": 4}, {"date": "2022-09-05", "in": 19254000.0, "out": 0, "net": 19254000.0, "internal": 0, "running": 6871127000.0, "count": 1}, {"date": "2022-09-06", "in": 0, "out": 0, "net": 0, "internal": 498351000.0, "running": 6871127000.0, "count": 2}, {"date": "2022-09-07", "in": 136221000.0, "out": 0, "net": 136221000.0, "internal": 0, "running": 7007348000.0, "count": 3}, {"date": "2022-09-08", "in": 342876000.0, "out": 0, "net": 342876000.0, "internal": 0, "running": 7350224000.0, "count": 4}, {"date": "2023-02-24", "in": 198245000.0, "out": 0, "net": 198245000.0, "internal": 0, "running": 7548469000.0, "count": 3}, {"date": "2023-02-27", "in": 0, "out": 0, "net": 0, "internal": 300250000.0, "running": 7548469000.0, "count": 2}, {"date": "2023-02-28", "in": 80052500.0, "out": 0, "net": 80052500.0, "internal": 0, "running": 7628521500.0, "count": 2}, {"date": "2023-03-01", "in": 21952500.0, "out": 0, "net": 21952500.0, "internal": 0, "running": 7650474000.0, "count": 2}, {"date": "2023-04-07", "in": 0, "out": 184999900.0, "net": -184999900.0, "internal": 0, "running": 7465474100.0, "count": 8}, {"date": "2023-05-01", "in": 224977500.0, "out": 0, "net": 224977500.0, "internal": 0, "running": 7690451600.0, "count": 6}, {"date": "2023-05-02", "in": 167467500.0, "out": 0, "net": 167467500.0, "internal": 598112500.0, "running": 7857919100.0, "count": 5}, {"date": "2023-05-03", "in": 100612500.0, "out": 0, "net": 100612500.0, "internal": 0, "running": 7958531600.0, "count": 2}, {"date": "2023-05-04", "in": 41872500.0, "out": 0, "net": 41872500.0, "internal": 0, "running": 8000404100.0, "count": 1}, {"date": "2023-05-17", "in": 63182500.0, "out": 0, "net": 63182500.0, "internal": 0, "running": 8063586600.0, "count": 1}, {"date": "2023-08-22", "in": 309186000.0, "out": 0, "net": 309186000.0, "internal": 577803000.0, "running": 8372772600.0, "count": 6}, {"date": "2023-08-23", "in": 276195000.0, "out": 0, "net": 276195000.0, "internal": 578748000.0, "running": 8648967600.0, "count": 6}, {"date": "2023-08-24", "in": 527364000.0, "out": 0, "net": 527364000.0, "internal": 0, "running": 9176331600.0, "count": 6}, {"date": "2023-08-25", "in": 43806000.0, "out": 0, "net": 43806000.0, "internal": 0, "running": 9220137600.0, "count": 2}, {"date": "2023-09-08", "in": 214689000.0, "out": 0, "net": 214689000.0, "internal": 0, "running": 9434826600.0, "count": 3}, {"date": "2023-09-11", "in": 371481000.0, "out": 0, "net": 371481000.0, "internal": 850038000.0, "running": 9806307600.0, "count": 8}, {"date": "2023-09-12", "in": 12069000.0, "out": 0, "net": 12069000.0, "internal": 0, "running": 9818376600.0, "count": 1}, {"date": "2023-09-13", "in": 111933000.0, "out": 0, "net": 111933000.0, "internal": 0, "running": 9930309600.0, "count": 1}, {"date": "2023-09-21", "in": 139866000.0, "out": 0, "net": 139866000.0, "internal": 0, "running": 10070175600.0, "count": 1}, {"date": "2023-10-06", "in": 0, "out": 464000000.0, "net": -464000000.0, "internal": 0, "running": 9606175600.0, "count": 8}, {"date": "2023-12-08", "in": 105105000.0, "out": 0, "net": 105105000.0, "internal": 0, "running": 9711280600.0, "count": 1}, {"date": "2023-12-11", "in": 110890000.0, "out": 0, "net": 110890000.0, "internal": 470940000.0, "running": 9822170600.0, "count": 4}, {"date": "2023-12-12", "in": 39040000.0, "out": 0, "net": 39040000.0, "internal": 0, "running": 9861210600.0, "count": 1}, {"date": "2023-12-13", "in": 125850000.0, "out": 0, "net": 125850000.0, "internal": 0, "running": 9987060600.0, "count": 2}, {"date": "2023-12-27", "in": 90055000.0, "out": 0, "net": 90055000.0, "internal": 0, "running": 10077115600.0, "count": 1}, {"date": "2024-01-02", "in": 115603659.19, "out": 3592977.04, "net": 112010682.15, "internal": 0, "running": 10189126282.15, "count": 935}, {"date": "2024-01-03", "in": 104516718.52, "out": 3360904.27, "net": 101155814.25, "internal": 0, "running": 10290282096.4, "count": 935}, {"date": "2024-01-04", "in": 83397520.54, "out": 2568742.49, "net": 80828778.05, "internal": 0, "running": 10371110874.45, "count": 790}, {"date": "2024-01-05", "in": 98472355.52, "out": 3409681.32, "net": 95062674.2, "internal": 0, "running": 10466173548.65, "count": 935}, {"date": "2024-01-08", "in": 51802943.8, "out": 11919027.49, "net": 39883916.31, "internal": 0, "running": 10506057464.96, "count": 940}, {"date": "2024-01-09", "in": 61115117.14, "out": 12417263.62, "net": 48697853.52, "internal": 0, "running": 10554755318.48, "count": 940}, {"date": "2024-01-10", "in": 102009235.8, "out": 3265967.03, "net": 98743268.77, "internal": 0, "running": 10653498587.25, "count": 935}, {"date": "2024-01-11", "in": 111380062.37, "out": 3179023.72, "net": 108201038.65, "internal": 0, "running": 10761699625.9, "count": 935}, {"date": "2024-01-12", "in": 95119317.56, "out": 3406438.86, "net": 91712878.7, "internal": 0, "running": 10853412504.6, "count": 935}, {"date": "2024-01-15", "in": 65083123.85, "out": 5380907.77, "net": 59702216.08, "internal": 0, "running": 10913114720.68, "count": 900}, {"date": "2024-02-07", "in": 127537500.0, "out": 0, "net": 127537500.0, "internal": 482290000.0, "running": 11040652220.68, "count": 4}, {"date": "2024-02-08", "in": 134932500.0, "out": 0, "net": 134932500.0, "internal": 0, "running": 11175584720.68, "count": 2}, {"date": "2024-02-09", "in": 149790000.0, "out": 0, "net": 149790000.0, "internal": 0, "running": 11325374720.68, "count": 3}, {"date": "2024-02-15", "in": 70030000.0, "out": 0, "net": 70030000.0, "internal": 0, "running": 11395404720.68, "count": 1}, {"date": "2024-04-05", "in": 0, "out": 175999900.0, "net": -175999900.0, "internal": 0, "running": 11219404820.68, "count": 8}, {"date": "2024-04-09", "in": 179917500.0, "out": 0, "net": 179917500.0, "internal": 0, "running": 11399322320.68, "count": 2}, {"date": "2024-04-10", "in": 92555000.0, "out": 0, "net": 92555000.0, "internal": 696217500.0, "running": 11491877320.68, "count": 6}, {"date": "2024-04-11", "in": 198945000.0, "out": 0, "net": 198945000.0, "internal": 0, "running": 11690822320.68, "count": 4}, {"date": "2024-04-12", "in": 224800000.0, "out": 0, "net": 224800000.0, "internal": 0, "running": 11915622320.68, "count": 2}, {"date": "2024-07-05", "in": 0, "out": 405999900.0, "net": -405999900.0, "internal": 0, "running": 11509622420.68, "count": 8}, {"date": "2024-10-07", "in": 0, "out": 244000000.0, "net": -244000000.0, "internal": 0, "running": 11265622420.68, "count": 8}];
+const DETAIL  = [{"date": "2019-08-30", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 259812000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2019-09-02", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 35280000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2019-09-03", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 92904000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2019-09-04", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 173244000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2019-09-13", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 46971000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-06-01", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 95452500.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-06-02", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 29400000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-06-03", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 204235000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-06-04", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 100810000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-06-22", "fund": "AMC Growth Equity I", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 76945000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-07-16", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 234204000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-07-17", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 310758000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-07-20", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 271641000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-07-21", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 43152000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-07-24", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 108174000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-11-20", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 101935000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-11-23", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 165987500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-11-24", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 242955000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-11-25", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 99682500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2020-12-10", "fund": "AMC Real Assets III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 111187500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-08-20", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 250614000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-08-23", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 374943000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-08-24", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 99735000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-08-25", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 28017000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-08-31", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 38697000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-02", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 135165000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-03", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 349008000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-06", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 167175000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-07", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 2376000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-08", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 205374000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-16", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 58308000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-09-27", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 52836000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-12-10", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 249987500.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-12-13", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 61712500.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-12-14", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 282622500.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2021-12-15", "fund": "AMC Buyout Fund IX", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 239820000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-03-04", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 295712500.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-03-08", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 1460000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-03-09", "fund": "AMC Credit Opps IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 30787500.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-05-13", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 147965000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-05-16", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 57665000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-05-17", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 119630000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-05-18", "fund": "AMC Infra Partners II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 79797500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-07-29", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 111465000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-08-01", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 254370000.0, "out_amt": 0, "count": 5, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-08-02", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 50247000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-08-03", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 301653000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-09-05", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 19254000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-09-07", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 136221000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2022-09-08", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 342876000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-02-24", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 198245000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-02-28", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 80052500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-03-01", "fund": "AMC Growth Equity II", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 21952500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-04-07", "fund": "AMC Growth Equity I", "category": "Distribution", "sub_type": "Return of Capital + Gain", "in_amt": 0, "out_amt": 184999900.0, "count": 8, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-05-01", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 224977500.0, "out_amt": 0, "count": 6, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-05-02", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 167467500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-05-03", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 100612500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-05-04", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 41872500.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-05-17", "fund": "AMC Real Assets IV", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 63182500.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-22", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 163413000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-22", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 145773000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-23", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 134673000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-23", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 141522000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-24", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 236856000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-24", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 290508000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-08-25", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 43806000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-09-08", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 214689000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-09-11", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 371481000.0, "out_amt": 0, "count": 5, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-09-12", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 12069000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-09-13", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 111933000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-09-21", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 139866000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-10-06", "fund": "AMC Real Assets III", "category": "Distribution", "sub_type": "Return of Capital + Gain", "in_amt": 0, "out_amt": 464000000.0, "count": 8, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-12-08", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 105105000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-12-11", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 110890000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-12-12", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 39040000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-12-13", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 125850000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2023-12-27", "fund": "AMC Infra Partners III", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 90055000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 53474.64, "count": 2, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 335925.5, "count": 14, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 611676.91, "count": 25, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6283646.82, "out_amt": 0, "count": 123, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 558369.9, "out_amt": 0, "count": 14, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 23683726.92, "out_amt": 0, "count": 47, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 949163.97, "out_amt": 0, "count": 21, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 89061.35, "count": 4, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 350701.12, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 422098.88, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6112600.71, "out_amt": 0, "count": 120, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 852086.91, "out_amt": 0, "count": 16, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 22091256.96, "out_amt": 0, "count": 43, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 737058.64, "out_amt": 0, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 122778.62, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 117081.27, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 495746.85, "count": 17, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6879484.98, "out_amt": 0, "count": 131, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 431951.3, "out_amt": 0, "count": 9, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 24900391.41, "out_amt": 0, "count": 50, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 963867.63, "out_amt": 0, "count": 16, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 124921.17, "count": 4, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 501017.58, "count": 16, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 368493.15, "count": 13, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 5686707.48, "out_amt": 0, "count": 126, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 371338.98, "out_amt": 0, "count": 11, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 14148559.71, "out_amt": 0, "count": 40, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-02", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 953446.87, "out_amt": 0, "count": 18, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 60799.9, "count": 3, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 265798.2, "count": 15, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 410405.61, "count": 19, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6095541.18, "out_amt": 0, "count": 122, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 477165.82, "out_amt": 0, "count": 11, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 6617077.44, "out_amt": 0, "count": 37, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 1400069.66, "out_amt": 0, "count": 23, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 146644.93, "count": 6, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 326250.28, "count": 10, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 486383.13, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6382983.84, "out_amt": 0, "count": 130, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 690115.35, "out_amt": 0, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 24358864.49, "out_amt": 0, "count": 39, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 913446.01, "out_amt": 0, "count": 19, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 119020.63, "count": 4, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 314887.63, "count": 12, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 466650.19, "count": 21, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6144042.6, "out_amt": 0, "count": 124, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 589042.24, "out_amt": 0, "count": 13, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 25285940.27, "out_amt": 0, "count": 55, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 627727.93, "out_amt": 0, "count": 10, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 52705.32, "count": 2, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 333098.05, "count": 13, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 378260.4, "count": 15, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6299712.78, "out_amt": 0, "count": 124, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 667846.05, "out_amt": 0, "count": 11, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 16992919.1, "out_amt": 0, "count": 49, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-03", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 974223.76, "out_amt": 0, "count": 18, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Cash Distribution", "in_amt": 0, "out_amt": 76752.51, "count": 29, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 68786.83, "count": 4, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 120019.38, "count": 6, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 271847.26, "count": 7, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 4913067.88, "out_amt": 0, "count": 95, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 264895.4, "out_amt": 0, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 13351606.8, "out_amt": 0, "count": 38, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 851121.5, "out_amt": 0, "count": 16, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Cash Distribution", "in_amt": 0, "out_amt": 75588.08, "count": 33, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 88975.35, "count": 2, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 114688.13, "count": 4, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 269439.45, "count": 12, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 3853110.81, "out_amt": 0, "count": 76, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 389811.5, "out_amt": 0, "count": 9, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 15640765.32, "out_amt": 0, "count": 35, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 346325.24, "out_amt": 0, "count": 9, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Cash Distribution", "in_amt": 0, "out_amt": 77097.77, "count": 35, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 11765.1, "count": 1, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 340678.68, "count": 12, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 519935.46, "count": 15, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 3932704.78, "out_amt": 0, "count": 84, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 310698.73, "out_amt": 0, "count": 8, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 19491769.5, "out_amt": 0, "count": 47, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 628383.28, "out_amt": 0, "count": 13, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Cash Distribution", "in_amt": 0, "out_amt": 79934.2, "count": 33, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 62138.03, "count": 3, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 229055.55, "count": 8, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 162040.71, "count": 6, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 4966294.34, "out_amt": 0, "count": 95, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 365741.4, "out_amt": 0, "count": 8, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 13446286.1, "out_amt": 0, "count": 30, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-04", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 644937.96, "out_amt": 0, "count": 12, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 85638.66, "count": 4, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 265985.29, "count": 13, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 426087.15, "count": 18, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6577068.42, "out_amt": 0, "count": 126, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 586714.17, "out_amt": 0, "count": 11, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 13243340.12, "out_amt": 0, "count": 45, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 674304.27, "out_amt": 0, "count": 14, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 90273.95, "count": 4, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 283006.97, "count": 10, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 574342.53, "count": 20, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6620455.9, "out_amt": 0, "count": 141, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 856661.14, "out_amt": 0, "count": 15, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 17312789.36, "out_amt": 0, "count": 46, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 850468.33, "out_amt": 0, "count": 20, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 78359.48, "count": 2, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 301188.12, "count": 10, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 409112.96, "count": 21, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 6760626.99, "out_amt": 0, "count": 135, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 418798.1, "out_amt": 0, "count": 10, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 24388202.64, "out_amt": 0, "count": 49, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 867139.87, "out_amt": 0, "count": 19, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 154777.71, "count": 5, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 496228.76, "count": 17, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 244679.74, "count": 11, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 4970351.64, "out_amt": 0, "count": 98, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 626142.68, "out_amt": 0, "count": 14, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 12814417.78, "out_amt": 0, "count": 40, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-05", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 904874.11, "out_amt": 0, "count": 17, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 62836.6, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 429310.46, "count": 18, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 2510030.96, "count": 110, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 249000.79, "count": 10, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 3665001.46, "out_amt": 0, "count": 73, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 1611233.4, "out_amt": 0, "count": 25, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 5135733.19, "out_amt": 0, "count": 29, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 640530.68, "out_amt": 0, "count": 12, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 195251.44, "count": 6, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 415005.7, "count": 17, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 3111784.85, "count": 121, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 445849.36, "count": 16, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 3522144.34, "out_amt": 0, "count": 69, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 304214.97, "out_amt": 0, "count": 8, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 10443156.01, "out_amt": 0, "count": 27, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 738888.34, "out_amt": 0, "count": 14, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 189051.73, "count": 7, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 248332.85, "count": 10, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 3042882.6, "count": 119, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 328682.6, "count": 13, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 2928542.78, "out_amt": 0, "count": 58, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 674715.2, "out_amt": 0, "count": 14, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 10381655.88, "out_amt": 0, "count": 26, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 789844.15, "out_amt": 0, "count": 15, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 22214.5, "count": 2, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 362554.8, "count": 15, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 306238.25, "count": 11, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 2711827.64, "out_amt": 0, "count": 50, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 729995.41, "out_amt": 0, "count": 13, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 7020529.25, "out_amt": 0, "count": 18, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-08", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 504931.1, "out_amt": 0, "count": 9, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 144783.25, "count": 6, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 652202.42, "count": 22, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 55873.2, "count": 2, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 796160.17, "out_amt": 0, "count": 16, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 191350.45, "out_amt": 0, "count": 3, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 4748459.59, "out_amt": 0, "count": 12, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Evergreen Credit Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 165151.15, "out_amt": 0, "count": 3, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Death/Hardship Redemption", "in_amt": 0, "out_amt": 49344.85, "count": 1, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 41363.54, "count": 2, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 979413.55, "count": 34, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 37399.26, "count": 2, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 736009.5, "out_amt": 0, "count": 18, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 27611.28, "out_amt": 0, "count": 1, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 335332.26, "out_amt": 0, "count": 3, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Multi-Strategy Alts Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 32192.85, "out_amt": 0, "count": 2, "fund_type": "Evergreen (TENDER_OFFER)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 87200.56, "count": 3, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Redemption/Distribution", "sub_type": "Tender Redemption", "in_amt": 0, "out_amt": 406521.9, "count": 14, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 580255.47, "out_amt": 0, "count": 13, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 363635.5, "out_amt": 0, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 5238734.31, "out_amt": 0, "count": 5, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Private Credit Interval Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 256149.58, "out_amt": 0, "count": 4, "fund_type": "Evergreen (INTERVAL)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Exchange Out", "in_amt": 0, "out_amt": 33826.0, "count": 2, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Redemption/Distribution", "sub_type": "Transfer Out", "in_amt": 0, "out_amt": 11266.64, "count": 1, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Additional Purchase", "in_amt": 432656.14, "out_amt": 0, "count": 9, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Exchange In", "in_amt": 180911.66, "out_amt": 0, "count": 5, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "New Subscription", "in_amt": 2101925.11, "out_amt": 0, "count": 5, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-01-09", "fund": "AMC Real Assets Income Fund", "category": "Subscription", "sub_type": "Transfer In", "in_amt": 178315.27, "out_amt": 0, "count": 3, "fund_type": "Evergreen (NT_REIT)", "source": "EV"}, {"date": "2024-02-07", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 127537500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-02-08", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 134932500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-02-09", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 149790000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-02-15", "fund": "AMC Credit Opps V", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 70030000.0, "out_amt": 0, "count": 1, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-04-05", "fund": "AMC Credit Opps IV", "category": "Distribution", "sub_type": "Income Distribution", "in_amt": 0, "out_amt": 175999900.0, "count": 8, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-04-09", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 179917500.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-04-10", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 92555000.0, "out_amt": 0, "count": 3, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-04-11", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 198945000.0, "out_amt": 0, "count": 4, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-04-12", "fund": "AMC Buyout Fund X", "category": "Capital Call Receipt", "sub_type": "LP Wire In", "in_amt": 224800000.0, "out_amt": 0, "count": 2, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-07-05", "fund": "AMC Buyout Fund IX", "category": "Distribution", "sub_type": "Partial Realization", "in_amt": 0, "out_amt": 405999900.0, "count": 8, "fund_type": "Closed-End PE", "source": "PE"}, {"date": "2024-10-07", "fund": "AMC Infra Partners II", "category": "Distribution", "sub_type": "Partial Realization", "in_amt": 0, "out_amt": 244000000.0, "count": 8, "fund_type": "Closed-End PE", "source": "PE"}];
+const PENDING = [{"due_date": "2021-08-20", "fund": "AMC Buyout Fund IX", "fund_id": "FUND-ABF-IX", "type": "Capital Call Due", "direction": "IN", "amount": 127923000.0, "investor": "INV-0033", "reference": "CCN-00003", "notes": "Call #1 \u2014 3000% of commitment"}, {"due_date": "2023-12-08", "fund": "AMC Infra Partners III", "fund_id": "FUND-AIP-III", "type": "Capital Call Due", "direction": "IN", "amount": 10562500.0, "investor": "INV-0001", "reference": "CCN-00032", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2021-08-20", "fund": "AMC Buyout Fund IX", "fund_id": "FUND-ABF-IX", "type": "Capital Call Due", "direction": "IN", "amount": 88002000.0, "investor": "INV-0003", "reference": "CCN-00033", "notes": "Call #1 \u2014 3000% of commitment"}, {"due_date": "2021-12-10", "fund": "AMC Buyout Fund IX", "fund_id": "FUND-ABF-IX", "type": "Capital Call Due", "direction": "IN", "amount": 73335000.0, "investor": "INV-0003", "reference": "CCN-00034", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2020-11-20", "fund": "AMC Real Assets III", "fund_id": "FUND-ARA-III", "type": "Capital Call Due", "direction": "IN", "amount": 84860000.0, "investor": "INV-0029", "reference": "CCN-00070", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2023-02-24", "fund": "AMC Growth Equity II", "fund_id": "FUND-AGE-II", "type": "Capital Call Due", "direction": "IN", "amount": 115042500.0, "investor": "INV-0011", "reference": "CCN-00108", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2021-08-20", "fund": "AMC Buyout Fund IX", "fund_id": "FUND-ABF-IX", "type": "Capital Call Due", "direction": "IN", "amount": 119739000.0, "investor": "INV-0020", "reference": "CCN-00129", "notes": "Call #1 \u2014 3000% of commitment"}, {"due_date": "2023-09-08", "fund": "AMC Buyout Fund X", "fund_id": "FUND-ABF-X", "type": "Capital Call Due", "direction": "IN", "amount": 27657000.0, "investor": "INV-0010", "reference": "CCN-00135", "notes": "Call #1 \u2014 3000% of commitment"}, {"due_date": "2022-03-04", "fund": "AMC Credit Opps IV", "fund_id": "FUND-ACO-IV", "type": "Capital Call Due", "direction": "IN", "amount": 53905000.0, "investor": "INV-0036", "reference": "CCN-00154", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2024-04-09", "fund": "AMC Buyout Fund X", "fund_id": "FUND-ABF-X", "type": "Capital Call Due", "direction": "IN", "amount": 35195000.0, "investor": "INV-0035", "reference": "CCN-00164", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2022-03-04", "fund": "AMC Credit Opps IV", "fund_id": "FUND-ACO-IV", "type": "Capital Call Due", "direction": "IN", "amount": 53860000.0, "investor": "INV-0038", "reference": "CCN-00186", "notes": "Call #2 \u2014 2500% of commitment"}, {"due_date": "2020-06-01", "fund": "AMC Growth Equity I", "fund_id": "FUND-AGE-I", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 76945000.0, "investor": "INV-0029", "reference": "CCN-00018", "notes": "\u26a0 LATE \u2014 Due 2020-06-01"}, {"due_date": "2023-09-08", "fund": "AMC Buyout Fund X", "fund_id": "FUND-ABF-X", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 139866000.0, "investor": "INV-0036", "reference": "CCN-00019", "notes": "\u26a0 LATE \u2014 Due 2023-09-08"}, {"due_date": "2023-12-08", "fund": "AMC Infra Partners III", "fund_id": "FUND-AIP-III", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 90055000.0, "investor": "INV-0039", "reference": "CCN-00024", "notes": "\u26a0 LATE \u2014 Due 2023-12-08"}, {"due_date": "2021-09-06", "fund": "AMC Infra Partners II", "fund_id": "FUND-AIP-II", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 58308000.0, "investor": "INV-0011", "reference": "CCN-00043", "notes": "\u26a0 LATE \u2014 Due 2021-09-06"}, {"due_date": "2021-09-06", "fund": "AMC Infra Partners II", "fund_id": "FUND-AIP-II", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 52836000.0, "investor": "INV-0039", "reference": "CCN-00053", "notes": "\u26a0 LATE \u2014 Due 2021-09-06"}, {"due_date": "2020-07-16", "fund": "AMC Real Assets III", "fund_id": "FUND-ARA-III", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 108174000.0, "investor": "INV-0027", "reference": "CCN-00077", "notes": "\u26a0 LATE \u2014 Due 2020-07-16"}, {"due_date": "2024-02-06", "fund": "AMC Credit Opps V", "fund_id": "FUND-ACO-V", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 70030000.0, "investor": "INV-0039", "reference": "CCN-00146", "notes": "\u26a0 LATE \u2014 Due 2024-02-06"}, {"due_date": "2019-08-30", "fund": "AMC Growth Equity I", "fund_id": "FUND-AGE-I", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 46971000.0, "investor": "INV-0026", "reference": "CCN-00151", "notes": "\u26a0 LATE \u2014 Due 2019-08-30"}, {"due_date": "2020-11-20", "fund": "AMC Real Assets III", "fund_id": "FUND-ARA-III", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 13945000.0, "investor": "INV-0009", "reference": "CCN-00166", "notes": "\u26a0 LATE \u2014 Due 2020-11-20"}, {"due_date": "2020-11-20", "fund": "AMC Real Assets III", "fund_id": "FUND-ARA-III", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 97242500.0, "investor": "INV-0027", "reference": "CCN-00174", "notes": "\u26a0 LATE \u2014 Due 2020-11-20"}, {"due_date": "2023-05-01", "fund": "AMC Real Assets IV", "fund_id": "FUND-ARA-IV", "type": "Capital Call OVERDUE", "direction": "IN", "amount": 63182500.0, "investor": "INV-0026", "reference": "CCN-00192", "notes": "\u26a0 LATE \u2014 Due 2023-05-01"}];
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let dailySrc = 'all', detSrc = 'all';
+let dailyPage = 0, detPage = 0;
+const PAGE = 25;
+let dailySortDir = 1;
+
+// ── Tab Navigation ────────────────────────────────────────────────────────────
+function showTab(t) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  event.target.classList.add('active');
+  if (t==='daily') renderDailyTable();
+  if (t==='detail') renderDetailTable();
+  if (t==='lookahead') renderLookahead();
+}
+
+// ── Number formatting ─────────────────────────────────────────────────────────
+function fm(n) {
+  if (!n) return '—';
+  const a = Math.abs(n);
+  if (a >= 1e9) return '$'+(n/1e9).toFixed(2)+'B';
+  if (a >= 1e6) return '$'+(n/1e6).toFixed(1)+'M';
+  if (a >= 1e3) return '$'+(n/1000).toFixed(0)+'K';
+  return '$'+n.toFixed(0);
+}
+function fc(n) {
+  return n >= 0
+    ? '<span style="color:#4ade80">+'+fm(n)+'</span>'
+    : '<span style="color:#f87171">'+fm(n)+'</span>';
+}
+
+// ── Daily Ledger ─────────────────────────────────────────────────────────────
+function filterSrc(s) {
+  dailySrc = s; dailyPage = 0;
+  ['all','pe','ev'].forEach(x => document.getElementById('src-'+x)?.classList.remove('active'));
+  document.getElementById('src-'+s)?.classList.add('active');
+  renderDailyTable();
+}
+
+function getFilteredDaily() {
+  const dt = document.getElementById('dateFilter')?.value.trim() || '';
+  return DAILY.filter(r => {
+    if (dt && !r.date.startsWith(dt)) return false;
+    return true; // all sources shown in summary
+  });
+}
+
+function renderDailyTable() {
+  const data = getFilteredDaily();
+  const start = dailyPage * PAGE, end = start + PAGE;
+  const page = data.slice(start, end);
+  const tbody = document.getElementById('dailyTbody');
+  tbody.innerHTML = page.map(r => {
+    const netClass = r.net >= 0 ? 'net-pos' : 'net-neg';
+    return `<tr>
+      <td style="font-family:monospace;font-size:12px">${r.date}</td>
+      <td class="num green">${r.in > 0 ? fm(r.in) : '—'}</td>
+      <td class="num red">${r.out > 0 ? fm(r.out) : '—'}</td>
+      <td class="num ${netClass}">${fc(r.net)}</td>
+      <td class="num muted">${r.internal > 0 ? fm(r.internal) : '—'}</td>
+      <td class="num" style="color:#a855f7">${fm(r.running)}</td>
+      <td class="muted" style="text-align:center">${r.count}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('dailyPageInfo').textContent =
+    `${start+1}–${Math.min(end,data.length)} of ${data.length}`;
+}
+
+function sortDaily(col) {
+  dailySortDir *= -1;
+  DAILY.sort((a,b) => a[col] > b[col] ? dailySortDir : -dailySortDir);
+  dailyPage = 0; renderDailyTable();
+}
+function changePage(t, d) {
+  if (t==='daily') { dailyPage = Math.max(0, dailyPage+d); renderDailyTable(); }
+  else { detPage = Math.max(0, detPage+d); renderDetailTable(); }
+}
+
+// ── Detail Table ─────────────────────────────────────────────────────────────
+function filterDet(s) {
+  detSrc = s; detPage = 0;
+  ['all','pe','ev'].forEach(x => document.getElementById('det-'+x)?.classList.remove('active'));
+  document.getElementById('det-'+s)?.classList.add('active');
+  renderDetailTable();
+}
+
+function getFilteredDetail() {
+  const cat = document.getElementById('catFilter')?.value || '';
+  const q   = (document.getElementById('detSearch')?.value || '').toLowerCase();
+  return DETAIL.filter(r => {
+    if (detSrc !== 'all' && r.source !== detSrc) return false;
+    if (cat && r.category !== cat) return false;
+    if (q && !r.fund.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function renderDetailTable() {
+  const data = getFilteredDetail();
+  const start = detPage * PAGE, end = start + PAGE;
+  const page = data.slice(start, end);
+  const tbody = document.getElementById('detailTbody');
+  tbody.innerHTML = page.map(r => {
+    const srcClass = r.source === 'PE' ? 'pill-pe' : 'pill-ev';
+    const catColor = r.category.includes('Subscription') || r.category.includes('Capital') ? '#4ade80' : '#f87171';
+    return `<tr>
+      <td style="font-family:monospace;font-size:11px">${r.date}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.fund}">${r.fund}</td>
+      <td><span style="color:${catColor};font-weight:600;font-size:11px">${r.category}</span></td>
+      <td class="muted" style="font-size:11px">${r.sub_type}</td>
+      <td class="num green">${r.in_amt > 0 ? fm(r.in_amt) : '—'}</td>
+      <td class="num red">${r.out_amt > 0 ? fm(r.out_amt) : '—'}</td>
+      <td class="muted" style="text-align:center;font-size:11px">${r.count}</td>
+      <td><span class="pill ${srcClass}">${r.source}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('detPageInfo').textContent =
+    `${start+1}–${Math.min(end,data.length)} of ${data.length}`;
+}
+
+// ── Look-Ahead ─────────────────────────────────────────────────────────────
+function renderLookahead() {
+  const inItems  = PENDING.filter(p => p.direction === 'IN' && !p.type.includes('OVERDUE'));
+  const outItems = PENDING.filter(p => p.direction === 'OUT');
+  const late     = PENDING.filter(p => p.type.includes('OVERDUE'));
+
+  document.getElementById('pendingIn').innerHTML = inItems.length
+    ? inItems.map(p => laItem(p, 'green')).join('')
+    : '<div class="la-item muted" style="justify-content:center">No pending items</div>';
+
+  document.getElementById('pendingOut').innerHTML = outItems.length
+    ? outItems.map(p => laItem(p, 'red')).join('')
+    : '<div class="la-item muted" style="justify-content:center">No pending items</div>';
+
+  document.getElementById('overdueItems').innerHTML = late.length
+    ? late.map(p => laItem(p, 'red', true)).join('')
+    : '<div class="la-item" style="color:var(--green);padding:10px">✓ No overdue items</div>';
+}
+
+function laItem(p, color, overdue=false) {
+  return `<div class="la-item${overdue?' overdue':''}" style="margin-bottom:5px">
+    <div class="la-item-left">
+      <div class="la-item-fund">${p.fund.substring(0,35)}</div>
+      <div class="la-item-sub">${p.type} · ${p.notes} · ${p.investor || ''}</div>
+    </div>
+    <div>
+      <div class="la-item-amt" style="color:var(--${color})">${fm(p.amount)}</div>
+      <div class="la-item-date">Due ${p.due_date}</div>
+    </div>
+  </div>`;
+}
+
+// ── Charts ─────────────────────────────────────────────────────────────────
+function buildCharts() {
+  // Show last 30 days with data for bar chart
+  const recent = DAILY.slice(-30);
+  const labels = recent.map(d => d.date.slice(5)); // MM-DD
+
+  // Bar chart: in vs out
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Money In', data: recent.map(d=>d.in/1e6), backgroundColor: '#22c55e88', borderColor: '#22c55e', borderWidth: 1 },
+        { label: 'Money Out', data: recent.map(d=>-d.out/1e6), backgroundColor: '#ef444488', borderColor: '#ef4444', borderWidth: 1 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#8892aa', font: { size: 11 } } }, tooltip: {
+        callbacks: { label: ctx => `  ${ctx.dataset.label}: ${Math.abs(ctx.raw).toFixed(1)}M` }
+      } },
+      scales: {
+        x: { ticks: { color: '#8892aa', font: { size: 10 }, maxRotation: 45 }, grid: { color: '#1e2235' } },
+        y: { ticks: { color: '#8892aa', font: { size: 10 }, callback: v => '$'+Math.abs(v).toFixed(0)+'M' }, grid: { color: '#1e2235' } }
+      }
+    }
+  });
+
+  // Donut: category breakdown
+  const cats = {};
+  DETAIL.forEach(r => {
+    cats[r.category] = (cats[r.category]||0) + r.in_amt + r.out_amt;
+  });
+  const catKeys = Object.keys(cats), catVals = catKeys.map(k => Math.round(cats[k]/1e6));
+  const palette = ['#22c55e','#ef4444','#3b82f6','#f59e0b','#a855f7','#14b8a6'];
+  new Chart(document.getElementById('donutChart'), {
+    type: 'doughnut',
+    data: { labels: catKeys, datasets: [{ data: catVals, backgroundColor: palette, borderWidth: 1, borderColor: '#0f1117' }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'right', labels: { color: '#8892aa', font: { size: 11 }, padding: 10 } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toFixed(0)}M` } } }
+    }
+  });
+
+  // Line: running balance
+  new Chart(document.getElementById('lineChart'), {
+    type: 'line',
+    data: {
+      labels: DAILY.map(d=>d.date.slice(2)),
+      datasets: [{ label: 'Running Balance', data: DAILY.map(d=>d.running/1e9),
+        borderColor: '#a855f7', backgroundColor: '#a855f71a', fill: true, pointRadius: 0,
+        tension: 0.3 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toFixed(2)}B` } } },
+      scales: {
+        x: { ticks: { color: '#8892aa', font: { size: 9 }, maxTicksLimit: 12 }, grid: { color: '#1e2235' } },
+        y: { ticks: { color: '#8892aa', font: { size: 10 }, callback: v => '$'+v.toFixed(1)+'B' }, grid: { color: '#1e2235' } }
+      }
+    }
+  });
+
+  // Timeline chart: pending items grouped by due date
+  const tl = {};
+  PENDING.forEach(p => { tl[p.due_date] = (tl[p.due_date]||0) + p.amount/1e6; });
+  const tlDates = Object.keys(tl).sort(), tlVals = tlDates.map(d=>tl[d]);
+  new Chart(document.getElementById('timelineChart'), {
+    type: 'bar',
+    data: {
+      labels: tlDates,
+      datasets: [{ label: 'Pending Amount ($M)', data: tlVals,
+        backgroundColor: '#f59e0b99', borderColor: '#f59e0b', borderWidth: 1 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toFixed(1)}M pending` } } },
+      scales: {
+        x: { ticks: { color: '#8892aa', font: { size: 10 } }, grid: { color: '#1e2235' } },
+        y: { ticks: { color: '#8892aa', callback: v => '$'+v+'M' }, grid: { color: '#1e2235' } }
+      }
+    }
+  });
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+renderDailyTable();
+buildCharts();
+</script>
+</body>
+</html>
