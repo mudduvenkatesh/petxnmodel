@@ -1,0 +1,498 @@
+office_id,broker_id,firm_id,office_name,office_type,address_street,address_city,address_state,address_zip,phone,manager_name,active
+10395,ICAP,0000ICA001,60 E 42nd St — San Diego Branch,Satellite,4013 Broadway,San Diego,CA,28289,954-304-9935,Michael Robinson,Y
+10455,MS,0000MOR001,1585 Broadway — Kansas City Branch,Branch,1536 Broadway,Kansas City,MO,40495,717-816-1434,Karen Miller,Y
+10583,LPL,0000LPL001,4707 Executive Dr — Raleigh Complex,Regional HQ,7360 Executive Pkwy,Raleigh,NC,46463,206-977-3615,Susan Anderson,Y
+10679,MER,0000MER001,One Bryant Park — Minneapolis Regional HQ,Regional HQ,5515 Park Ave,Minneapolis,MN,22156,589-299-6881,Barbara Lewis,Y
+11044,CNTS,0000CNT001,29 Sawyer Rd — Miami Branch,Complex,8786 Park Ave,Miami,FL,59615,280-765-5803,Nancy Thomas,Y
+11220,MS,0000MOR001,1585 Broadway — Hartford Regional HQ,Branch,751 Corporate Dr,Hartford,CT,39871,991-496-2307,Jennifer Brown,Y
+11581,MER,0000MER001,One Bryant Park — Pittsburgh Satellite,Complex,5978 Market St,Pittsburgh,PA,58520,563-414-5374,Michael Lewis,Y
+11620,CNTS,0000CNT001,29 Sawyer Rd — Austin Private Wealth Center,Regional HQ,2678 Commerce Dr,Austin,TX,59735,476-855-4598,Richard Johnson,Y
+11846,FIDO,0000FID001,900 Salem St — Charlotte Branch,Satellite,6573 Oak Ave,Charlotte,NC,18675,416-780-6155,Robert Martin,Y
+11854,SII,0000SII001,501 N Broadway — Cincinnati Complex,Regional HQ,4340 Market St,Cincinnati,OH,42325,962-774-9830,William Robinson,Y
+12052,NPC,0000NPC001,3200 E Camelback Rd — Kansas City Private Wealth Center,Complex,5931 Broadway,Kansas City,MO,28131,721-705-2489,Sarah Brown,Y
+12125,FIDO,0000FID001,900 Salem St — Boston Regional HQ,Complex,9772 Park Ave,Boston,MA,60432,590-810-8668,Charles Wilson,Y
+13133,VSR,0000VSR001,701 S Boston Ave — Richmond Branch,Branch,8798 Oak Ave,Richmond,VA,94012,548-314-5808,Susan Garcia,Y
+13280,SCHW,0000SCH001,211 Main St — Detroit Branch,Satellite,8202 Market St,Detroit,MI,76542,308-840-5889,Charles Lewis,Y
+13515,CETA,0000CET001,200 N Pacific Coast Hwy — Denver Regional HQ,Satellite,2647 Financial Blvd,Denver,CO,79514,200-813-6310,Jessica Smith,Y
+14073,LPL,0000LPL001,4707 Executive Dr — San Diego Satellite,Satellite,3924 Main St,San Diego,CA,41571,780-280-2403,Jessica Williams,Y
+14138,CAIS,0000CAI001,527 Madison Ave — Raleigh Regional HQ,Regional HQ,7788 Financial Blvd,Raleigh,NC,31643,471-740-7932,Robert Young,Y
+14288,CETA,0000CET001,200 N Pacific Coast Hwy — Denver Satellite,Complex,6119 Commerce Dr,Denver,CO,77839,662-323-5061,Jennifer Williams,Y
+14541,CNTS,0000CNT001,29 Sawyer Rd — Orlando Branch,Private Wealth Center,9076 Broadway,Orlando,FL,87128,425-207-2163,Sarah Davis,Y
+14561,CETA,0000CET001,200 N Pacific Coast Hwy — Phoenix Branch,Satellite,1161 Financial Blvd,Phoenix,AZ,41195,485-885-8953,Robert Young,Y
+14635,LPL,0000LPL001,4707 Executive Dr — Dallas Private Wealth Center,Private Wealth Center,7745 Broadway,Dallas,TX,71993,616-394-2545,Patricia White,Y
+14888,LPL,0000LPL001,4707 Executive Dr — St Louis Complex,Complex,7652 Center St,St Louis,MO,17100,889-869-2612,Sarah Jackson,Y
+14910,CNTS,0000CNT001,29 Sawyer Rd — Orlando Branch,Regional HQ,3140 Broadway,Orlando,FL,80292,659-343-7912,Lisa Wilson,Y
+14975,UBS,0000UBS001,1285 Avenue of the Americas — Detroit Regional HQ,Branch,7261 Financial Blvd,Detroit,MI,22833,251-867-9856,James Williams,Y
+15014,LPL,0000LPL001,4707 Executive Dr — Atlanta Regional HQ,Complex,7957 Commerce Dr,Atlanta,GA,38016,610-260-3697,Joseph Smith,Y
+15130,MER,0000MER001,One Bryant Park — Pittsburgh Satellite,Complex,4674 Maple Dr,Pittsburgh,PA,82845,877-935-8973,David Miller,Y
+15720,VSR,0000VSR001,701 S Boston Ave — Portland Regional HQ,Branch,9490 Center St,Portland,OR,81066,262-965-6138,Sarah Johnson,Y
+15772,CETA,0000CET001,200 N Pacific Coast Hwy — Jacksonville Complex,Private Wealth Center,8702 Market St,Jacksonville,FL,17455,720-282-4044,Michael Lewis,Y
+16019,CAIS,0000CAI001,527 Madison Ave — Phoenix Regional HQ,Complex,1965 Executive Pkwy,Phoenix,AZ,42271,792-808-1651,Nancy Williams,Y
+16021,MS,0000MOR001,1585 Broadway — Cleveland Private Wealth Center,Private Wealth Center,8566 Elm St,Cleveland,OH,44179,409-885-6147,Jennifer Wilson,Y
+16322,NPC,0000NPC001,3200 E Camelback Rd — Cincinnati Regional HQ,Satellite,7492 Elm St,Cincinnati,OH,19508,209-669-2638,Michael Young,Y
+16637,MER,0000MER001,One Bryant Park — Nashville Private Wealth Center,Satellite,2171 Elm St,Nashville,TN,19016,450-578-5669,Lisa Harris,Y
+16731,SII,0000SII001,501 N Broadway — Raleigh Satellite,Private Wealth Center,8667 Main St,Raleigh,NC,97538,767-506-2697,David Wilson,Y
+16839,MS,0000MOR001,1585 Broadway — San Diego Branch,Private Wealth Center,2547 Oak Ave,San Diego,CA,46930,819-415-6617,Robert Wilson,Y
+17019,LPL,0000LPL001,4707 Executive Dr — Sacramento Complex,Satellite,833 Park Ave,Sacramento,CA,93136,633-483-1722,James Anderson,Y
+17035,RJ,0000RAJ001,RJ — Dallas Satellite,Regional HQ,7240 Financial Blvd,Dallas,TX,66057,774-209-2832,Michael Jones,Y
+17398,VSR,0000VSR001,701 S Boston Ave — Raleigh Branch,Satellite,9544 Financial Blvd,Raleigh,NC,29410,640-330-1685,Mary Thomas,Y
+17441,RJ,0000RAJ001,RJ — Chicago Satellite,Regional HQ,4089 Corporate Dr,Chicago,IL,23473,562-998-7658,Nancy Jones,Y
+17553,CNTS,0000CNT001,29 Sawyer Rd — Atlanta Regional HQ,Regional HQ,6756 Main St,Atlanta,GA,33509,954-540-7745,Jennifer Wilson,Y
+17589,FIDO,0000FID001,900 Salem St — Austin Branch,Complex,635 Commerce Dr,Austin,TX,39154,404-671-6728,Mary Davis,Y
+17679,MS,0000MOR001,1585 Broadway — Charlotte Branch,Regional HQ,6529 Elm St,Charlotte,NC,46517,271-991-5573,Barbara Thompson,Y
+17816,UBS,0000UBS001,1285 Avenue of the Americas — Cincinnati Private Wealth Center,Satellite,453 Park Ave,Cincinnati,OH,44237,382-794-5349,Sarah Brown,Y
+18232,UBS,0000UBS001,1285 Avenue of the Americas — Memphis Complex,Satellite,5140 Maple Dr,Memphis,TN,89457,723-318-7311,Christopher Miller,Y
+18270,ICAP,0000ICA001,60 E 42nd St — Miami Branch,Complex,28 Financial Blvd,Miami,FL,80575,903-936-4228,Barbara White,Y
+18300,MER,0000MER001,One Bryant Park — Phoenix Satellite,Private Wealth Center,5144 Corporate Dr,Phoenix,AZ,26334,937-507-9308,Mary White,Y
+18908,SII,0000SII001,501 N Broadway — Tampa Complex,Satellite,9084 Market St,Tampa,FL,35144,630-880-7211,Lisa Lewis,Y
+19038,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Hartford Satellite,Complex,8978 Main St,Hartford,CT,49829,493-415-8043,Christopher Lewis,Y
+19046,MER,0000MER001,One Bryant Park — Tampa Complex,Complex,7245 Corporate Dr,Tampa,FL,38010,723-684-3780,Michael Taylor,Y
+19539,CAIS,0000CAI001,527 Madison Ave — Sacramento Private Wealth Center,Satellite,1531 Broadway,Sacramento,CA,98184,517-430-4262,David Smith,Y
+19807,LPL,0000LPL001,4707 Executive Dr — Chicago Regional HQ,Complex,1194 Commerce Dr,Chicago,IL,64321,844-789-4185,Joseph Martin,Y
+20279,CNTS,0000CNT001,29 Sawyer Rd — Cincinnati Regional HQ,Regional HQ,91 Park Ave,Cincinnati,OH,65724,424-380-9486,Thomas Johnson,Y
+20308,SII,0000SII001,501 N Broadway — Richmond Regional HQ,Branch,7479 Market St,Richmond,VA,70901,883-743-6198,Thomas Lewis,Y
+20357,UBS,0000UBS001,1285 Avenue of the Americas — Sacramento Complex,Private Wealth Center,7306 Market St,Sacramento,CA,72216,660-465-5050,William Thompson,Y
+20458,UBS,0000UBS001,1285 Avenue of the Americas — San Jose Regional HQ,Satellite,7207 Park Ave,San Jose,CA,47450,440-478-6502,Richard Young,Y
+20696,SCHW,0000SCH001,211 Main St — Philadelphia Regional HQ,Regional HQ,3789 Maple Dr,Philadelphia,PA,30028,923-419-2052,Susan White,Y
+21003,NPC,0000NPC001,3200 E Camelback Rd — Orlando Private Wealth Center,Complex,6813 Main St,Orlando,FL,37110,630-598-1320,Christopher Jackson,Y
+21128,CNTS,0000CNT001,29 Sawyer Rd — Indianapolis Branch,Satellite,4893 Maple Dr,Indianapolis,IN,64921,751-965-9947,Nancy Davis,Y
+21362,VSR,0000VSR001,701 S Boston Ave — San Jose Regional HQ,Satellite,7141 Commerce Dr,San Jose,CA,13804,598-544-7624,Lisa Harris,Y
+21847,CAIS,0000CAI001,527 Madison Ave — Dallas Private Wealth Center,Private Wealth Center,442 Maple Dr,Dallas,TX,87580,777-878-1444,Michael White,Y
+21919,MS,0000MOR001,1585 Broadway — Dallas Complex,Regional HQ,824 Oak Ave,Dallas,TX,59689,535-416-8449,Richard Anderson,Y
+22015,SCHW,0000SCH001,211 Main St — Pittsburgh Satellite,Complex,4134 Park Ave,Pittsburgh,PA,71644,219-967-9837,Sarah Thomas,Y
+22097,CETA,0000CET001,200 N Pacific Coast Hwy — Charlotte Branch,Branch,509 Broadway,Charlotte,NC,36130,220-836-3496,Jennifer Jones,Y
+22224,ICAP,0000ICA001,60 E 42nd St — Indianapolis Branch,Private Wealth Center,3572 Commerce Dr,Indianapolis,IN,43586,985-577-3749,Nancy Lewis,Y
+22234,SCHW,0000SCH001,211 Main St — San Diego Regional HQ,Satellite,1772 Executive Pkwy,San Diego,CA,13365,519-789-7149,Joseph Miller,Y
+22245,UBS,0000UBS001,1285 Avenue of the Americas — Phoenix Private Wealth Center,Regional HQ,1670 Center St,Phoenix,AZ,49529,900-814-2983,Christopher Johnson,Y
+22249,CAIS,0000CAI001,527 Madison Ave — St Louis Private Wealth Center,Complex,6072 Park Ave,St Louis,MO,76317,863-549-1207,Susan Martin,Y
+22280,VSR,0000VSR001,701 S Boston Ave — San Antonio Complex,Satellite,7533 Center St,San Antonio,TX,30052,645-380-9548,William Lewis,Y
+22739,MS,0000MOR001,1585 Broadway — Raleigh Complex,Complex,7137 Center St,Raleigh,NC,87656,474-530-5022,Michael Wilson,Y
+22999,FIDO,0000FID001,900 Salem St — Columbus Regional HQ,Complex,9337 Executive Pkwy,Columbus,OH,97580,588-544-1470,Jessica Anderson,Y
+23069,CAIS,0000CAI001,527 Madison Ave — Seattle Complex,Regional HQ,5814 Oak Ave,Seattle,WA,54608,486-810-5526,Karen Smith,Y
+23399,MER,0000MER001,One Bryant Park — Salt Lake City Regional HQ,Branch,3955 Center St,Salt Lake City,UT,63271,700-768-4937,Jessica Martin,Y
+23526,MER,0000MER001,One Bryant Park — Columbus Branch,Branch,4821 Broadway,Columbus,OH,63005,908-449-6016,Christopher Thomas,Y
+23538,MS,0000MOR001,1585 Broadway — Indianapolis Private Wealth Center,Private Wealth Center,5633 Maple Dr,Indianapolis,IN,82140,538-560-8434,William Taylor,Y
+23726,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Miami Regional HQ,Branch,3156 Elm St,Miami,FL,25670,960-748-4033,Robert Miller,Y
+23947,LPL,0000LPL001,4707 Executive Dr — Indianapolis Satellite,Private Wealth Center,8596 Executive Pkwy,Indianapolis,IN,47093,302-398-5853,Jennifer Thomas,Y
+23979,RJ,0000RAJ001,RJ — Seattle Satellite,Branch,8752 Market St,Seattle,WA,45954,246-255-5786,David Martin,Y
+24021,VSR,0000VSR001,701 S Boston Ave — San Antonio Branch,Private Wealth Center,4659 Commerce Dr,San Antonio,TX,72746,651-548-4020,Sarah Wilson,Y
+24184,MER,0000MER001,One Bryant Park — Indianapolis Branch,Branch,6566 Commerce Dr,Indianapolis,IN,19710,790-844-1878,David Jones,Y
+24322,LPL,0000LPL001,4707 Executive Dr — Hartford Satellite,Branch,4067 Park Ave,Hartford,CT,83147,982-626-4697,Charles Jackson,Y
+24408,LPL,0000LPL001,4707 Executive Dr — Columbus Complex,Satellite,9643 Maple Dr,Columbus,OH,50026,782-835-1986,Nancy Brown,Y
+25084,VSR,0000VSR001,701 S Boston Ave — Nashville Regional HQ,Satellite,1331 Market St,Nashville,TN,41439,377-765-2229,Lisa Smith,Y
+25157,SCHW,0000SCH001,211 Main St — Cleveland Complex,Private Wealth Center,7700 Oak Ave,Cleveland,OH,14278,437-495-5632,Thomas Williams,Y
+25213,FIDO,0000FID001,900 Salem St — Charlotte Satellite,Private Wealth Center,3242 Maple Dr,Charlotte,NC,25043,757-430-3441,William Jones,Y
+25473,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Phoenix Branch,Regional HQ,5040 Executive Pkwy,Phoenix,AZ,84607,495-649-3037,Thomas Taylor,Y
+25670,RJ,0000RAJ001,RJ — Cincinnati Satellite,Private Wealth Center,8848 Commerce Dr,Cincinnati,OH,67377,282-812-1653,Susan Anderson,Y
+25915,UBS,0000UBS001,1285 Avenue of the Americas — Memphis Satellite,Branch,1497 Broadway,Memphis,TN,98381,789-801-1339,William Robinson,Y
+25919,CAIS,0000CAI001,527 Madison Ave — Chicago Regional HQ,Complex,8503 Corporate Dr,Chicago,IL,67963,484-385-8141,Jessica Williams,Y
+26426,VSR,0000VSR001,701 S Boston Ave — Indianapolis Satellite,Complex,5461 Elm St,Indianapolis,IN,97835,307-364-6403,Susan Martin,Y
+26505,CETA,0000CET001,200 N Pacific Coast Hwy — Portland Complex,Private Wealth Center,602 Commerce Dr,Portland,OR,21542,522-458-6296,Patricia Jackson,Y
+26539,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Sacramento Branch,Private Wealth Center,7570 Maple Dr,Sacramento,CA,17104,392-730-6927,Nancy Martin,Y
+26864,SCHW,0000SCH001,211 Main St — Columbus Branch,Regional HQ,4376 Financial Blvd,Columbus,OH,27172,494-648-8941,Patricia Smith,Y
+26901,CETA,0000CET001,200 N Pacific Coast Hwy — Memphis Regional HQ,Regional HQ,5092 Financial Blvd,Memphis,TN,11792,765-617-2527,Jennifer Brown,Y
+26932,FIDO,0000FID001,900 Salem St — Detroit Branch,Regional HQ,8166 Center St,Detroit,MI,48254,721-922-5479,Susan Martin,Y
+27197,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Indianapolis Regional HQ,Complex,9032 Market St,Indianapolis,IN,60277,395-813-9327,David Williams,Y
+27224,CETA,0000CET001,200 N Pacific Coast Hwy — Minneapolis Complex,Satellite,8319 Oak Ave,Minneapolis,MN,10336,489-943-5891,Christopher Robinson,Y
+27361,NPC,0000NPC001,3200 E Camelback Rd — San Jose Regional HQ,Complex,8825 Commerce Dr,San Jose,CA,55236,540-765-9903,Joseph Harris,Y
+27392,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Tampa Regional HQ,Regional HQ,9369 Maple Dr,Tampa,FL,40613,994-620-1715,Richard Martin,Y
+27393,MER,0000MER001,One Bryant Park — Pittsburgh Complex,Regional HQ,8116 Main St,Pittsburgh,PA,26547,714-804-6439,Patricia Harris,Y
+27987,UBS,0000UBS001,1285 Avenue of the Americas — San Antonio Private Wealth Center,Complex,252 Center St,San Antonio,TX,28894,619-870-3529,Michael Martin,Y
+27992,ICAP,0000ICA001,60 E 42nd St — Miami Satellite,Private Wealth Center,6513 Corporate Dr,Miami,FL,20527,536-890-9742,Joseph Anderson,Y
+28035,LPL,0000LPL001,4707 Executive Dr — San Jose Private Wealth Center,Branch,1122 Broadway,San Jose,CA,92727,900-494-4727,Michael White,Y
+28131,VSR,0000VSR001,701 S Boston Ave — San Antonio Branch,Complex,2726 Center St,San Antonio,TX,49251,229-247-6314,Sarah Taylor,Y
+28289,CETA,0000CET001,200 N Pacific Coast Hwy — St Louis Satellite,Complex,2386 Broadway,St Louis,MO,79621,621-779-3950,Lisa Garcia,Y
+28327,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Philadelphia Private Wealth Center,Complex,3946 Commerce Dr,Philadelphia,PA,86435,346-437-8555,William Harris,Y
+28434,NPC,0000NPC001,3200 E Camelback Rd — Miami Branch,Complex,4713 Corporate Dr,Miami,FL,81643,361-275-8237,Barbara Robinson,Y
+28595,MS,0000MOR001,1585 Broadway — Las Vegas Complex,Satellite,7485 Oak Ave,Las Vegas,NV,36111,593-694-2747,Jennifer Jackson,Y
+28772,MS,0000MOR001,1585 Broadway — Hartford Satellite,Private Wealth Center,4848 Center St,Hartford,CT,48696,222-874-7484,William Smith,Y
+28818,NPC,0000NPC001,3200 E Camelback Rd — Hartford Branch,Private Wealth Center,8139 Oak Ave,Hartford,CT,40162,821-560-4588,Robert Lewis,Y
+29476,SII,0000SII001,501 N Broadway — Miami Regional HQ,Branch,646 Oak Ave,Miami,FL,67779,234-793-6977,David Williams,Y
+29484,CETA,0000CET001,200 N Pacific Coast Hwy — Portland Satellite,Complex,2878 Broadway,Portland,OR,27322,752-574-9697,Charles Wilson,Y
+29548,LPL,0000LPL001,4707 Executive Dr — Austin Satellite,Complex,4836 Center St,Austin,TX,54396,317-679-2233,David Davis,Y
+29773,CNTS,0000CNT001,29 Sawyer Rd — Cincinnati Private Wealth Center,Satellite,1480 Maple Dr,Cincinnati,OH,11824,470-749-3024,Thomas Thomas,Y
+30028,FIDO,0000FID001,900 Salem St — Miami Private Wealth Center,Complex,6087 Park Ave,Miami,FL,98452,439-682-1410,Nancy Young,Y
+30131,UBS,0000UBS001,1285 Avenue of the Americas — Tampa Private Wealth Center,Regional HQ,1036 Corporate Dr,Tampa,FL,70852,917-509-7689,Patricia Jones,Y
+30289,SCHW,0000SCH001,211 Main St — Chicago Branch,Satellite,8072 Park Ave,Chicago,IL,22739,440-750-3222,Joseph Harris,Y
+30369,UBS,0000UBS001,1285 Avenue of the Americas — Baltimore Private Wealth Center,Complex,9623 Center St,Baltimore,MD,30253,624-870-2622,Jessica Lewis,Y
+30517,CETA,0000CET001,200 N Pacific Coast Hwy — Cleveland Satellite,Branch,6071 Broadway,Cleveland,OH,68115,655-441-6942,Patricia Thomas,Y
+30631,VSR,0000VSR001,701 S Boston Ave — Raleigh Satellite,Branch,6524 Oak Ave,Raleigh,NC,34878,325-665-2501,Robert Lewis,Y
+31079,ICAP,0000ICA001,60 E 42nd St — Los Angeles Branch,Satellite,3991 Market St,Los Angeles,CA,84000,410-270-4394,Christopher Miller,Y
+31178,LPL,0000LPL001,4707 Executive Dr — Charlotte Satellite,Regional HQ,9765 Main St,Charlotte,NC,46342,348-333-9850,William Garcia,Y
+31299,MS,0000MOR001,1585 Broadway — San Diego Branch,Regional HQ,244 Elm St,San Diego,CA,41186,802-531-1258,Lisa Wilson,Y
+31319,FIDO,0000FID001,900 Salem St — Houston Regional HQ,Complex,8620 Park Ave,Houston,TX,18330,687-659-6931,Charles Robinson,Y
+31465,UBS,0000UBS001,1285 Avenue of the Americas — San Antonio Complex,Private Wealth Center,3630 Executive Pkwy,San Antonio,TX,15683,944-874-9543,Mary Harris,Y
+31579,SCHW,0000SCH001,211 Main St — Los Angeles Branch,Complex,6581 Maple Dr,Los Angeles,CA,99928,310-702-8267,Michael Williams,Y
+31581,SCHW,0000SCH001,211 Main St — Tampa Private Wealth Center,Regional HQ,1077 Market St,Tampa,FL,46046,839-848-9984,Richard Jackson,Y
+31632,SCHW,0000SCH001,211 Main St — Memphis Private Wealth Center,Satellite,7434 Financial Blvd,Memphis,TN,89354,640-301-2874,Karen Miller,Y
+31755,NPC,0000NPC001,3200 E Camelback Rd — Kansas City Complex,Regional HQ,6780 Elm St,Kansas City,MO,69441,608-625-2557,Richard White,Y
+32185,CETA,0000CET001,200 N Pacific Coast Hwy — Tampa Satellite,Satellite,2501 Corporate Dr,Tampa,FL,72163,268-293-2398,Michael White,Y
+32280,CAIS,0000CAI001,527 Madison Ave — San Antonio Satellite,Regional HQ,9116 Main St,San Antonio,TX,86869,775-775-6400,Patricia White,Y
+32463,SCHW,0000SCH001,211 Main St — St Louis Complex,Branch,4713 Executive Pkwy,St Louis,MO,50953,560-306-9313,Robert Jones,Y
+32650,SCHW,0000SCH001,211 Main St — Indianapolis Regional HQ,Branch,5737 Financial Blvd,Indianapolis,IN,58176,317-980-5564,Christopher Davis,Y
+32962,MER,0000MER001,One Bryant Park — Kansas City Private Wealth Center,Private Wealth Center,9122 Main St,Kansas City,MO,89822,873-910-5381,James Garcia,Y
+33053,CETA,0000CET001,200 N Pacific Coast Hwy — Minneapolis Satellite,Satellite,5752 Main St,Minneapolis,MN,33777,346-779-7566,Michael Jones,Y
+33218,RJ,0000RAJ001,RJ — Los Angeles Branch,Private Wealth Center,3525 Maple Dr,Los Angeles,CA,65028,664-549-3578,Barbara Taylor,Y
+33276,CETA,0000CET001,200 N Pacific Coast Hwy — Tampa Private Wealth Center,Private Wealth Center,1392 Main St,Tampa,FL,30392,361-972-1815,Michael Wilson,Y
+33834,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Columbus Complex,Complex,9947 Commerce Dr,Columbus,OH,64287,479-420-9394,Patricia Thomas,Y
+33969,FIDO,0000FID001,900 Salem St — Kansas City Branch,Satellite,9718 Commerce Dr,Kansas City,MO,79066,883-515-1744,Jennifer Jackson,Y
+34164,SII,0000SII001,501 N Broadway — Memphis Branch,Branch,3350 Oak Ave,Memphis,TN,37686,985-340-5186,Mary Anderson,Y
+34232,ICAP,0000ICA001,60 E 42nd St — San Diego Branch,Complex,7056 Market St,San Diego,CA,26932,589-745-4770,Charles Young,Y
+34356,CNTS,0000CNT001,29 Sawyer Rd — St Louis Branch,Complex,694 Maple Dr,St Louis,MO,12456,670-279-6129,Christopher White,Y
+34385,FIDO,0000FID001,900 Salem St — Hartford Complex,Complex,4744 Park Ave,Hartford,CT,63088,221-532-3815,Nancy Harris,Y
+34430,CAIS,0000CAI001,527 Madison Ave — Baltimore Branch,Complex,1735 Broadway,Baltimore,MD,67104,803-610-9584,Michael Jackson,Y
+34979,CAIS,0000CAI001,527 Madison Ave — Las Vegas Satellite,Regional HQ,5457 Market St,Las Vegas,NV,20011,722-848-2868,Charles Thompson,Y
+35144,CETA,0000CET001,200 N Pacific Coast Hwy — Denver Satellite,Satellite,2420 Broadway,Denver,CO,23474,349-462-4232,Lisa Lewis,Y
+36090,FIDO,0000FID001,900 Salem St — Boston Branch,Regional HQ,8096 Commerce Dr,Boston,MA,83889,978-793-8354,Christopher Lewis,Y
+36171,LPL,0000LPL001,4707 Executive Dr — Tampa Satellite,Regional HQ,7206 Park Ave,Tampa,FL,71462,652-846-5961,William Robinson,Y
+36497,VSR,0000VSR001,701 S Boston Ave — Houston Satellite,Private Wealth Center,1216 Oak Ave,Houston,TX,70521,662-238-1932,Barbara Taylor,Y
+36633,NPC,0000NPC001,3200 E Camelback Rd — Phoenix Branch,Private Wealth Center,9734 Financial Blvd,Phoenix,AZ,60394,673-794-1672,Thomas Robinson,Y
+36934,ICAP,0000ICA001,60 E 42nd St — Denver Satellite,Private Wealth Center,7793 Financial Blvd,Denver,CO,29773,263-661-2695,Richard Williams,Y
+37110,SCHW,0000SCH001,211 Main St — Sacramento Regional HQ,Branch,4060 Center St,Sacramento,CA,67377,649-736-9564,Nancy Garcia,Y
+37215,ICAP,0000ICA001,60 E 42nd St — Baltimore Satellite,Satellite,6348 Maple Dr,Baltimore,MD,54350,895-812-1857,Richard Williams,Y
+37235,NPC,0000NPC001,3200 E Camelback Rd — Orlando Branch,Private Wealth Center,6334 Oak Ave,Orlando,FL,43029,941-872-3463,Richard Williams,Y
+37742,SII,0000SII001,501 N Broadway — Jacksonville Regional HQ,Satellite,5083 Corporate Dr,Jacksonville,FL,96787,601-332-2388,Mary Young,Y
+37760,CETA,0000CET001,200 N Pacific Coast Hwy — Pittsburgh Satellite,Regional HQ,8625 Park Ave,Pittsburgh,PA,94675,886-633-9331,Barbara Smith,Y
+37869,SCHW,0000SCH001,211 Main St — Baltimore Satellite,Regional HQ,3510 Elm St,Baltimore,MD,73736,396-431-3253,David Williams,Y
+38124,SCHW,0000SCH001,211 Main St — Portland Branch,Private Wealth Center,8844 Center St,Portland,OR,79013,238-877-6517,Nancy Jones,Y
+38893,CAIS,0000CAI001,527 Madison Ave — Memphis Complex,Regional HQ,2659 Market St,Memphis,TN,91885,369-938-8170,Sarah White,Y
+38905,VSR,0000VSR001,701 S Boston Ave — Baltimore Regional HQ,Complex,4669 Center St,Baltimore,MD,68841,439-746-4918,Mary Martin,Y
+39012,SCHW,0000SCH001,211 Main St — Denver Satellite,Private Wealth Center,7219 Commerce Dr,Denver,CO,46932,996-591-9239,Charles White,Y
+39154,MS,0000MOR001,1585 Broadway — Austin Regional HQ,Private Wealth Center,2268 Oak Ave,Austin,TX,16839,856-692-7081,Karen Brown,Y
+39579,VSR,0000VSR001,701 S Boston Ave — Salt Lake City Branch,Satellite,1375 Market St,Salt Lake City,UT,45755,660-725-3414,Susan Williams,Y
+40021,SCHW,0000SCH001,211 Main St — Charlotte Complex,Satellite,437 Maple Dr,Charlotte,NC,16980,605-714-7126,Jennifer Jackson,Y
+40149,CNTS,0000CNT001,29 Sawyer Rd — Philadelphia Satellite,Regional HQ,462 Elm St,Philadelphia,PA,22987,931-865-6493,David Jones,Y
+40162,SII,0000SII001,501 N Broadway — Chicago Satellite,Complex,2274 Center St,Chicago,IL,71487,659-830-1086,Michael Smith,Y
+40689,MER,0000MER001,One Bryant Park — Miami Regional HQ,Regional HQ,8992 Center St,Miami,FL,89807,740-633-2821,Mary Davis,Y
+40735,ICAP,0000ICA001,60 E 42nd St — Las Vegas Branch,Branch,3907 Maple Dr,Las Vegas,NV,93748,837-668-2029,Patricia Martin,Y
+40771,FIDO,0000FID001,900 Salem St — Memphis Private Wealth Center,Branch,8444 Executive Pkwy,Memphis,TN,41711,935-347-5772,Susan Smith,Y
+40968,CAIS,0000CAI001,527 Madison Ave — Louisville Satellite,Regional HQ,9350 Maple Dr,Louisville,KY,34551,880-884-2402,Charles Thomas,Y
+41051,RJ,0000RAJ001,RJ — Phoenix Private Wealth Center,Private Wealth Center,8313 Financial Blvd,Phoenix,AZ,82633,220-599-8702,Sarah Jackson,Y
+41056,RJ,0000RAJ001,RJ — Baltimore Satellite,Branch,5851 Park Ave,Baltimore,MD,55193,446-950-2698,Christopher Anderson,Y
+41139,SCHW,0000SCH001,211 Main St — Dallas Branch,Satellite,8946 Elm St,Dallas,TX,94252,379-997-8612,Jessica Garcia,Y
+41285,MER,0000MER001,One Bryant Park — Dallas Branch,Complex,606 Oak Ave,Dallas,TX,36422,244-404-1686,Richard Taylor,Y
+41370,CAIS,0000CAI001,527 Madison Ave — Sacramento Complex,Private Wealth Center,7757 Oak Ave,Sacramento,CA,14799,971-862-4131,Mary Thomas,Y
+41584,SCHW,0000SCH001,211 Main St — Houston Satellite,Satellite,2040 Elm St,Houston,TX,67272,609-961-8204,Joseph Anderson,Y
+41604,RJ,0000RAJ001,RJ — Seattle Complex,Complex,6019 Financial Blvd,Seattle,WA,44959,284-944-7955,Michael White,Y
+41722,MER,0000MER001,One Bryant Park — Memphis Regional HQ,Private Wealth Center,4814 Elm St,Memphis,TN,23447,281-535-5843,Mary Harris,Y
+41797,CNTS,0000CNT001,29 Sawyer Rd — Memphis Complex,Regional HQ,7273 Elm St,Memphis,TN,68606,243-944-6776,Nancy White,Y
+41850,UBS,0000UBS001,1285 Avenue of the Americas — Minneapolis Branch,Branch,6656 Elm St,Minneapolis,MN,77251,967-895-3621,James Jones,Y
+42087,CETA,0000CET001,200 N Pacific Coast Hwy — Memphis Complex,Branch,2069 Park Ave,Memphis,TN,40932,997-860-7001,Barbara Jackson,Y
+42096,CNTS,0000CNT001,29 Sawyer Rd — Hartford Branch,Private Wealth Center,2514 Corporate Dr,Hartford,CT,68972,579-580-8273,Michael Robinson,Y
+42302,MS,0000MOR001,1585 Broadway — Dallas Private Wealth Center,Satellite,6522 Elm St,Dallas,TX,95139,485-455-2858,James Garcia,Y
+42441,ICAP,0000ICA001,60 E 42nd St — San Jose Private Wealth Center,Complex,9203 Park Ave,San Jose,CA,44311,993-466-8311,Robert Lewis,Y
+42541,MS,0000MOR001,1585 Broadway — Portland Complex,Regional HQ,2010 Market St,Portland,OR,19706,662-376-8292,Michael Anderson,Y
+42953,MER,0000MER001,One Bryant Park — St Louis Branch,Private Wealth Center,8883 Oak Ave,St Louis,MO,49315,361-928-3852,Barbara Thompson,Y
+43065,FIDO,0000FID001,900 Salem St — Charlotte Branch,Regional HQ,2276 Broadway,Charlotte,NC,74752,226-569-7044,Thomas Young,Y
+43438,FIDO,0000FID001,900 Salem St — Dallas Private Wealth Center,Branch,1078 Oak Ave,Dallas,TX,62187,934-936-8842,Charles White,Y
+43640,LPL,0000LPL001,4707 Executive Dr — Cleveland Private Wealth Center,Branch,2054 Elm St,Cleveland,OH,94192,275-660-8632,Charles Thomas,Y
+43728,SII,0000SII001,501 N Broadway — Dallas Private Wealth Center,Private Wealth Center,2982 Market St,Dallas,TX,66704,714-256-3034,Charles Jones,Y
+44524,FIDO,0000FID001,900 Salem St — Las Vegas Regional HQ,Regional HQ,5287 Center St,Las Vegas,NV,39552,554-731-5653,Michael Wilson,Y
+44664,CETA,0000CET001,200 N Pacific Coast Hwy — Denver Private Wealth Center,Satellite,2051 Corporate Dr,Denver,CO,49691,829-746-2530,Charles Garcia,Y
+44782,LPL,0000LPL001,4707 Executive Dr — Jacksonville Private Wealth Center,Regional HQ,2805 Corporate Dr,Jacksonville,FL,91851,937-819-6531,Christopher Johnson,Y
+44934,FIDO,0000FID001,900 Salem St — Los Angeles Branch,Branch,9450 Oak Ave,Los Angeles,CA,95344,415-985-7825,Nancy Smith,Y
+45058,CAIS,0000CAI001,527 Madison Ave — San Jose Private Wealth Center,Satellite,4950 Commerce Dr,San Jose,CA,42096,901-615-5873,Thomas Williams,Y
+45755,CAIS,0000CAI001,527 Madison Ave — Houston Regional HQ,Complex,6810 Commerce Dr,Houston,TX,70875,408-548-3353,Richard Anderson,Y
+45761,CETA,0000CET001,200 N Pacific Coast Hwy — St Louis Complex,Regional HQ,6071 Financial Blvd,St Louis,MO,83616,308-526-4960,Thomas Brown,Y
+45804,ICAP,0000ICA001,60 E 42nd St — Minneapolis Complex,Regional HQ,2309 Park Ave,Minneapolis,MN,16632,497-593-7850,Jennifer Garcia,Y
+45976,NPC,0000NPC001,3200 E Camelback Rd — Tampa Private Wealth Center,Satellite,3111 Market St,Tampa,FL,75308,727-678-9171,Mary Martin,Y
+46046,CNTS,0000CNT001,29 Sawyer Rd — Los Angeles Branch,Complex,8282 Commerce Dr,Los Angeles,CA,41552,420-797-6781,Sarah Johnson,Y
+46421,RJ,0000RAJ001,RJ — Portland Complex,Private Wealth Center,7711 Oak Ave,Portland,OR,80345,208-310-8060,David Wilson,Y
+46559,ICAP,0000ICA001,60 E 42nd St — Baltimore Complex,Satellite,742 Maple Dr,Baltimore,MD,16705,783-775-4189,Barbara Young,Y
+46569,FIDO,0000FID001,900 Salem St — Portland Branch,Complex,8262 Commerce Dr,Portland,OR,82070,486-838-2946,David Brown,Y
+46670,RJ,0000RAJ001,RJ — Cincinnati Satellite,Satellite,9140 Elm St,Cincinnati,OH,28909,403-816-9341,Joseph Thompson,Y
+46677,CAIS,0000CAI001,527 Madison Ave — Chicago Branch,Branch,2246 Center St,Chicago,IL,53652,685-731-8487,David Lewis,Y
+47056,ICAP,0000ICA001,60 E 42nd St — Sacramento Regional HQ,Satellite,5219 Market St,Sacramento,CA,61505,831-957-5902,Christopher Anderson,Y
+47196,CETA,0000CET001,200 N Pacific Coast Hwy — Sacramento Private Wealth Center,Private Wealth Center,8026 Center St,Sacramento,CA,83783,506-686-1272,Barbara Anderson,Y
+47230,CNTS,0000CNT001,29 Sawyer Rd — San Diego Complex,Private Wealth Center,5041 Center St,San Diego,CA,92478,227-811-8775,William Robinson,Y
+47498,MS,0000MOR001,1585 Broadway — Hartford Regional HQ,Branch,9561 Commerce Dr,Hartford,CT,32349,736-844-7229,David Davis,Y
+47501,SII,0000SII001,501 N Broadway — Chicago Private Wealth Center,Branch,3126 Main St,Chicago,IL,67807,521-628-3481,Susan Miller,Y
+48745,FIDO,0000FID001,900 Salem St — Cleveland Private Wealth Center,Private Wealth Center,7727 Center St,Cleveland,OH,18163,922-341-9498,Robert Young,Y
+48800,MER,0000MER001,One Bryant Park — Tampa Complex,Private Wealth Center,6174 Elm St,Tampa,FL,32699,670-745-6608,Karen Thomas,Y
+48974,NPC,0000NPC001,3200 E Camelback Rd — Miami Private Wealth Center,Complex,3151 Broadway,Miami,FL,46569,771-505-4684,Mary Taylor,Y
+49021,ICAP,0000ICA001,60 E 42nd St — Nashville Complex,Satellite,7862 Elm St,Nashville,TN,83464,938-480-5715,Patricia Robinson,Y
+49085,SCHW,0000SCH001,211 Main St — Raleigh Complex,Complex,5655 Market St,Raleigh,NC,48070,243-494-2294,Barbara Harris,Y
+49171,CETA,0000CET001,200 N Pacific Coast Hwy — Miami Complex,Regional HQ,3311 Financial Blvd,Miami,FL,45537,775-912-5450,David Brown,Y
+49363,SCHW,0000SCH001,211 Main St — Louisville Private Wealth Center,Regional HQ,3973 Main St,Louisville,KY,97796,743-431-4814,Sarah Brown,Y
+49535,MER,0000MER001,One Bryant Park — Cleveland Satellite,Complex,1648 Corporate Dr,Cleveland,OH,28018,205-763-3587,Susan Martin,Y
+49576,RJ,0000RAJ001,RJ — Indianapolis Regional HQ,Satellite,5263 Oak Ave,Indianapolis,IN,94659,260-987-2465,Christopher Davis,Y
+49602,CNTS,0000CNT001,29 Sawyer Rd — Raleigh Branch,Regional HQ,6847 Market St,Raleigh,NC,14763,606-707-4052,Mary Johnson,Y
+49739,VSR,0000VSR001,701 S Boston Ave — New York Satellite,Private Wealth Center,9876 Park Ave,New York,NY,53914,491-665-9901,Charles Martin,Y
+50135,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Dallas Private Wealth Center,Complex,4471 Broadway,Dallas,TX,24764,538-366-8518,William Garcia,Y
+50213,CETA,0000CET001,200 N Pacific Coast Hwy — New York Satellite,Satellite,9303 Corporate Dr,New York,NY,35318,379-825-7643,Susan Thompson,Y
+50306,FIDO,0000FID001,900 Salem St — Tampa Branch,Complex,1563 Market St,Tampa,FL,28430,688-531-5064,James Wilson,Y
+50416,UBS,0000UBS001,1285 Avenue of the Americas — Pittsburgh Regional HQ,Complex,4375 Elm St,Pittsburgh,PA,49576,796-940-1187,William Thomas,Y
+50539,CNTS,0000CNT001,29 Sawyer Rd — Atlanta Branch,Branch,7626 Oak Ave,Atlanta,GA,30934,615-902-9233,Mary Brown,Y
+50642,RJ,0000RAJ001,RJ — Portland Satellite,Private Wealth Center,3619 Broadway,Portland,OR,27507,689-356-8454,Nancy Thomas,Y
+50756,ICAP,0000ICA001,60 E 42nd St — Cleveland Private Wealth Center,Complex,8807 Corporate Dr,Cleveland,OH,38627,980-453-2341,Charles Harris,Y
+50906,LPL,0000LPL001,4707 Executive Dr — Salt Lake City Satellite,Branch,9244 Park Ave,Salt Lake City,UT,18094,760-717-4312,Christopher Young,Y
+51049,VSR,0000VSR001,701 S Boston Ave — Boston Regional HQ,Satellite,8526 Commerce Dr,Boston,MA,25235,896-410-9008,Michael Thompson,Y
+51079,MS,0000MOR001,1585 Broadway — Columbus Branch,Complex,2162 Financial Blvd,Columbus,OH,64450,667-777-1945,Karen Harris,Y
+51426,ICAP,0000ICA001,60 E 42nd St — Las Vegas Branch,Complex,4170 Main St,Las Vegas,NV,38560,792-274-1742,Susan Thomas,Y
+51555,RJ,0000RAJ001,RJ — Phoenix Private Wealth Center,Branch,1131 Commerce Dr,Phoenix,AZ,14159,493-618-3948,David White,Y
+51688,RJ,0000RAJ001,RJ — Baltimore Complex,Complex,6185 Maple Dr,Baltimore,MD,20518,899-877-9835,David Thomas,Y
+51973,RJ,0000RAJ001,RJ — San Diego Regional HQ,Private Wealth Center,6440 Financial Blvd,San Diego,CA,26691,945-428-1056,James Taylor,Y
+52056,SII,0000SII001,501 N Broadway — Detroit Private Wealth Center,Complex,8716 Maple Dr,Detroit,MI,40102,453-671-6671,David Wilson,Y
+52096,CETA,0000CET001,200 N Pacific Coast Hwy — Denver Branch,Branch,6869 Executive Pkwy,Denver,CO,12050,446-411-2102,Patricia Lewis,Y
+52153,CAIS,0000CAI001,527 Madison Ave — Chicago Complex,Private Wealth Center,798 Broadway,Chicago,IL,15798,611-649-4839,Karen Miller,Y
+52247,CAIS,0000CAI001,527 Madison Ave — Houston Regional HQ,Private Wealth Center,4740 Broadway,Houston,TX,85511,526-791-6253,Jennifer Taylor,Y
+52415,MER,0000MER001,One Bryant Park — Boston Private Wealth Center,Regional HQ,6776 Oak Ave,Boston,MA,46064,262-770-3869,Susan Young,Y
+53064,SII,0000SII001,501 N Broadway — San Jose Branch,Satellite,6245 Financial Blvd,San Jose,CA,51777,913-626-7688,David Taylor,Y
+53213,CETA,0000CET001,200 N Pacific Coast Hwy — Pittsburgh Regional HQ,Private Wealth Center,7759 Broadway,Pittsburgh,PA,39536,507-924-3365,Thomas Johnson,Y
+53309,MER,0000MER001,One Bryant Park — Richmond Complex,Complex,9131 Financial Blvd,Richmond,VA,27575,597-448-5177,Robert Anderson,Y
+53332,LPL,0000LPL001,4707 Executive Dr — Philadelphia Complex,Satellite,1515 Financial Blvd,Philadelphia,PA,34966,252-474-7179,Nancy Lewis,Y
+53481,UBS,0000UBS001,1285 Avenue of the Americas — Chicago Branch,Regional HQ,9627 Center St,Chicago,IL,98008,772-422-8854,Robert Anderson,Y
+53694,CETA,0000CET001,200 N Pacific Coast Hwy — Las Vegas Branch,Regional HQ,3114 Center St,Las Vegas,NV,25376,964-972-8846,Jennifer Lewis,Y
+53914,SII,0000SII001,501 N Broadway — Nashville Complex,Regional HQ,9046 Elm St,Nashville,TN,47101,589-677-9743,Barbara Taylor,Y
+54270,UBS,0000UBS001,1285 Avenue of the Americas — Miami Satellite,Private Wealth Center,8148 Commerce Dr,Miami,FL,22924,939-680-6246,Robert Thomas,Y
+54295,MS,0000MOR001,1585 Broadway — Tampa Complex,Branch,9217 Broadway,Tampa,FL,29126,216-467-7841,Mary Jones,Y
+54396,SII,0000SII001,501 N Broadway — Denver Satellite,Regional HQ,6224 Executive Pkwy,Denver,CO,42208,711-763-6530,William Martin,Y
+54541,CNTS,0000CNT001,29 Sawyer Rd — San Jose Complex,Regional HQ,5771 Market St,San Jose,CA,28344,937-759-9000,Lisa Young,Y
+54548,UBS,0000UBS001,1285 Avenue of the Americas — Houston Private Wealth Center,Branch,1218 Corporate Dr,Houston,TX,16358,982-206-7756,David Davis,Y
+54642,FIDO,0000FID001,900 Salem St — Phoenix Regional HQ,Branch,3584 Financial Blvd,Phoenix,AZ,69770,582-261-8916,Jessica Smith,Y
+54791,FIDO,0000FID001,900 Salem St — New York Private Wealth Center,Private Wealth Center,6740 Main St,New York,NY,12192,742-939-5501,Karen Taylor,Y
+54922,VSR,0000VSR001,701 S Boston Ave — Los Angeles Private Wealth Center,Complex,2938 Park Ave,Los Angeles,CA,22624,736-352-4948,Robert Lewis,Y
+54942,VSR,0000VSR001,701 S Boston Ave — Salt Lake City Satellite,Satellite,4380 Maple Dr,Salt Lake City,UT,20357,582-615-8520,Christopher Davis,Y
+54979,SCHW,0000SCH001,211 Main St — Charlotte Satellite,Branch,520 Park Ave,Charlotte,NC,63120,588-586-8798,Sarah Smith,Y
+55082,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Austin Branch,Complex,7110 Corporate Dr,Austin,TX,53420,779-297-9653,Sarah Davis,Y
+55443,LPL,0000LPL001,4707 Executive Dr — Nashville Private Wealth Center,Complex,4442 Main St,Nashville,TN,19744,900-487-9897,Christopher Johnson,Y
+56030,CAIS,0000CAI001,527 Madison Ave — Seattle Satellite,Branch,3395 Executive Pkwy,Seattle,WA,28899,970-929-7525,Michael Taylor,Y
+56095,UBS,0000UBS001,1285 Avenue of the Americas — Austin Private Wealth Center,Regional HQ,9285 Maple Dr,Austin,TX,98740,753-539-7288,David Williams,Y
+56105,CNTS,0000CNT001,29 Sawyer Rd — Sacramento Satellite,Branch,1601 Maple Dr,Sacramento,CA,40427,277-548-7499,Richard Smith,Y
+56112,CAIS,0000CAI001,527 Madison Ave — Minneapolis Complex,Complex,3738 Elm St,Minneapolis,MN,82487,584-642-4043,Christopher Jackson,Y
+56504,LPL,0000LPL001,4707 Executive Dr — Philadelphia Private Wealth Center,Satellite,4038 Center St,Philadelphia,PA,19634,284-474-3526,Joseph Jones,Y
+56627,SII,0000SII001,501 N Broadway — Pittsburgh Satellite,Satellite,1746 Park Ave,Pittsburgh,PA,10680,515-655-6896,William Brown,Y
+56984,RJ,0000RAJ001,RJ — Dallas Branch,Regional HQ,7062 Commerce Dr,Dallas,TX,83005,768-724-7685,Patricia Smith,Y
+57059,RJ,0000RAJ001,RJ — Philadelphia Satellite,Private Wealth Center,1525 Executive Pkwy,Philadelphia,PA,88386,532-594-1202,Mary White,Y
+57303,MER,0000MER001,One Bryant Park — Pittsburgh Branch,Private Wealth Center,3978 Executive Pkwy,Pittsburgh,PA,78302,373-901-7237,Lisa Jones,Y
+57333,MS,0000MOR001,1585 Broadway — Minneapolis Satellite,Satellite,8080 Market St,Minneapolis,MN,18292,371-645-5521,Susan Taylor,Y
+57381,CNTS,0000CNT001,29 Sawyer Rd — Indianapolis Branch,Satellite,4124 Broadway,Indianapolis,IN,91924,707-808-4203,Thomas Brown,Y
+57428,MER,0000MER001,One Bryant Park — Dallas Satellite,Branch,6484 Elm St,Dallas,TX,91289,589-537-8212,Richard White,Y
+57453,VSR,0000VSR001,701 S Boston Ave — Memphis Regional HQ,Satellite,5254 Executive Pkwy,Memphis,TN,36326,690-521-3910,Joseph Anderson,Y
+57619,CETA,0000CET001,200 N Pacific Coast Hwy — Portland Complex,Private Wealth Center,3972 Elm St,Portland,OR,59290,487-602-6980,Patricia Robinson,Y
+57749,MS,0000MOR001,1585 Broadway — Denver Private Wealth Center,Private Wealth Center,2948 Corporate Dr,Denver,CO,82102,227-944-8563,Robert Harris,Y
+57795,NPC,0000NPC001,3200 E Camelback Rd — Portland Branch,Complex,8181 Market St,Portland,OR,93012,510-447-5139,David White,Y
+57943,CAIS,0000CAI001,527 Madison Ave — Pittsburgh Branch,Complex,9797 Commerce Dr,Pittsburgh,PA,86315,610-747-9300,Susan Young,Y
+57945,RJ,0000RAJ001,RJ — Chicago Satellite,Private Wealth Center,9730 Corporate Dr,Chicago,IL,21138,311-987-5067,Barbara Garcia,Y
+58148,ICAP,0000ICA001,60 E 42nd St — Louisville Branch,Private Wealth Center,6548 Elm St,Louisville,KY,66420,308-210-2615,William Davis,Y
+58174,CETA,0000CET001,200 N Pacific Coast Hwy — Sacramento Private Wealth Center,Private Wealth Center,9512 Center St,Sacramento,CA,85397,426-656-7129,Joseph Harris,Y
+58270,RJ,0000RAJ001,RJ — Jacksonville Private Wealth Center,Regional HQ,5652 Main St,Jacksonville,FL,73277,307-502-7815,Michael Brown,Y
+58311,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Boston Satellite,Satellite,5621 Commerce Dr,Boston,MA,37114,733-694-6706,Jessica Brown,Y
+58331,CAIS,0000CAI001,527 Madison Ave — Columbus Complex,Satellite,1101 Oak Ave,Columbus,OH,15856,927-317-1370,Richard Brown,Y
+58520,SCHW,0000SCH001,211 Main St — Austin Regional HQ,Private Wealth Center,2859 Financial Blvd,Austin,TX,30989,538-773-7985,Thomas Davis,Y
+58790,SII,0000SII001,501 N Broadway — Cincinnati Regional HQ,Regional HQ,7081 Maple Dr,Cincinnati,OH,13826,955-828-4232,Thomas Robinson,Y
+59060,SCHW,0000SCH001,211 Main St — Kansas City Complex,Branch,3520 Broadway,Kansas City,MO,46483,970-920-2025,Christopher Brown,Y
+59081,RJ,0000RAJ001,RJ — Raleigh Regional HQ,Satellite,5341 Broadway,Raleigh,NC,69972,316-468-9019,Charles Anderson,Y
+59177,LPL,0000LPL001,4707 Executive Dr — Memphis Complex,Private Wealth Center,6432 Executive Pkwy,Memphis,TN,24972,556-560-8501,Nancy Garcia,Y
+59595,FIDO,0000FID001,900 Salem St — Las Vegas Private Wealth Center,Private Wealth Center,1389 Corporate Dr,Las Vegas,NV,27556,520-320-4908,Mary Brown,Y
+60134,SCHW,0000SCH001,211 Main St — Seattle Satellite,Regional HQ,8370 Maple Dr,Seattle,WA,64819,810-341-7286,Susan Garcia,Y
+60242,NPC,0000NPC001,3200 E Camelback Rd — San Jose Private Wealth Center,Regional HQ,9092 Market St,San Jose,CA,74178,495-343-4065,Richard Harris,Y
+60493,FIDO,0000FID001,900 Salem St — Louisville Branch,Satellite,158 Commerce Dr,Louisville,KY,27895,399-593-9281,Jessica White,Y
+60779,ICAP,0000ICA001,60 E 42nd St — San Jose Complex,Complex,8007 Market St,San Jose,CA,20835,778-231-4613,Mary Johnson,Y
+60916,RJ,0000RAJ001,RJ — Minneapolis Regional HQ,Private Wealth Center,4730 Market St,Minneapolis,MN,69942,779-960-9115,Karen Thompson,Y
+61068,RJ,0000RAJ001,RJ — San Diego Private Wealth Center,Branch,4390 Financial Blvd,San Diego,CA,58085,755-974-1681,Thomas Young,Y
+61712,CAIS,0000CAI001,527 Madison Ave — Nashville Complex,Branch,4056 Oak Ave,Nashville,TN,14224,660-469-6711,Michael Harris,Y
+61990,NPC,0000NPC001,3200 E Camelback Rd — San Diego Regional HQ,Regional HQ,9633 Center St,San Diego,CA,55957,927-824-8015,Lisa Lewis,Y
+62163,NPC,0000NPC001,3200 E Camelback Rd — Dallas Regional HQ,Regional HQ,973 Executive Pkwy,Dallas,TX,55982,745-487-9827,Lisa Anderson,Y
+62227,FIDO,0000FID001,900 Salem St — Portland Satellite,Private Wealth Center,4381 Financial Blvd,Portland,OR,99037,297-338-7743,Sarah Wilson,Y
+62260,NPC,0000NPC001,3200 E Camelback Rd — Dallas Regional HQ,Regional HQ,2397 Center St,Dallas,TX,52217,453-979-7434,Jessica Jones,Y
+62383,SCHW,0000SCH001,211 Main St — Hartford Satellite,Complex,6147 Commerce Dr,Hartford,CT,19898,848-987-2525,Joseph Thompson,Y
+62757,NPC,0000NPC001,3200 E Camelback Rd — Minneapolis Satellite,Complex,7997 Elm St,Minneapolis,MN,86278,202-992-2526,Thomas Thomas,Y
+62802,SCHW,0000SCH001,211 Main St — Phoenix Private Wealth Center,Complex,3569 Maple Dr,Phoenix,AZ,37767,706-474-6289,Mary Anderson,Y
+62858,FIDO,0000FID001,900 Salem St — Richmond Private Wealth Center,Regional HQ,9276 Commerce Dr,Richmond,VA,55054,898-980-1793,Sarah Brown,Y
+62872,SII,0000SII001,501 N Broadway — Detroit Branch,Branch,2589 Commerce Dr,Detroit,MI,69836,200-638-4314,David Taylor,Y
+63626,MS,0000MOR001,1585 Broadway — Austin Satellite,Branch,5906 Oak Ave,Austin,TX,20803,580-880-3711,Sarah Jackson,Y
+63707,UBS,0000UBS001,1285 Avenue of the Americas — Las Vegas Regional HQ,Complex,1495 Center St,Las Vegas,NV,22475,201-418-8812,Michael Jones,Y
+63788,LPL,0000LPL001,4707 Executive Dr — Jacksonville Regional HQ,Private Wealth Center,7292 Main St,Jacksonville,FL,11056,912-551-2975,Susan Jones,Y
+63883,UBS,0000UBS001,1285 Avenue of the Americas — Indianapolis Branch,Regional HQ,6277 Park Ave,Indianapolis,IN,23425,305-520-7022,Mary Jones,Y
+63964,SII,0000SII001,501 N Broadway — Pittsburgh Regional HQ,Regional HQ,1121 Financial Blvd,Pittsburgh,PA,83831,208-824-3688,Thomas Thomas,Y
+64146,CNTS,0000CNT001,29 Sawyer Rd — Nashville Regional HQ,Complex,7249 Broadway,Nashville,TN,21362,302-343-3017,Christopher Jackson,Y
+64239,CETA,0000CET001,200 N Pacific Coast Hwy — St Louis Complex,Satellite,2291 Broadway,St Louis,MO,46302,860-286-5065,Karen Lewis,Y
+64266,LPL,0000LPL001,4707 Executive Dr — Memphis Private Wealth Center,Satellite,440 Corporate Dr,Memphis,TN,49537,410-730-9348,Robert Jackson,Y
+64505,MS,0000MOR001,1585 Broadway — Portland Branch,Regional HQ,8109 Maple Dr,Portland,OR,24777,446-711-2163,Charles Smith,Y
+64592,SII,0000SII001,501 N Broadway — Baltimore Satellite,Regional HQ,6338 Executive Pkwy,Baltimore,MD,65163,574-759-3830,Jessica Williams,Y
+64596,NPC,0000NPC001,3200 E Camelback Rd — Los Angeles Private Wealth Center,Branch,226 Oak Ave,Los Angeles,CA,38277,240-261-7520,Charles Taylor,Y
+64896,SCHW,0000SCH001,211 Main St — Sacramento Complex,Complex,6591 Park Ave,Sacramento,CA,93956,749-750-3501,William Williams,Y
+64997,CAIS,0000CAI001,527 Madison Ave — Las Vegas Branch,Private Wealth Center,3330 Market St,Las Vegas,NV,80305,534-600-2083,Mary White,Y
+65112,MER,0000MER001,One Bryant Park — Atlanta Branch,Regional HQ,1413 Maple Dr,Atlanta,GA,25202,664-826-1901,Mary Garcia,Y
+65278,SCHW,0000SCH001,211 Main St — San Diego Branch,Regional HQ,186 Market St,San Diego,CA,75065,555-735-9474,William Garcia,Y
+65353,CETA,0000CET001,200 N Pacific Coast Hwy — Baltimore Regional HQ,Satellite,1935 Main St,Baltimore,MD,53910,639-478-9582,Michael Wilson,Y
+65476,LPL,0000LPL001,4707 Executive Dr — Hartford Branch,Complex,7458 Financial Blvd,Hartford,CT,57202,256-711-3734,Barbara Garcia,Y
+65723,CETA,0000CET001,200 N Pacific Coast Hwy — Miami Branch,Private Wealth Center,1890 Broadway,Miami,FL,76692,202-245-1201,Jennifer Johnson,Y
+65933,NPC,0000NPC001,3200 E Camelback Rd — Indianapolis Satellite,Complex,2459 Market St,Indianapolis,IN,14635,766-931-7870,Jennifer Anderson,Y
+66059,NPC,0000NPC001,3200 E Camelback Rd — Atlanta Complex,Satellite,4445 Park Ave,Atlanta,GA,84912,581-322-9225,Sarah Garcia,Y
+66606,CNTS,0000CNT001,29 Sawyer Rd — Charlotte Private Wealth Center,Branch,6569 Park Ave,Charlotte,NC,70960,489-992-6090,Richard Williams,Y
+66985,VSR,0000VSR001,701 S Boston Ave — Richmond Complex,Branch,6045 Broadway,Richmond,VA,48219,777-511-4974,Thomas Thomas,Y
+67014,MS,0000MOR001,1585 Broadway — Jacksonville Complex,Regional HQ,8955 Broadway,Jacksonville,FL,29735,206-619-1391,Jennifer Young,Y
+67176,VSR,0000VSR001,701 S Boston Ave — St Louis Branch,Satellite,24 Corporate Dr,St Louis,MO,59319,955-944-6038,Patricia Miller,Y
+67272,SII,0000SII001,501 N Broadway — Salt Lake City Regional HQ,Complex,8062 Main St,Salt Lake City,UT,28661,928-486-2524,Sarah Davis,Y
+67422,VSR,0000VSR001,701 S Boston Ave — Salt Lake City Complex,Satellite,7512 Center St,Salt Lake City,UT,21128,794-297-9280,David Jackson,Y
+67469,CETA,0000CET001,200 N Pacific Coast Hwy — Phoenix Private Wealth Center,Private Wealth Center,1021 Maple Dr,Phoenix,AZ,96827,333-442-5778,William Anderson,Y
+67700,LPL,0000LPL001,4707 Executive Dr — Cincinnati Satellite,Satellite,7418 Oak Ave,Cincinnati,OH,40619,276-407-3230,Christopher Brown,Y
+67840,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Boston Branch,Regional HQ,7366 Commerce Dr,Boston,MA,51160,616-323-9780,Barbara Miller,Y
+68153,VSR,0000VSR001,701 S Boston Ave — Columbus Satellite,Complex,4342 Park Ave,Columbus,OH,21851,361-902-5984,Nancy Johnson,Y
+68515,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Nashville Satellite,Regional HQ,1495 Center St,Nashville,TN,42534,564-605-9412,Sarah Taylor,Y
+68799,CNTS,0000CNT001,29 Sawyer Rd — Miami Regional HQ,Branch,6626 Commerce Dr,Miami,FL,82869,966-763-5093,Patricia Harris,Y
+68954,SCHW,0000SCH001,211 Main St — San Antonio Regional HQ,Branch,196 Main St,San Antonio,TX,39135,333-402-7563,Barbara Williams,Y
+69130,MS,0000MOR001,1585 Broadway — Jacksonville Private Wealth Center,Satellite,1229 Main St,Jacksonville,FL,18450,402-861-8265,David Williams,Y
+69250,CNTS,0000CNT001,29 Sawyer Rd — Orlando Branch,Branch,7553 Main St,Orlando,FL,32018,787-643-7471,Jessica Smith,Y
+69614,VSR,0000VSR001,701 S Boston Ave — Pittsburgh Complex,Regional HQ,5800 Broadway,Pittsburgh,PA,34530,481-486-8307,David Johnson,Y
+69682,ICAP,0000ICA001,60 E 42nd St — Louisville Private Wealth Center,Private Wealth Center,4027 Corporate Dr,Louisville,KY,48680,710-621-8848,Sarah Williams,Y
+69871,VSR,0000VSR001,701 S Boston Ave — Minneapolis Complex,Regional HQ,6869 Broadway,Minneapolis,MN,94233,738-455-9907,James Jackson,Y
+70012,SCHW,0000SCH001,211 Main St — St Louis Complex,Private Wealth Center,7941 Elm St,St Louis,MO,84141,714-529-7363,William Garcia,Y
+70637,UBS,0000UBS001,1285 Avenue of the Americas — Los Angeles Satellite,Private Wealth Center,3589 Main St,Los Angeles,CA,46822,259-683-9674,Barbara Robinson,Y
+70648,CETA,0000CET001,200 N Pacific Coast Hwy — Charlotte Regional HQ,Branch,4061 Corporate Dr,Charlotte,NC,41608,472-746-1916,Jennifer Robinson,Y
+70846,ICAP,0000ICA001,60 E 42nd St — Pittsburgh Satellite,Regional HQ,2886 Broadway,Pittsburgh,PA,87662,525-955-6878,Christopher Smith,Y
+70875,ICAP,0000ICA001,60 E 42nd St — St Louis Private Wealth Center,Private Wealth Center,2329 Executive Pkwy,St Louis,MO,34672,704-755-6063,Lisa Martin,Y
+70946,RJ,0000RAJ001,RJ — Chicago Branch,Branch,3812 Executive Pkwy,Chicago,IL,38679,220-739-8831,James Anderson,Y
+70981,ICAP,0000ICA001,60 E 42nd St — Louisville Regional HQ,Regional HQ,5583 Center St,Louisville,KY,33260,531-260-1359,David Robinson,Y
+71474,NPC,0000NPC001,3200 E Camelback Rd — Boston Branch,Private Wealth Center,5979 Park Ave,Boston,MA,58967,921-878-7481,Christopher Brown,Y
+71736,MS,0000MOR001,1585 Broadway — Orlando Satellite,Satellite,2236 Market St,Orlando,FL,67261,854-698-6198,Lisa Young,Y
+72070,UBS,0000UBS001,1285 Avenue of the Americas — Louisville Satellite,Regional HQ,9650 Market St,Louisville,KY,59595,514-951-5825,David Garcia,Y
+72094,CAIS,0000CAI001,527 Madison Ave — New York Private Wealth Center,Complex,9298 Main St,New York,NY,33865,816-525-4619,Christopher Brown,Y
+72140,UBS,0000UBS001,1285 Avenue of the Americas — San Jose Regional HQ,Satellite,1275 Broadway,San Jose,CA,55457,527-371-2453,Richard Harris,Y
+72402,UBS,0000UBS001,1285 Avenue of the Americas — New York Satellite,Regional HQ,4089 Center St,New York,NY,18885,558-462-2770,James Johnson,Y
+72411,RJ,0000RAJ001,RJ — Pittsburgh Complex,Complex,2726 Maple Dr,Pittsburgh,PA,74629,587-559-9946,Joseph Brown,Y
+72784,SII,0000SII001,501 N Broadway — Indianapolis Private Wealth Center,Regional HQ,2665 Commerce Dr,Indianapolis,IN,19661,234-501-1328,Richard Wilson,Y
+73318,NPC,0000NPC001,3200 E Camelback Rd — San Antonio Branch,Satellite,2788 Maple Dr,San Antonio,TX,31090,949-276-9962,Michael Anderson,Y
+73499,SCHW,0000SCH001,211 Main St — Memphis Private Wealth Center,Complex,508 Maple Dr,Memphis,TN,95673,368-821-8113,Lisa Johnson,Y
+73993,SII,0000SII001,501 N Broadway — San Antonio Satellite,Regional HQ,3113 Maple Dr,San Antonio,TX,82628,939-947-9849,William Taylor,Y
+74169,ICAP,0000ICA001,60 E 42nd St — Las Vegas Regional HQ,Branch,814 Maple Dr,Las Vegas,NV,84943,762-702-3516,Sarah Thomas,Y
+74260,LPL,0000LPL001,4707 Executive Dr — New York Complex,Branch,4826 Corporate Dr,New York,NY,91931,814-691-4271,Patricia Smith,Y
+74441,CETA,0000CET001,200 N Pacific Coast Hwy — Nashville Regional HQ,Satellite,1343 Commerce Dr,Nashville,TN,25139,515-607-8715,Jessica Wilson,Y
+74634,CETA,0000CET001,200 N Pacific Coast Hwy — Philadelphia Private Wealth Center,Complex,3030 Elm St,Philadelphia,PA,59996,578-391-8303,Sarah Wilson,Y
+74923,ICAP,0000ICA001,60 E 42nd St — Columbus Complex,Satellite,3707 Oak Ave,Columbus,OH,83956,263-354-2584,Michael Thomas,Y
+74930,CNTS,0000CNT001,29 Sawyer Rd — Raleigh Complex,Private Wealth Center,3728 Financial Blvd,Raleigh,NC,17993,596-735-7858,Karen Martin,Y
+75031,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Hartford Regional HQ,Complex,4897 Park Ave,Hartford,CT,61747,931-235-9226,Christopher Thompson,Y
+75239,VSR,0000VSR001,701 S Boston Ave — Hartford Private Wealth Center,Regional HQ,1971 Commerce Dr,Hartford,CT,32659,371-416-4157,David Johnson,Y
+75323,UBS,0000UBS001,1285 Avenue of the Americas — Kansas City Branch,Complex,3309 Corporate Dr,Kansas City,MO,29382,809-464-6238,Michael Williams,Y
+75916,CETA,0000CET001,200 N Pacific Coast Hwy — Pittsburgh Private Wealth Center,Complex,9045 Elm St,Pittsburgh,PA,46202,732-669-1202,Nancy Robinson,Y
+76249,CNTS,0000CNT001,29 Sawyer Rd — Salt Lake City Complex,Branch,6791 Market St,Salt Lake City,UT,29424,780-802-2641,Patricia Robinson,Y
+76543,UBS,0000UBS001,1285 Avenue of the Americas — San Antonio Satellite,Private Wealth Center,5634 Maple Dr,San Antonio,TX,44620,592-870-8955,Christopher Lewis,Y
+76910,VSR,0000VSR001,701 S Boston Ave — Indianapolis Branch,Regional HQ,4513 Maple Dr,Indianapolis,IN,28855,833-823-7581,Sarah Jackson,Y
+76935,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Orlando Regional HQ,Branch,7786 Oak Ave,Orlando,FL,58816,220-545-5965,Mary Wilson,Y
+77466,CNTS,0000CNT001,29 Sawyer Rd — San Jose Branch,Regional HQ,2202 Oak Ave,San Jose,CA,68079,992-528-5414,Susan Lewis,Y
+78495,SCHW,0000SCH001,211 Main St — Philadelphia Regional HQ,Complex,3464 Maple Dr,Philadelphia,PA,73499,977-728-7126,Sarah Thompson,Y
+78564,NPC,0000NPC001,3200 E Camelback Rd — Austin Branch,Satellite,8304 Maple Dr,Austin,TX,27779,999-736-1474,Lisa Miller,Y
+78674,CAIS,0000CAI001,527 Madison Ave — Denver Branch,Regional HQ,542 Commerce Dr,Denver,CO,16626,569-921-4262,William Thomas,Y
+78732,CAIS,0000CAI001,527 Madison Ave — Detroit Private Wealth Center,Complex,2030 Corporate Dr,Detroit,MI,14005,447-581-9008,Nancy Harris,Y
+78742,CETA,0000CET001,200 N Pacific Coast Hwy — Seattle Complex,Private Wealth Center,9034 Elm St,Seattle,WA,55121,367-464-2480,Mary Smith,Y
+78879,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Pittsburgh Branch,Regional HQ,9376 Broadway,Pittsburgh,PA,39012,862-430-4387,William White,Y
+79066,MER,0000MER001,One Bryant Park — Sacramento Branch,Branch,7768 Market St,Sacramento,CA,94852,377-815-1138,Jennifer Wilson,Y
+79226,SII,0000SII001,501 N Broadway — Memphis Satellite,Satellite,6944 Maple Dr,Memphis,TN,55706,670-458-4575,Thomas Taylor,Y
+79397,ICAP,0000ICA001,60 E 42nd St — Salt Lake City Private Wealth Center,Complex,9577 Park Ave,Salt Lake City,UT,10963,723-878-7131,Karen Lewis,Y
+79579,FIDO,0000FID001,900 Salem St — Memphis Satellite,Satellite,1772 Commerce Dr,Memphis,TN,18367,544-483-6327,William Wilson,Y
+79774,VSR,0000VSR001,701 S Boston Ave — Las Vegas Regional HQ,Regional HQ,8476 Broadway,Las Vegas,NV,17441,814-613-6236,David Smith,Y
+79822,UBS,0000UBS001,1285 Avenue of the Americas — San Jose Satellite,Satellite,6858 Maple Dr,San Jose,CA,60891,954-236-4111,Richard Davis,Y
+79878,ICAP,0000ICA001,60 E 42nd St — Raleigh Complex,Satellite,8312 Oak Ave,Raleigh,NC,32280,873-771-3967,Mary Brown,Y
+80220,LPL,0000LPL001,4707 Executive Dr — Indianapolis Regional HQ,Satellite,9160 Market St,Indianapolis,IN,99091,543-870-2463,Jennifer Thomas,Y
+80373,CAIS,0000CAI001,527 Madison Ave — Charlotte Satellite,Complex,5429 Elm St,Charlotte,NC,44152,799-501-8598,Patricia Martin,Y
+80575,UBS,0000UBS001,1285 Avenue of the Americas — Houston Private Wealth Center,Private Wealth Center,1167 Commerce Dr,Houston,TX,35499,712-322-7253,Charles Taylor,Y
+80697,CAIS,0000CAI001,527 Madison Ave — Cleveland Branch,Regional HQ,2251 Broadway,Cleveland,OH,54914,619-783-8496,David Anderson,Y
+81046,NPC,0000NPC001,3200 E Camelback Rd — Seattle Branch,Complex,5450 Corporate Dr,Seattle,WA,33176,520-849-1950,James Harris,Y
+81364,ICAP,0000ICA001,60 E 42nd St — Minneapolis Regional HQ,Regional HQ,9442 Market St,Minneapolis,MN,74169,981-998-2442,David Lewis,Y
+81496,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Kansas City Complex,Complex,7030 Commerce Dr,Kansas City,MO,60242,204-238-9745,Robert Thomas,Y
+81511,VSR,0000VSR001,701 S Boston Ave — New York Satellite,Private Wealth Center,3123 Main St,New York,NY,98702,204-841-5076,Jennifer Thomas,Y
+81819,SCHW,0000SCH001,211 Main St — Las Vegas Regional HQ,Branch,6285 Financial Blvd,Las Vegas,NV,87158,513-371-2069,Sarah Taylor,Y
+82053,RJ,0000RAJ001,RJ — Portland Complex,Private Wealth Center,9771 Financial Blvd,Portland,OR,54280,644-903-3192,Richard Martin,Y
+82089,ICAP,0000ICA001,60 E 42nd St — St Louis Regional HQ,Regional HQ,6610 Main St,St Louis,MO,39939,429-944-3149,Robert Smith,Y
+82260,MER,0000MER001,One Bryant Park — Jacksonville Private Wealth Center,Regional HQ,2018 Elm St,Jacksonville,FL,95267,238-584-5190,Karen Lewis,Y
+82339,CETA,0000CET001,200 N Pacific Coast Hwy — Houston Private Wealth Center,Branch,1772 Corporate Dr,Houston,TX,12587,249-906-2897,Susan Harris,Y
+82358,CNTS,0000CNT001,29 Sawyer Rd — Pittsburgh Branch,Private Wealth Center,4141 Commerce Dr,Pittsburgh,PA,30070,410-911-1152,Mary White,Y
+82384,NPC,0000NPC001,3200 E Camelback Rd — San Antonio Private Wealth Center,Satellite,9923 Center St,San Antonio,TX,27978,628-307-9381,Nancy Brown,Y
+82487,LPL,0000LPL001,4707 Executive Dr — Portland Branch,Branch,8155 Broadway,Portland,OR,89823,404-996-5308,Charles Miller,Y
+82512,LPL,0000LPL001,4707 Executive Dr — St Louis Complex,Satellite,2628 Main St,St Louis,MO,81845,708-412-8875,Richard Davis,Y
+82733,MS,0000MOR001,1585 Broadway — New York Branch,Branch,1810 Executive Pkwy,New York,NY,97690,705-352-2475,Charles Williams,Y
+82848,FIDO,0000FID001,900 Salem St — San Antonio Satellite,Regional HQ,7484 Oak Ave,San Antonio,TX,44619,675-251-2635,Lisa Johnson,Y
+82970,CETA,0000CET001,200 N Pacific Coast Hwy — Portland Satellite,Satellite,6980 Center St,Portland,OR,25191,297-976-1751,James Jones,Y
+83024,VSR,0000VSR001,701 S Boston Ave — Austin Satellite,Satellite,7172 Executive Pkwy,Austin,TX,45167,950-295-7105,Richard Garcia,Y
+83048,MER,0000MER001,One Bryant Park — San Diego Complex,Complex,7480 Oak Ave,San Diego,CA,60556,906-689-7909,Lisa Brown,Y
+83147,MS,0000MOR001,1585 Broadway — Dallas Branch,Regional HQ,1700 Maple Dr,Dallas,TX,87430,694-782-8178,Lisa Lewis,Y
+83516,CNTS,0000CNT001,29 Sawyer Rd — Pittsburgh Satellite,Private Wealth Center,473 Corporate Dr,Pittsburgh,PA,27125,694-699-2850,Susan Harris,Y
+83526,FIDO,0000FID001,900 Salem St — Chicago Branch,Satellite,5149 Main St,Chicago,IL,98857,737-985-4669,Richard Thompson,Y
+83579,CNTS,0000CNT001,29 Sawyer Rd — Salt Lake City Private Wealth Center,Branch,7092 Corporate Dr,Salt Lake City,UT,42581,693-554-7305,David Young,Y
+83591,SCHW,0000SCH001,211 Main St — Louisville Branch,Branch,2572 Financial Blvd,Louisville,KY,71510,707-369-2226,Jessica Anderson,Y
+83822,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Atlanta Satellite,Satellite,825 Financial Blvd,Atlanta,GA,39190,763-858-7203,Joseph Davis,Y
+83874,MS,0000MOR001,1585 Broadway — Philadelphia Complex,Complex,9389 Commerce Dr,Philadelphia,PA,21536,710-657-6178,Patricia Martin,Y
+83912,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Los Angeles Branch,Complex,6756 Main St,Los Angeles,CA,83024,762-200-2489,Nancy Lewis,Y
+84277,MS,0000MOR001,1585 Broadway — Las Vegas Private Wealth Center,Private Wealth Center,3390 Corporate Dr,Las Vegas,NV,98011,667-549-6953,Sarah Davis,Y
+84381,VSR,0000VSR001,701 S Boston Ave — Detroit Satellite,Private Wealth Center,9830 Commerce Dr,Detroit,MI,96136,572-933-8414,Patricia Brown,Y
+84572,MS,0000MOR001,1585 Broadway — Charlotte Branch,Satellite,5819 Corporate Dr,Charlotte,NC,48270,760-734-7125,Patricia Johnson,Y
+84905,CNTS,0000CNT001,29 Sawyer Rd — Austin Complex,Regional HQ,6705 Park Ave,Austin,TX,43330,825-400-4072,Patricia Jackson,Y
+84912,FIDO,0000FID001,900 Salem St — Nashville Complex,Regional HQ,5537 Park Ave,Nashville,TN,64325,247-848-3018,Thomas Harris,Y
+84967,SCHW,0000SCH001,211 Main St — Jacksonville Private Wealth Center,Regional HQ,8173 Main St,Jacksonville,FL,79515,953-249-8091,Christopher Martin,Y
+85481,SCHW,0000SCH001,211 Main St — Sacramento Regional HQ,Private Wealth Center,2846 Center St,Sacramento,CA,26827,306-596-6273,Charles Jackson,Y
+85631,SII,0000SII001,501 N Broadway — Cleveland Private Wealth Center,Regional HQ,4483 Maple Dr,Cleveland,OH,54939,501-663-3185,David White,Y
+85684,VSR,0000VSR001,701 S Boston Ave — Memphis Private Wealth Center,Satellite,8976 Elm St,Memphis,TN,82559,847-422-4291,Robert Lewis,Y
+85880,MER,0000MER001,One Bryant Park — Portland Satellite,Regional HQ,2914 Financial Blvd,Portland,OR,81105,910-852-6281,Patricia Thomas,Y
+86278,RJ,0000RAJ001,RJ — Richmond Complex,Private Wealth Center,9350 Corporate Dr,Richmond,VA,64719,890-965-9747,Mary White,Y
+86315,MS,0000MOR001,1585 Broadway — New York Private Wealth Center,Branch,415 Maple Dr,New York,NY,29048,254-886-1927,Robert Wilson,Y
+86435,NPC,0000NPC001,3200 E Camelback Rd — Austin Satellite,Satellite,2400 Main St,Austin,TX,48684,408-971-9866,Sarah Thomas,Y
+86569,UBS,0000UBS001,1285 Avenue of the Americas — Columbus Branch,Private Wealth Center,9206 Broadway,Columbus,OH,94819,774-598-4892,Charles Taylor,Y
+86810,SII,0000SII001,501 N Broadway — Houston Complex,Complex,6826 Corporate Dr,Houston,TX,50980,765-255-1212,William Miller,Y
+86888,FIDO,0000FID001,900 Salem St — Louisville Complex,Regional HQ,6026 Executive Pkwy,Louisville,KY,81645,956-817-4218,Robert Taylor,Y
+86983,MS,0000MOR001,1585 Broadway — Columbus Regional HQ,Branch,3064 Market St,Columbus,OH,77350,322-586-1665,Susan Wilson,Y
+87128,MER,0000MER001,One Bryant Park — Richmond Satellite,Regional HQ,2637 Executive Pkwy,Richmond,VA,43425,205-538-8640,David Johnson,Y
+87518,ICAP,0000ICA001,60 E 42nd St — Boston Satellite,Private Wealth Center,834 Corporate Dr,Boston,MA,90689,877-508-9037,Christopher Young,Y
+87624,SCHW,0000SCH001,211 Main St — St Louis Branch,Satellite,8609 Broadway,St Louis,MO,34100,733-269-9276,Lisa White,Y
+87994,MER,0000MER001,One Bryant Park — Raleigh Private Wealth Center,Complex,1507 Elm St,Raleigh,NC,38992,418-879-6437,Richard Thomas,Y
+88222,MS,0000MOR001,1585 Broadway — Portland Regional HQ,Private Wealth Center,8692 Commerce Dr,Portland,OR,83575,970-864-1144,Patricia Thomas,Y
+88231,SII,0000SII001,501 N Broadway — Columbus Regional HQ,Private Wealth Center,3995 Main St,Columbus,OH,99463,528-590-2857,Joseph Wilson,Y
+88282,CNTS,0000CNT001,29 Sawyer Rd — Raleigh Satellite,Branch,8469 Elm St,Raleigh,NC,77411,720-656-8975,Sarah Taylor,Y
+88317,UBS,0000UBS001,1285 Avenue of the Americas — Denver Satellite,Private Wealth Center,1350 Park Ave,Denver,CO,31940,991-750-9736,James Williams,Y
+88696,FIDO,0000FID001,900 Salem St — Nashville Regional HQ,Complex,1703 Broadway,Nashville,TN,80484,919-959-8130,Michael Jones,Y
+88986,MER,0000MER001,One Bryant Park — Los Angeles Complex,Satellite,621 Park Ave,Los Angeles,CA,19600,255-382-5127,Karen Williams,Y
+89076,ICAP,0000ICA001,60 E 42nd St — Hartford Regional HQ,Satellite,6679 Maple Dr,Hartford,CT,69129,845-614-8094,Richard Smith,Y
+89310,UBS,0000UBS001,1285 Avenue of the Americas — Pittsburgh Branch,Private Wealth Center,97 Corporate Dr,Pittsburgh,PA,91048,264-974-1745,Michael Thomas,Y
+90120,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Sacramento Branch,Satellite,4938 Executive Pkwy,Sacramento,CA,21338,488-983-8170,Joseph Jackson,Y
+90173,CNTS,0000CNT001,29 Sawyer Rd — Los Angeles Complex,Regional HQ,8741 Broadway,Los Angeles,CA,27875,964-600-9941,Mary Jones,Y
+90589,VSR,0000VSR001,701 S Boston Ave — Las Vegas Satellite,Branch,9069 Financial Blvd,Las Vegas,NV,28530,326-242-1082,Christopher Lewis,Y
+90728,MS,0000MOR001,1585 Broadway — Cincinnati Private Wealth Center,Private Wealth Center,1395 Oak Ave,Cincinnati,OH,37532,966-959-6633,Robert White,Y
+91016,MER,0000MER001,One Bryant Park — Sacramento Regional HQ,Regional HQ,3015 Broadway,Sacramento,CA,90856,458-398-2877,Lisa Robinson,Y
+91351,UBS,0000UBS001,1285 Avenue of the Americas — Houston Private Wealth Center,Complex,9006 Park Ave,Houston,TX,48096,887-268-5107,Patricia Miller,Y
+91973,SCHW,0000SCH001,211 Main St — Jacksonville Complex,Satellite,5852 Market St,Jacksonville,FL,97988,871-440-2639,Mary Lewis,Y
+92210,OSAIC,0000OSA001,2300 Windy Ridge Pkwy — Phoenix Regional HQ,Satellite,7961 Commerce Dr,Phoenix,AZ,53036,831-875-6008,Christopher Jones,Y
+92345,CETA,0000CET001,200 N Pacific Coast Hwy — Hartford Private Wealth Center,Satellite,5183 Maple Dr,Hartford,CT,32103,204-520-5033,Jennifer White,Y
+92397,VSR,0000VSR001,701 S Boston Ave — Minneapolis Satellite,Regional HQ,5433 Commerce Dr,Minneapolis,MN,70666,656-567-6004,Jessica Young,Y
+93202,CETA,0000CET001,200 N Pacific Coast Hwy — San Antonio Regional HQ,Private Wealth Center,1344 Oak Ave,San Antonio,TX,28350,751-401-5312,Michael Williams,Y
+93307,FIDO,0000FID001,900 Salem St — Los Angeles Private Wealth Center,Branch,9534 Executive Pkwy,Los Angeles,CA,63101,987-804-4485,Sarah Young,Y
+93318,FIDO,0000FID001,900 Salem St — Miami Private Wealth Center,Private Wealth Center,7735 Corporate Dr,Miami,FL,29481,574-601-4658,Christopher Taylor,Y
+93579,CNTS,0000CNT001,29 Sawyer Rd — Dallas Complex,Private Wealth Center,8363 Park Ave,Dallas,TX,62007,572-714-1173,Jennifer Lewis,Y
+93606,RJ,0000RAJ001,RJ — Austin Private Wealth Center,Regional HQ,7311 Market St,Austin,TX,33480,779-779-3395,Jessica Thomas,Y
+93746,CAIS,0000CAI001,527 Madison Ave — Chicago Regional HQ,Complex,3797 Park Ave,Chicago,IL,44649,578-439-1701,Robert Thompson,Y
+93769,ICAP,0000ICA001,60 E 42nd St — Baltimore Complex,Complex,7449 Main St,Baltimore,MD,15230,864-531-2691,Charles Wilson,Y
+93789,RJ,0000RAJ001,RJ — Miami Private Wealth Center,Private Wealth Center,9342 Market St,Miami,FL,59369,869-587-6985,Christopher Williams,Y
+93904,CNTS,0000CNT001,29 Sawyer Rd — Salt Lake City Satellite,Complex,3652 Financial Blvd,Salt Lake City,UT,63194,561-553-8976,Jessica Lewis,Y
+93956,CETA,0000CET001,200 N Pacific Coast Hwy — New York Private Wealth Center,Regional HQ,7208 Market St,New York,NY,40145,278-726-5600,Robert Jones,Y
+93964,CETA,0000CET001,200 N Pacific Coast Hwy — Seattle Regional HQ,Satellite,9864 Center St,Seattle,WA,25509,876-435-7793,Richard Brown,Y
+94092,CNTS,0000CNT001,29 Sawyer Rd — Indianapolis Complex,Complex,3453 Executive Pkwy,Indianapolis,IN,31134,862-620-1367,Jennifer Johnson,Y
+94245,MS,0000MOR001,1585 Broadway — Dallas Private Wealth Center,Private Wealth Center,2640 Market St,Dallas,TX,92515,724-240-3406,Sarah Garcia,Y
+94252,VSR,0000VSR001,701 S Boston Ave — Miami Regional HQ,Private Wealth Center,6643 Executive Pkwy,Miami,FL,83872,852-219-5644,Michael Miller,Y
+94670,NPC,0000NPC001,3200 E Camelback Rd — Columbus Private Wealth Center,Complex,7892 Market St,Columbus,OH,38752,620-815-3338,Christopher Garcia,Y
+95029,CNTS,0000CNT001,29 Sawyer Rd — Louisville Private Wealth Center,Satellite,2748 Center St,Louisville,KY,99861,550-664-2127,Jennifer Jackson,Y
+95097,UBS,0000UBS001,1285 Avenue of the Americas — Pittsburgh Regional HQ,Branch,272 Broadway,Pittsburgh,PA,78512,716-900-7877,David Lewis,Y
+95426,LPL,0000LPL001,4707 Executive Dr — San Antonio Regional HQ,Complex,9828 Main St,San Antonio,TX,79655,715-970-2925,Michael Martin,Y
+95660,SII,0000SII001,501 N Broadway — Dallas Private Wealth Center,Private Wealth Center,20 Corporate Dr,Dallas,TX,95096,641-734-7892,Barbara Johnson,Y
+95686,ICAP,0000ICA001,60 E 42nd St — Salt Lake City Complex,Regional HQ,7900 Maple Dr,Salt Lake City,UT,55943,803-959-2600,Susan Jones,Y
+95979,RJ,0000RAJ001,RJ — Miami Complex,Regional HQ,1374 Oak Ave,Miami,FL,88419,756-618-5223,Robert Smith,Y
+96200,RJ,0000RAJ001,RJ — New York Private Wealth Center,Private Wealth Center,1931 Financial Blvd,New York,NY,10942,584-870-4365,Richard White,Y
+96413,UBS,0000UBS001,1285 Avenue of the Americas — Baltimore Branch,Regional HQ,6981 Corporate Dr,Baltimore,MD,86725,459-467-9783,Susan Robinson,Y
+96533,MS,0000MOR001,1585 Broadway — Baltimore Private Wealth Center,Satellite,6512 Broadway,Baltimore,MD,64162,765-770-8904,Lisa Thomas,Y
+96585,UBS,0000UBS001,1285 Avenue of the Americas — Richmond Private Wealth Center,Complex,4158 Oak Ave,Richmond,VA,85713,552-992-7522,David Brown,Y
+96947,VSR,0000VSR001,701 S Boston Ave — Charlotte Complex,Regional HQ,1643 Broadway,Charlotte,NC,76629,610-546-1852,Lisa Jackson,Y
+97080,LPL,0000LPL001,4707 Executive Dr — New York Branch,Regional HQ,7728 Executive Pkwy,New York,NY,67065,290-265-5310,Jennifer Thomas,Y
+97500,LPL,0000LPL001,4707 Executive Dr — Philadelphia Private Wealth Center,Branch,6297 Maple Dr,Philadelphia,PA,90473,871-733-5693,Nancy Johnson,Y
+97574,NPC,0000NPC001,3200 E Camelback Rd — Seattle Complex,Complex,176 Broadway,Seattle,WA,96099,730-492-4190,Sarah Lewis,Y
+97819,VSR,0000VSR001,701 S Boston Ave — Sacramento Private Wealth Center,Regional HQ,2777 Corporate Dr,Sacramento,CA,14726,568-444-1004,Lisa Williams,Y
+97821,MER,0000MER001,One Bryant Park — Minneapolis Complex,Satellite,6475 Maple Dr,Minneapolis,MN,86818,405-730-1251,Michael Williams,Y
+98184,CETA,0000CET001,200 N Pacific Coast Hwy — Richmond Satellite,Private Wealth Center,9551 Elm St,Richmond,VA,55544,483-431-4187,Thomas Jackson,Y
+98338,VSR,0000VSR001,701 S Boston Ave — Hartford Branch,Satellite,2868 Maple Dr,Hartford,CT,76353,309-772-2185,Charles Taylor,Y
+98389,FIDO,0000FID001,900 Salem St — Orlando Branch,Private Wealth Center,4223 Financial Blvd,Orlando,FL,85352,456-910-8254,Joseph Robinson,Y
+98705,LPL,0000LPL001,4707 Executive Dr — Indianapolis Regional HQ,Satellite,7518 Corporate Dr,Indianapolis,IN,70387,800-228-8896,Patricia Wilson,Y
+99037,FIDO,0000FID001,900 Salem St — Phoenix Complex,Regional HQ,3768 Elm St,Phoenix,AZ,64057,561-728-9776,James Wilson,Y
+99065,SII,0000SII001,501 N Broadway — Atlanta Satellite,Branch,6537 Corporate Dr,Atlanta,GA,54825,277-767-3924,Jessica Anderson,Y
+99070,NPC,0000NPC001,3200 E Camelback Rd — St Louis Regional HQ,Private Wealth Center,4409 Market St,St Louis,MO,99536,394-710-4271,Jennifer Davis,Y
+99091,MER,0000MER001,One Bryant Park — Miami Regional HQ,Regional HQ,3323 Broadway,Miami,FL,91080,564-359-2747,Patricia Williams,Y
+99192,MER,0000MER001,One Bryant Park — San Jose Private Wealth Center,Branch,8872 Main St,San Jose,CA,73214,580-835-6167,Jessica Robinson,Y
+99687,NPC,0000NPC001,3200 E Camelback Rd — Minneapolis Complex,Regional HQ,8375 Oak Ave,Minneapolis,MN,62150,427-968-3101,Sarah Thompson,Y
+99709,UBS,0000UBS001,1285 Avenue of the Americas — Kansas City Complex,Private Wealth Center,534 Financial Blvd,Kansas City,MO,55519,603-902-3863,Thomas Brown,Y

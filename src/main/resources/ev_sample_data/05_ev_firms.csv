@@ -1,0 +1,17 @@
+firm_id,broker_id,firm_legal_name,address_street,address_city,address_state,address_zip,phone,website,settlement_method,firm_type,finra_crd,active
+0000CAI001,CAIS,CAIS Group LLC,527 Madison Ave,New York,NY,10022,212-300-9350,caisgroup.com,DIRECT,Alt Platform,,Y
+0000CET001,CETA,Cetera Financial Group,200 N Pacific Coast Hwy,El Segundo,CA,90245,800-245-0467,cetera.com,NSCC,IBD,298,Y
+0000CNT001,CNTS,Commonwealth Financial Network,29 Sawyer Rd,Waltham,MA,02453,800-237-0081,commonwealth.com,NSCC,IBD,26261,Y
+0000FID001,FIDO,Fidelity Brokerage Services LLC,900 Salem St,Smithfield,RI,02917,800-343-3548,fidelity.com,NSCC,Custodian/RIA,7784,Y
+0000ICA001,ICAP,iCapital Network Inc,60 E 42nd St,New York,NY,10165,212-994-7400,icapital.com,DIRECT,Alt Platform,,Y
+0000LPL001,LPL,LPL Financial LLC,4707 Executive Dr,San Diego,CA,92121,858-450-9606,lpl.com,NSCC,IBD,6413,Y
+0000MER001,MER,Merrill Lynch Pierce Fenner & Smith,One Bryant Park,New York,NY,10036,212-449-1000,ml.com,NSCC,Wirehouse,7691,Y
+0000MOR001,MS,Morgan Stanley Smith Barney,1585 Broadway,New York,NY,10036,212-761-4000,morganstanley.com,NSCC,Wirehouse,149777,Y
+0000NPC001,NPC,National Planning Corporation,3200 E Camelback Rd,Phoenix,AZ,85018,602-224-2000,natplanning.com,NSCC,IBD,29604,Y
+0000OSA001,OSAIC,Osaic Wealth Inc (fka Advisor Group),2300 Windy Ridge Pkwy,Atlanta,GA,30339,770-980-4400,osaic.com,NSCC,IBD,10358,Y
+0000RAJ001,RJ,"Raymond James Financial Services, Inc.",880 Carillon Pkwy,St. Petersburg,FL,33716,800-248-8863,www.raymondjames.com,CHECK,BD,6694,TRUE
+0000RJA001,RJ,Raymond James Financial Services,880 Carillon Pkwy,St Petersburg,FL,33716,727-567-1000,raymondjames.com,NSCC,IBD,705681,Y
+0000SCH001,SCHW,Charles Schwab & Co Inc,211 Main St,San Francisco,CA,94105,415-667-7000,schwab.com,NSCC,Custodian/RIA,5393,Y
+0000SII001,SII,Stifel Nicolaus & Company,501 N Broadway,St Louis,MO,63102,314-342-2000,stifel.com,NSCC,Regional BD,793,Y
+0000UBS001,UBS,UBS Financial Services Inc,1285 Avenue of the Americas,New York,NY,10019,212-713-2000,ubs.com/us,NSCC,Wirehouse,15073,Y
+0000VSR001,VSR,VSR Financial Services,701 S Boston Ave,Tulsa,OK,74119,918-663-1414,vsrfinancial.com,NSCC,IBD,27769,Y
